@@ -17,6 +17,7 @@ Carpeta raíz del ecosistema. Aquí viven los documentos base del producto y los
 | [08-datos-de-prueba.md](08-datos-de-prueba.md) | Datos de prueba: repo `doc-mocks`, catálogo, fixtures, esquemas, MSW, escenarios, contrato con el backend |
 | [09-contrato-erp-backend.md](09-contrato-erp-backend.md) | **Contrato real del ERP** (OpenAPI del backend desplegado): endpoints ↔ pantallas, DTO, enumeraciones, envoltorio, roles, vista "Lote", 12 puntos de alineación |
 | [10-preparacion-etapas-0-1.md](10-preparacion-etapas-0-1.md) | Qué necesita el equipo del cliente y del backend para arrancar las Etapas 0 y 1, y qué crea el equipo solo |
+| [11-billeteras-para-backend.md](11-billeteras-para-backend.md) | **Para el equipo de backend**: qué construir para billeteras y tokens (decisiones, modelo de token, endpoints, flujos de compra y retiro, seguridad) |
 | [mocks/erp/](mocks/erp/README.md) | Datos de prueba del ERP con las formas exactas del backend, generados por `generate.py` (determinista) |
 | [backend/](backend/) | Documentación entregada por el equipo de backend (catálogo de endpoints y guías de prueba manual) |
 | [index.html](index.html) | Portada publicada en GitHub Pages: enlaza el sistema de diseño navegable y los documentos |
