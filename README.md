@@ -21,18 +21,21 @@ Carpeta raíz del ecosistema. Aquí viven los documentos base del producto y los
 | [backend/](backend/) | Documentación entregada por el equipo de backend (catálogo de endpoints y guías de prueba manual) |
 | [index.html](index.html) | Portada publicada en GitHub Pages: enlaza el sistema de diseño navegable y los documentos |
 
-## Repositorios (cuenta GitHub `BrianKGR01`)
+## Repositorios
+
+Desde el 25-09-2026 los repos nuevos viven en la organización GitHub [`drinks-on-chain`](https://github.com/drinks-on-chain), son públicos y se llaman `drinks-on-chain-<sistema>`. Los paquetes compartidos son `@drinks-on-chain/ui` y `@drinks-on-chain/mocks` (antes `@doc/ui` y `@doc/mocks`) y se instalan desde el tarball de su GitHub Release, sin registro ni token.
 
 | Carpeta / repo | Sistema | Estado |
 |---|---|---|
 | `drinks-on-chain-landing` | Landing principal (dominio raíz) | Construida y desplegada; pendientes de calidad, SEO técnico y marca |
 | `drinks-on-chain-front` | Sitio de las bodegas (`bodegas.`) | Construido y desplegado como landing original; pendiente su conversión en sitio B2B |
-| `doc-design-system` | `@doc/ui`: tokens y componentes | Por crear (Etapa 0) |
-| `doc-mocks` | `@doc/mocks`: esquemas, fixtures, MSW | Por crear (Etapa 0) |
-| `doc-erp-web` | S1 · ERP de trazabilidad (`erp.`) | Por crear (Etapa 1) |
-| `doc-marketplace-app` | S2 · Marketplace + visor + cava (`app.`) | Por crear (Etapa 2) |
-| `doc-claim-pos` | S4 · Aplicación de claim (`pos.`) | Por crear (Etapa 3) |
-| `doc-backoffice-web` | S3 · Backoffice (`admin.`) | Por crear (Etapa 4) |
+| `drinks-on-chain-design-system` | `@drinks-on-chain/ui`: tokens, componentes, shells, Storybook | 0.1.0 en PR (Etapa 0.1) |
+| `drinks-on-chain-mocks` | `@drinks-on-chain/mocks`: esquemas zod, fixtures, MSW | 0.1.0 en PR (Etapa 0.2) |
+| `drinks-on-chain-app-template` | Plantilla de aplicación (Next 16, cliente de API, pruebas, CI) | En construcción (Etapa 0.3) |
+| `drinks-on-chain-erp` | S1 · ERP de trazabilidad (`erp.`) | Repo creado, vacío (Etapa 1) |
+| `drinks-on-chain-marketplace` | S2 · Marketplace + visor + cava (`app.`) | Por crear (Etapa 2) |
+| `drinks-on-chain-pos` | S4 · Aplicación de claim (`pos.`) | Por crear (Etapa 3) |
+| `drinks-on-chain-backoffice` | S3 · Backoffice (`admin.`) | Por crear (Etapa 4) |
 
 Despliegue en Vercel: producción desde `main`, previews desde `dev`. Convenciones: Conventional Commits, trabajo en `dev`, PR `dev → main` por hito.
 
