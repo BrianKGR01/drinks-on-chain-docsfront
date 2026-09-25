@@ -14,7 +14,12 @@ Carpeta raíz del ecosistema. Aquí viven los documentos base del producto y los
 | [design-system/](design-system/) | `tokens.css` y cinco maquetas HTML navegables: fundamentos, ERP, Marketplace, Backoffice, POS |
 | [06-decisiones-y-preguntas.md](06-decisiones-y-preguntas.md) | Decisiones con fecha, preguntas cerradas, **qué pedir al banco para la pasarela**, preguntas abiertas para cliente y backend |
 | [07-roadmap-landing-principal.md](07-roadmap-landing-principal.md) | Hitos de la landing principal con su estado y el orden de lo pendiente |
-| [08-datos-de-prueba.md](08-datos-de-prueba.md) | Datos de prueba: repo `doc-mocks`, catálogo, fixtures, esquemas, MSW, escenarios, contrato con el backend (ERP pendiente de documentación) |
+| [08-datos-de-prueba.md](08-datos-de-prueba.md) | Datos de prueba: repo `doc-mocks`, catálogo, fixtures, esquemas, MSW, escenarios, contrato con el backend |
+| [09-contrato-erp-backend.md](09-contrato-erp-backend.md) | **Contrato real del ERP** (OpenAPI del backend desplegado): endpoints ↔ pantallas, DTO, enumeraciones, envoltorio, roles, vista "Lote", 12 puntos de alineación |
+| [10-preparacion-etapas-0-1.md](10-preparacion-etapas-0-1.md) | Qué necesita el equipo del cliente y del backend para arrancar las Etapas 0 y 1, y qué crea el equipo solo |
+| [mocks/erp/](mocks/erp/README.md) | Datos de prueba del ERP con las formas exactas del backend, generados por `generate.py` (determinista) |
+| [backend/](backend/) | Documentación entregada por el equipo de backend (catálogo de endpoints y guías de prueba manual) |
+| [index.html](index.html) | Portada publicada en GitHub Pages: enlaza el sistema de diseño navegable y los documentos |
 
 ## Repositorios (cuenta GitHub `BrianKGR01`)
 
@@ -30,5 +35,7 @@ Carpeta raíz del ecosistema. Aquí viven los documentos base del producto y los
 | `doc-backoffice-web` | S3 · Backoffice (`admin.`) | Por crear (Etapa 4) |
 
 Despliegue en Vercel: producción desde `main`, previews desde `dev`. Convenciones: Conventional Commits, trabajo en `dev`, PR `dev → main` por hito.
+
+Esta carpeta es el repo `BrianKGR01/drinks-on-chain-docsfront`. El workflow `.github/workflows/pages.yml` publica `index.html` y `design-system/` en GitHub Pages en cada push a `main` (hay que activar *Settings → Pages → Source: GitHub Actions* una vez).
 
 Última actualización: 25 de septiembre de 2026.
