@@ -103,13 +103,13 @@ Shell: AppShell claro, Inter 16 px, sidebar por módulos (Panel · Origen · Ven
 Terminado cuando: el recorrido completo del caso de ejemplo del documento maestro se hace con mocks en escritorio y tablet, con Playwright verde y sin errores de consola. Integración temprana: en la semana 4 se conecta el login y el módulo de origen al backend real del ERP para validar la capa de acceso a datos.
 
 **Avance**
-- [ ] 1A Acceso y panel
-- [ ] 1B Origen
-- [ ] 1C Vendimia y vinificación
-- [ ] 1D Crianza y destilación
-- [ ] 1E Envasado y QR
-- [ ] 1F Cuenta de la bodega
-- [ ] 1G Calidad (Playwright del flujo de ejemplo)
+- [x] 1A Acceso y panel · 2026-09-25 (sin selector de bodega: el backend no permite cambiar la bodega activa, 09 §8 punto 13)
+- [x] 1B Origen · 2026-09-25
+- [x] 1C Vendimia y vinificación · 2026-09-25
+- [x] 1D Crianza y destilación · 2026-09-25
+- [x] 1E Envasado y QR · 2026-09-25 (códigos por botella provisionales, 09 §8 punto 20)
+- [x] 1F Cuenta de la bodega · 2026-09-25 (activos por lote pendientes del backend)
+- [x] 1G Calidad (Playwright del flujo de ejemplo) · 2026-09-25 (auditoría axe, teclado y estados; falta probar con datos reales del backend, 10 §2.1)
 
 ## 5. Etapa 2 · Sistema 2, Marketplace (`doc-marketplace-app`, 5 semanas)
 
