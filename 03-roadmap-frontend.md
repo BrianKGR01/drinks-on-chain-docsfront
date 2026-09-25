@@ -47,7 +47,7 @@ Alternativa aceptable si el negocio necesita dar de alta bodegas reales antes: a
 - [ ] 0.3 Plantilla de aplicación
 - [ ] 0.4 Spike Stellar en testnet
 - [ ] 0.5 `@doc/wallet` 0.1
-- [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado)
+- [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado) — hecha en `dev` de ambos repos · 25-09-2026; falta el merge a `main`
 
 ## 3. Sistema 0 · Sitios públicos (pendientes; 2,5 semanas, en paralelo con Etapas 0–1)
 
@@ -66,25 +66,25 @@ Detalle en `07-roadmap-landing-principal.md`: marca, sitemap/robots/OG y metadat
 Terminado cuando: navegar entre los dos sitios y volver funciona en móvil y escritorio con URLs reales; Lighthouse accesibilidad ≥ 95 en ambos.
 
 **Avance · landing principal** (detalle en `drinks-on-chain-landing/docs/ROADMAP.md`)
-- [ ] Barrera de edad: sin desplazamiento debajo y entrada siempre al héroe
-- [ ] Barrera de edad sobre el mapa del héroe, con transición al héroe (como el sitio de bodegas)
-- [ ] Botón "Conocer las bodegas" visible en la sección de bodegas
-- [ ] Corrección de marca (pie, contacto, aviso legal)
-- [ ] `sitemap.xml`, `robots.txt`, imagen OG por defecto y metadatos por ruta
-- [ ] Cabeceras de seguridad
-- [ ] Fuentes autoalojadas y Lighthouse móvil ≥ 90
-- [ ] Revisión de textos ES/EN y accesibilidad por teclado
-- [ ] Analítica (Vercel Web Analytics, sin cookies)
-- [ ] PR `dev → main`
+- [x] Barrera de edad: sin desplazamiento debajo y entrada siempre al héroe · 25-09-2026
+- [x] Barrera de edad sobre el mapa del héroe, con transición al héroe (como el sitio de bodegas) · 25-09-2026
+- [x] Botón "Conocer las bodegas" visible en la sección de bodegas · 25-09-2026
+- [x] Corrección de marca (pie, contacto, aviso legal) · 25-09-2026
+- [x] `sitemap.xml`, `robots.txt`, imagen OG por defecto y metadatos por ruta · 25-09-2026
+- [x] Cabeceras de seguridad · 25-09-2026
+- [ ] Fuentes autoalojadas y Lighthouse móvil ≥ 90 — fuentes autoalojadas y accesibilidad 100 hechas; rendimiento móvil 69–77, pendiente
+- [ ] Revisión de textos ES/EN y accesibilidad por teclado — teclado hecho (barrera modal, foco visible); falta revisar los textos existentes
+- [x] Analítica (Vercel Web Analytics, sin cookies) · 25-09-2026 — falta activarla en el panel de Vercel
+- [ ] PR `dev → main` — abierto, pendiente de revisión
 
 **Avance · sitio de bodegas** (detalle en `drinks-on-chain-front/docs/ROADMAP.md`)
-- [ ] Barrera de edad: sin desplazamiento ni interacción debajo
-- [ ] B.1 Datos: bodegas y puntos de recojo alineados con el catálogo de `08`
-- [ ] B.2 Navegación: menú nuevo, pie común, `/vinos` → landing, variables de entorno
-- [ ] B.3 Páginas: `/acceso`, `/unirse`, `/puntos-de-recojo`, `/bodegas`, `/bodegas/[slug]`
-- [ ] B.4 Mapa: conmutador Parcelas / Bodegas y encuadre de las parcelas de una bodega
-- [ ] B.5 Rutas: `/parcelas → /valles`, sitemap/robots, cabeceras, marca
-- [ ] PR `dev → main`
+- [x] Barrera de edad: sin desplazamiento ni interacción debajo · 25-09-2026
+- [x] B.1 Datos: bodegas y puntos de recojo alineados con el catálogo de `08` · 25-09-2026
+- [x] B.2 Navegación: menú nuevo, pie común, `/vinos` → landing, variables de entorno · 25-09-2026
+- [x] B.3 Páginas: `/acceso`, `/unirse`, `/puntos-de-recojo`, `/bodegas`, `/bodegas/[slug]` · 25-09-2026
+- [x] B.4 Mapa: conmutador Parcelas / Bodegas y encuadre de las parcelas de una bodega · 25-09-2026
+- [x] B.5 Rutas: `/parcelas → /valles`, sitemap/robots, cabeceras, marca · 25-09-2026
+- [ ] PR `dev → main` — abierto, pendiente de revisión
 
 ## 4. Etapa 1 · Sistema 1, ERP (`doc-erp-web`, 4 semanas)
 

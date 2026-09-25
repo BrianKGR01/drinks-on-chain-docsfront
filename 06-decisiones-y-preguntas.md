@@ -32,6 +32,10 @@ Versión 2 · 25 de septiembre de 2026 (v1 en `antiguo/`). Registro vivo: cada d
 | 2026-09-25 | Orden de construcción: Etapa 0 (fundaciones) → ERP → Marketplace → POS → Backoffice → integración; los pendientes de los sitios públicos se cierran en paralelo | El backend del ERP ya existe; Marketplace + POS forman la demo para el grant; ver 03 |
 | 2026-09-25 | **El OpenAPI del backend desplegado es la fuente de verdad** del contrato del ERP (por encima de `backend/endpoints.md` y de las guías, que discrepan en nombres de campos). Los fixtures del ERP siguen sus DTO exactos; el "Lote" del ERP es una vista derivada en el cliente | Evitar rehacer al integrar; ver 09 |
 | 2026-09-25 | La documentación de frontend vive en el repo `drinks-on-chain-docsfront` (esta carpeta) con `index.html` publicado en GitHub Pages para el sistema de diseño; mismo flujo `dev → main` y Conventional Commits | Que backend y cliente vean las decisiones |
+| 2026-09-25 | Analítica de los sitios públicos: **Vercel Web Analytics** (sin cookies, sin banner de consentimiento); se activa en el panel de cada proyecto de Vercel | Decisión del cliente; mínimo dato personal y cero fricción |
+| 2026-09-25 | CSP de los sitios públicos **sin nonce** (`script-src 'self' 'unsafe-inline'`, sin orígenes externos, `frame-ancestors 'none'`) | Los sitios son estáticos y sin datos de usuario; el nonce obligaría a renderizar cada página en el servidor. Las aplicaciones con sesión (S1–S4) sí usarán nonce |
+| 2026-09-25 | Los sitios públicos muestran la **red de prueba** de `08` (4 bodegas, 5 puntos) con su estado y un aviso visible; los productores reales solo aparecen como contenido editorial de las zonas, nunca como socios | Evitar que una bodega real parezca socia sin acuerdo |
+| 2026-09-25 | Sitio de bodegas: fichas de parcela en `/valles/[valle]/[parcela]` (redirección 308 desde `/parcelas`), `/vinos` redirige a la landing, `/acceso` muestra "Disponible pronto" mientras ERP y POS no estén desplegados | Plan de 02 §4 |
 
 ## 2. Preguntas cerradas el 25-09-2026 (registro)
 

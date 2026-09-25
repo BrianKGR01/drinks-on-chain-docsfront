@@ -45,11 +45,11 @@ Objetivo único: que un consumidor entienda en diez segundos qué es Drinks on C
 | Inicio: héroe con mapa SVG, "Cómo funciona", "Vinos en la red", "Las bodegas", "Qué garantizamos", franja B2B | Hecho (primera versión) |
 | Rutas `/vinos`, `/como-funciona`, `/bodegas`, `/tecnologia`, `/historia`, `/contacto`, `/aviso-legal`, `/privacidad`, `/b/[codigo]`, 404 | Hechas |
 | Despliegue en Vercel con producción desde `main` y previews desde `dev` | Hecho |
-| `sitemap.xml`, `robots.txt`, imagen OG por defecto | Pendiente |
-| Cabeceras de seguridad (CSP, `frame-ancestors 'none'`, `Referrer-Policy`) | Pendiente |
-| Lighthouse móvil ≥ 90 verificado; fuentes autoalojadas | Pendiente |
-| Corrección de marca en pie, contacto y aviso legal (solo Drinks on Chain) | Pendiente |
-| Analítica con consentimiento mínimo | Pendiente (decidir herramienta) |
+| `sitemap.xml`, `robots.txt`, imagen OG por defecto | Hecho en `dev` (25-09) |
+| Cabeceras de seguridad (CSP, `frame-ancestors 'none'`, `Referrer-Policy`) | Hecho en `dev` (25-09) |
+| Lighthouse móvil ≥ 90 verificado; fuentes autoalojadas | Fuentes hechas; accesibilidad 100; rendimiento 69–77, pendiente |
+| Corrección de marca en pie, contacto y aviso legal (solo Drinks on Chain) | Hecho en `dev` (25-09) |
+| Analítica | Vercel Web Analytics sin cookies, hecho en `dev` (25-09); falta activarla en Vercel |
 | Dominio real y redirecciones `www` / `.com` | Pendiente de compra |
 
 ### Estructura de la página de inicio (vigente)
@@ -64,16 +64,16 @@ Es el sitio actual (la experiencia del mapa) con foco explícito en la red de so
 ### Estructura objetivo
 | Ruta | Contenido | Estado |
 |---|---|---|
-| `/` | Mapa con navegador de parcelas y conmutador "Parcelas / Bodegas" | Mapa hecho; conmutador pendiente |
-| `/valles/[valle]/[parcela]` | Ficha de parcela (hoy `/parcelas/…`, con redirección) | Ficha hecha; renombrado y redirección pendientes |
-| `/bodegas`, `/bodegas/[slug]` | Perfil de bodega: historia, parcelas en el mapa, productos, lotes con trazabilidad pública, estado en la red, "Acceso al ERP" | Pendiente |
-| `/puntos-de-recojo` | Qué es un punto autorizado, cómo se habilita, lista de puntos activos, "Contactar", "Acceso al POS" | Pendiente |
-| `/unirse` | Propuesta para bodegas: beneficios, cómo es el ERP, requisitos D.O., proceso de alta, formulario de contacto (mock hasta backend) | Pendiente |
-| `/acceso` | Dos tarjetas: "Soy bodega → erp." y "Soy punto de recojo → pos.". No es un login | Pendiente |
-| `/historia`, `/contacto`, `/aviso-legal` | Compartidas con la landing principal | Hechas; corrección de marca pendiente |
-| `/vinos` | Pasa a enlazar a la landing principal | Pendiente |
+| `/` | Mapa con navegador de parcelas y conmutador "Parcelas / Bodegas" | Hecho |
+| `/valles/[valle]/[parcela]` | Ficha de parcela (`/parcelas/…` redirige con 308) | Hecho |
+| `/bodegas`, `/bodegas/[slug]` | Perfil de bodega: historia, parcelas en el mapa, productos, lotes con trazabilidad pública, estado en la red, "Acceso al ERP" | Hecho |
+| `/puntos-de-recojo` | Qué es un punto autorizado, cómo se habilita, lista de puntos activos, "Contactar", "Acceso al POS" | Hecho |
+| `/unirse` | Propuesta para bodegas: beneficios, cómo es el ERP, requisitos D.O., proceso de alta, formulario de contacto (mock hasta backend) | Hecho (formulario de demostración, no envía datos) |
+| `/acceso` | Dos tarjetas: "Soy bodega → erp." y "Soy punto de recojo → pos.". No es un login | Hecho ("Disponible pronto" hasta desplegar ERP y POS) |
+| `/historia`, `/contacto`, `/aviso-legal` | Compartidas con la landing principal | Hechas; marca corregida |
+| `/vinos` | Redirige al catálogo de la landing principal | Hecho |
 
-Menú objetivo: Mapa · Bodegas · Puntos de recojo · Unirse · Acceso. Hoy: Historia · Vinos · Parcelas · Contacto.
+Menú: Mapa · Bodegas · Puntos de recojo · Unirse · Acceso (Historia, Contacto y Aviso legal en el pie del menú). Hecho el 25-09-2026.
 
 ### Cambios en los datos
 - `bodegas.json` con relación parcela ↔ bodega y estados "Socia", "En conversación", "Referencia" (aparece por contexto, sin relación comercial y sin botón de compra). Mientras no haya acuerdos, **todas las bodegas son de referencia o de prueba**.

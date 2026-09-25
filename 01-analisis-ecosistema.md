@@ -30,8 +30,8 @@ Un mismo humano puede tener varios roles. Cada sistema vive en su propio subdomi
 
 | Subdominio | Sistema | Repositorio | Estado (25-09-2026) |
 |---|---|---|---|
-| raíz (`drinksonchain.*`) | Landing principal B2C | `drinks-on-chain-landing` | **Construida y desplegada** (M0, M1 y rutas de M2). Pendientes: calidad, SEO técnico, cabeceras, dominio |
-| `bodegas.` | Sitio de las bodegas (mapa grabado, parcelas, vinos) | `drinks-on-chain-front` | **Construido y desplegado** como landing original. Pendiente convertirlo en sitio B2B (menú, `/acceso`, `/unirse`, `/puntos-de-recojo`, perfiles de bodega, capa de bodegas en el mapa) |
+| raíz (`drinksonchain.*`) | Landing principal B2C | `drinks-on-chain-landing` | **Construida y desplegada**. SEO técnico, cabeceras, marca y analítica hechos en `dev` (25-09). Pendientes: rendimiento móvil ≥ 90, revisión de textos, dominio |
+| `bodegas.` | Sitio de las bodegas (mapa grabado, parcelas, red de socios) | `drinks-on-chain-front` | **Convertido en sitio B2B en `dev`** (25-09): menú, `/acceso`, `/unirse`, `/puntos-de-recojo`, perfiles de bodega, capa de bodegas en el mapa, `/valles`. Pendiente: merge a `main` |
 | `app.` | S2 Marketplace + visor QR + cava | `doc-marketplace-app` | Por crear |
 | `erp.` | S1 ERP de trazabilidad | `doc-erp-web` | Por crear. El backend del ERP ya existe y está desplegado; su contrato real está en `09-contrato-erp-backend.md` y sus datos de prueba en `mocks/erp/` |
 | `admin.` | S3 Backoffice | `doc-backoffice-web` | Por crear |
