@@ -42,9 +42,9 @@ Alternativa aceptable si el negocio necesita dar de alta bodegas reales antes: a
 | 0.6 Corrección de marca | Pie, contacto y aviso legal de ambos sitios solo con Drinks on Chain | PR mergeado en ambos repos |
 
 **Avance**
-- [ ] 0.1 Repo `doc-design-system` y `@doc/ui` 0.1
-- [ ] 0.2 Repo `doc-mocks` y `@doc/mocks` 0.1 (esquemas del ERP ajustados a su documentación)
-- [ ] 0.3 Plantilla de aplicación
+- [x] 0.1 Repo `doc-design-system` y `@doc/ui` 0.1 · 2026-09-25 (`drinks-on-chain-design-system`, `@drinks-on-chain/ui` v0.1.0)
+- [x] 0.2 Repo `doc-mocks` y `@doc/mocks` 0.1 (esquemas del ERP ajustados a su documentación) · 2026-09-25 (`drinks-on-chain-mocks`, `@drinks-on-chain/mocks` v0.1.0)
+- [x] 0.3 Plantilla de aplicación · 2026-09-25 (`drinks-on-chain-app-template`; el ERP nació de ella)
 - [ ] 0.4 Spike Stellar en testnet
 - [ ] 0.5 `@doc/wallet` 0.1
 - [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado) — hecha en `dev` de ambos repos · 25-09-2026; falta el merge a `main`
