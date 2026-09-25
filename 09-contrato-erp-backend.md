@@ -150,3 +150,11 @@ Handlers MSW del ERP (a escribir en `doc-mocks`): imitan las 35 rutas con el env
 | 10 | **Archivos de QR** | Solo `qrBatchUrl`, un código por lote | El ERP genera los PNG/SVG en el cliente (una imagen por lote; si se quiere una por botella, hace falta un endpoint de códigos individuales) |
 | 11 | **`GET /traceability/public`** | Marcado con candado en Swagger pero el catálogo lo declara público; responde 404 sin token (no 401) | Confirmar que es público en producción |
 | 12 | **Usuarios de prueba** | El servidor está vacío (los códigos de ejemplo de las guías devuelven 404) | Pedir que el backend cargue un juego de datos de prueba o nos dé un usuario `PLATFORM_ADMIN` para ejecutar las guías (ver 10) |
+| 13 | **Bodega activa** | El token lleva una sola `wineryId`; no hay endpoint para cambiarla | Un usuario con varias membresías no puede elegir bodega en el ERP. Proponer `POST /v1/auth/switch-winery` o `wineryId` en el refresh |
+| 14 | **Recuperar contraseña** | No existe | Proponer `POST /v1/auth/forgot-password` y `/reset-password`. Hoy el ERP muestra un aviso para pedirlo a la administración de la bodega |
+| 15 | **Numeración del código de lote** | Los mocks usan un contador por bodega y año para todos los productos (tras `CVJ-2026-WINE-003` viene `CVJ-2026-SINGANI-004`) | Confirmar si el `SEQ` es por producto o global |
+| 16 | **Crianza sin fecha de inicio** | `WineAgingResponseDto` no devuelve `startDate` | El candado se dibuja con `lockUntilDate − plannedMonths`; pedir `startDate` en la respuesta |
+| 17 | **Permisos del agrónomo** | Puede listar crianzas y destilaciones pero recibe 403 en su detalle | Confirmar si es intencional |
+| 18 | **`phyto-status` pisa las notas** | `PATCH …/phyto-status` sobrescribe `notes` del lote | Separar notas del dictamen o concatenarlas; exponer el nombre de quien dictamina, no solo `certifiedByMemberId` |
+| 19 | **Errores de validación** | `details` llega como cadenas ("campo: mensaje") | Proponer `details: [{ field, message }]` para marcar el campo exacto |
+| 20 | **Activos por lote y códigos por botella** | No se exponen saldos de tokens ni códigos individuales | La cuenta Stellar del ERP y la exportación de QR por botella quedan provisionales hasta tenerlos |
