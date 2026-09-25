@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es" data-theme="oro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketplace · Sistema de diseño Drinks on Chain</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="showcase.css">
+<style>
+  .screen-pad { padding: 8px 20px 20px; overflow: hidden; height: 100%; }
+  .hero-banner { position:relative; border-radius: var(--doc-radius-lg); overflow:hidden; background: linear-gradient(160deg, var(--doc-paper-2), var(--doc-paper-3)); padding: 22px 18px; min-height: 200px; display:grid; align-content:end; gap:6px; }
+  .hero-banner::before { content:""; position:absolute; inset:0; background: repeating-linear-gradient(120deg, rgba(0,0,0,.05) 0 1px, transparent 1px 7px); }
+  .hero-banner > * { position:relative; }
+  .hero-banner h2 { margin:0; font:500 var(--doc-text-2xl)/1.15 var(--doc-font-display); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  .pdp-art { height:300px; background: linear-gradient(180deg, var(--doc-paper-1), var(--doc-paper-3)); display:grid; place-items:center; border-bottom:1px solid var(--doc-border); }
+  .pdp-art svg { width:70px; }
+  .pdp-body { padding:18px 20px 90px; display:grid; gap:12px; font-family: var(--doc-font-text); }
+  .pdp-body h1 { margin:0; font:500 var(--doc-text-3xl)/1.1 var(--doc-font-display); }
+  .pdp-body .meta { font-size:var(--doc-text-sm); color:var(--doc-fg-muted); }
+  .pdp-body p { margin:0; font-size:var(--doc-text-md); line-height:1.5; }
+  .specs { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; font-family:var(--doc-font-ui); }
+  .specs div { border-top:1px solid var(--doc-border); padding-top:8px; font-size:var(--doc-text-xs); color:var(--doc-fg-subtle); }
+  .specs strong { display:block; color:var(--doc-fg); font-size:var(--doc-text-sm); font-weight:500; }
+  .cava-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .holding { display:grid; gap:6px; }
+  .holding .art { aspect-ratio:1; border-radius:var(--doc-radius-lg); border:1px solid var(--doc-border); background:var(--doc-bg-sunken); display:grid; place-items:center; position:relative; }
+  .holding .art svg { width:34px; }
+  .holding .qty { position:absolute; top:8px; right:8px; }
+  .holding .name { font:500 var(--doc-text-md)/1.2 var(--doc-font-display); }
+  .holding .meta { font:400 var(--doc-text-xs)/1.3 var(--doc-font-ui); color:var(--doc-fg-subtle); }
+  .journey { padding: 0 20px 24px; font-family: var(--doc-font-text); }
+  .journey .seal { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--doc-success); border-radius:var(--doc-radius-md); background:var(--doc-success-soft); font:500 var(--doc-text-sm)/1.3 var(--doc-font-ui); }
+  .gate { position:absolute; inset:0; background: linear-gradient(180deg, rgba(21,18,15,.15), rgba(21,18,15,.85)), var(--doc-paper-3); display:grid; align-content:end; padding:24px 20px; color:var(--doc-cream-0); gap:12px; }
+  .gate h2 { margin:0; font:500 var(--doc-text-3xl)/1.1 var(--doc-font-display); color:#fff; }
+  .gate .doc-input { background: rgba(255,255,255,.96); color: #000; border-color: transparent; }
+  .vault { position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:24px; background: var(--doc-cava-0); color: var(--doc-cream-0); }
+  .vault .ring { width:120px; height:120px; border-radius:50%; border:1px solid var(--doc-gold-300); display:grid; place-items:center; margin:0 auto 20px; position:relative; }
+  .vault .ring::before { content:""; position:absolute; inset:14px; border-radius:50%; border:1px dashed var(--doc-gold-300); animation: spin 8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .vault h2 { margin:0 0 8px; font:500 var(--doc-text-2xl)/1.15 var(--doc-font-display); }
+  .desktop-head { display:flex; align-items:center; justify-content:space-between; padding:18px 32px; border-bottom:1px solid var(--doc-border); }
+  .desktop-head nav { display:flex; gap:28px; }
+  .stars { color: var(--doc-accent); letter-spacing: 4px; font-size: 22px; }
+</style>
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="00-fundamentos.html">Fundamentos</a>
+  <a href="01-erp.html">ERP</a>
+  <a href="02-marketplace.html" aria-current="page">Marketplace</a>
+  <a href="03-backoffice.html">Backoffice</a>
+  <a href="04-pos.html">POS</a>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Sistema 2 · app. · mobile-first · PWA</p>
+    <h1>Marketplace, visor QR y cava</h1>
+    <p>E-commerce de lujo con tono de club. El escaparate, la ficha, la cava y el visor pertenecen a la <strong>familia editorial</strong> (Cormorant + EB Garamond, fotografías con marco, mucho aire); el checkout, el pase de retiro, el perfil y los ajustes son <strong>operativos</strong> (Inter, pasos claros). Navegación libre sin cuenta; la cuenta y la billetera nacen al comprar o al pulsar "Entrar". Solo español en el MVP, con diccionario desde el día uno.</p>
+  </header>
+
+  <section class="sc-section">
+    <h2><small>01</small>Tema y densidad</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Aspecto</th><th>Valor</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>Tema</td><td>Oro Líquido; Cava Reserva solo en el splash de bóveda y en la pantalla del pase cuando se muestra al cajero (brillo máximo, QR sobre fondo claro)</td><td>Identidad de marca; legibilidad del QR</td></tr>
+        <tr><td>Tipografía</td><td>Editorial: Cormorant 30/24 px títulos, EB Garamond 16 px texto. Operativa: Inter 16 px, 14 px en ayudas</td><td>Dos familias según la tarea</td></tr>
+        <tr><td>Layout</td><td>StoreShell: móvil con pestañas inferiores de 64 px (Inicio · Escáner · Cava · Perfil); escritorio con cabecera transparente (Catálogo · Mi Cava · Entrar)</td><td>Documento maestro</td></tr>
+        <tr><td>Overlays</td><td>BottomSheet en móvil (checkout, detalle de activo, selector de punto); Modal en escritorio</td><td>No perder el contexto de compra</td></tr>
+        <tr><td>Objetivos</td><td>≥ 44 px; CTA persistente de 48 px</td><td>Uso con una mano</td></tr>
+        <tr><td>Anchos</td><td>375 y 768 de diseño; escritorio hasta 1200 px</td><td>La mayoría llega desde el teléfono</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ frames 1 -->
+  <section class="sc-section">
+    <h2><small>02</small>Escaparate · Ficha de producto · Checkout</h2>
+    <p class="lead">Grid con aire, tarjeta de botella con precio en oro, ficha con imagen pegajosa y barra de compra persistente; el checkout se abre en un bottom sheet de tres pasos sin abandonar la ficha.</p>
+    <div class="sc-frames">
+      <figure class="sc-fig">
+        <div class="doc-phone">
+          <div class="status"><span>9:41</span><span>●●● ▲ ▮</span></div>
+          <div class="screen doc-editorial">
+            <div class="doc-storehead"><span class="doc-wordmark">Drinks <em>on</em> Chain</span><button class="doc-btn doc-btn--secondary doc-btn--sm" style="font-family:var(--doc-font-ui)">Entrar</button></div>
+            <div class="screen-pad">
+              <div class="hero-banner"><span class="doc-badge doc-badge--accent" style="justify-self:start">Nuevo lanzamiento</span><h2>Singani Gran Reserva 2026</h2><span style="font-size:var(--doc-text-sm);color:var(--doc-fg-muted)">Cinti Viejo · Valle de Cinti · 2.350 m</span></div>
+              <div class="grid2">
+                <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/><path class="gold" d="M10 60h20M10 78h20"/></svg></div><span class="kind">Singani</span><span class="name">Gran Reserva 2026</span><span class="meta">Cinti Viejo · Camargo</span><span class="doc-price">Bs 190<small>· preventa</small></span></a>
+                <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M15 4h10v20c0 6 7 10 7 18v66c0 4-2 8-6 8H14c-4 0-6-4-6-8V42c0-8 7-12 7-18z"/><path class="gold" d="M10 62h20M10 80h20"/></svg></div><span class="kind">Vino</span><span class="name">Tannat Reserva 2024</span><span class="meta">Altos de Calamuchita</span><span class="doc-price">Bs 145<small>· listo</small></span></a>
+                <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/><path class="gold" d="M10 60h20"/></svg></div><span class="kind">Singani</span><span class="name">Clásico 2025</span><span class="meta">Cinti Viejo</span><span class="doc-price">Bs 95</span></a>
+                <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M15 4h10v20c0 6 7 10 7 18v66c0 4-2 8-6 8H14c-4 0-6-4-6-8V42c0-8 7-12 7-18z"/><path class="gold" d="M10 62h20"/></svg></div><span class="kind">Vino</span><span class="name">Moscatel Blanco 2025</span><span class="meta">Altos de Calamuchita</span><span class="doc-price">Bs 110</span></a>
+              </div>
+            </div>
+          </div>
+          <nav class="tabs">
+            <a href="#" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/></svg>Inicio</a>
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M8 12h8"/></svg>Escáner</a>
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M9 3h6v4c0 2 3 3 3 6v8H6v-8c0-3 3-4 3-6z"/></svg>Cava</a>
+            <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</a>
+          </nav>
+        </div>
+        <figcaption>2.1 Escaparate. Hero del último lanzamiento y grid de BottleCard. Sin cuenta.</figcaption>
+      </figure>
+
+      <figure class="sc-fig">
+        <div class="doc-phone doc-phone--noTabs">
+          <div class="status"><span>9:42</span><span>●●● ▲ ▮</span></div>
+          <div class="screen">
+            <div class="pdp-art"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/><path class="gold" d="M10 60h20M10 78h20"/></svg></div>
+            <div class="pdp-body">
+              <span class="doc-eyebrow" style="font-size:var(--doc-text-xs)">Singani · D.O. · Valle de Cinti</span>
+              <h1>Gran Reserva 2026</h1>
+              <span class="meta">Destilería Cinti Viejo · Camargo · 2.350 m</span>
+              <div class="specs"><div><strong>2.200</strong>botellas</div><div><strong>6 meses</strong>reposo</div><div><strong>40 % vol</strong>ajustado</div></div>
+              <p>Moscatel de Alejandría destilado en alambique de cobre. Mil quinientos litros de corazón al sesenta por ciento, seis meses de reposo en acero. Notas de uva fresca, jazmín y cáscara de naranja.</p>
+              <a class="doc-textlink" href="#">Ver la trazabilidad del lote</a>
+            </div>
+            <div class="doc-buybar"><div><span class="doc-price" style="font-size:var(--doc-text-2xl)">Bs 190</span><div class="doc-subtle" style="font-size:var(--doc-text-xs)">precio de bodega · retiro desde octubre</div></div><button class="doc-btn doc-btn--primary doc-btn--lg">Adquirir</button></div>
+          </div>
+        </div>
+        <figcaption>2.2 Ficha de producto con StickyBuyBar. "Adquirir" abre el checkout; si no hay cuenta, la pantalla "Entrar" se abre dentro del flujo.</figcaption>
+      </figure>
+
+      <figure class="sc-fig">
+        <div class="doc-phone doc-phone--noTabs">
+          <div class="status"><span>9:43</span><span>●●● ▲ ▮</span></div>
+          <div class="screen">
+            <div class="pdp-art" style="filter:brightness(.6)"></div>
+            <div class="doc-overlay-stage" style="position:absolute;inset:0;border-radius:0">
+              <div class="doc-sheet" style="height:78%">
+                <header style="padding-top:22px"><h3>Adquirir</h3><button class="doc-iconbtn" aria-label="Cerrar">×</button></header>
+                <div class="body sc-stack" style="gap:18px">
+                  <ol class="doc-stepper"><li class="done" data-step="1">Cantidad</li><li aria-current="step" data-step="2">Pago</li><li data-step="3">Listo</li></ol>
+                  <div class="doc-card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px"><div><strong>Gran Reserva 2026</strong><div class="doc-subtle" style="font-size:var(--doc-text-xs)">2 botellas · retiro en Licorería La Cava</div></div><span class="doc-price">Bs 380</span></div>
+                  <div class="sc-stack" style="gap:10px">
+                    <label class="doc-card doc-card--selected" style="display:flex;gap:12px;align-items:center;padding:12px 14px;cursor:pointer"><input type="radio" checked style="accent-color:var(--doc-accent)"><div><strong style="font-size:var(--doc-text-sm)">Tarjeta de débito o crédito</strong><div class="doc-subtle" style="font-size:var(--doc-text-xs)">Pasarela del banco · formulario seguro</div></div></label>
+                    <label class="doc-card" style="display:flex;gap:12px;align-items:center;padding:12px 14px;cursor:pointer"><input type="radio" style="accent-color:var(--doc-accent)"><div><strong style="font-size:var(--doc-text-sm)">QR bancario</strong><div class="doc-subtle" style="font-size:var(--doc-text-xs)">Escanea con la app de tu banco</div></div></label>
+                  </div>
+                  <p class="doc-subtle" style="font-size:var(--doc-text-xs);margin:0">Nunca vemos los datos de tu tarjeta. El pago se procesa en la pasarela del banco.</p>
+                </div>
+                <footer><button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block">Pagar Bs 380</button></footer>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption>2.3 CheckoutSheet en tres pasos con PaymentProvider (tarjeta, QR). El estado tras pagar: "Reservando tus botellas…" → confirmación.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================ frames 2 -->
+  <section class="sc-section">
+    <h2><small>03</small>Entrar · Bóveda · Mi Cava · Pase de retiro</h2>
+    <p class="lead">Una sola pantalla para crear cuenta o iniciar sesión. El splash de bóveda es el único momento oscuro: mientras se crea la billetera con la biometría del dispositivo. La cava muestra las botellas como activos; el pase es un ticket con QR grande y caducidad en días.</p>
+    <div class="sc-frames">
+      <figure class="sc-fig">
+        <div class="doc-phone doc-phone--noTabs">
+          <div class="status" style="color:#fff;position:relative;z-index:2"><span>9:44</span><span>●●● ▲ ▮</span></div>
+          <div class="screen">
+            <div class="gate">
+              <p class="doc-eyebrow" style="color:var(--doc-gold-300);margin:0">Únete a la tribu</p>
+              <h2>Tu cava digital en menos de un minuto.</h2>
+              <input class="doc-input doc-input--lg" placeholder="Número de teléfono">
+              <input class="doc-input doc-input--lg" placeholder="Correo electrónico">
+              <button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block">Continuar</button>
+              <div class="sc-grid sc-grid--2" style="gap:8px"><button class="doc-btn doc-btn--secondary" style="color:#fff;border-color:rgba(255,255,255,.5)">G · Google</button><button class="doc-btn doc-btn--secondary" style="color:#fff;border-color:rgba(255,255,255,.5)"> · Apple</button></div>
+              <p style="margin:0;font-size:var(--doc-text-xs);color:var(--doc-cream-1)">¿Ya tienes cuenta? <u>Inicia sesión</u> · Al continuar aceptas los términos.</p>
+            </div>
+          </div>
+        </div>
+        <figcaption>1.1 "Entrar": crear cuenta o iniciar sesión en la misma pantalla. También es el ScanGate cuando se llega desde el QR de una botella.</figcaption>
+      </figure>
+
+      <figure class="sc-fig">
+        <div class="doc-phone doc-phone--noTabs" data-theme="cava">
+          <div class="status" style="position:relative;z-index:2"><span>9:44</span><span>●●● ▲ ▮</span></div>
+          <div class="screen">
+            <div class="vault">
+              <div>
+                <div class="ring"><span style="font-size:40px">🔒</span></div>
+                <h2>Preparando tu cava digital…</h2>
+                <p style="margin:0 0 24px;font-size:var(--doc-text-sm);color:var(--doc-cream-1);font-family:var(--doc-font-text)">Confirma con tu huella o tu rostro. Así proteges tus botellas sin contraseñas ni frases que recordar.</p>
+                <div class="doc-progress" style="background:var(--doc-cava-3)"><span style="width:70%"></span></div>
+                <p style="margin:12px 0 0;font-size:var(--doc-text-xs);color:var(--doc-cream-2)">Creando tu billetera en la red Stellar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption>1.2 VaultSplash. Llama a <code class="sc-code">createWallet()</code>; si el dispositivo no soporta passkeys, crea una cuenta gestionada con la misma pantalla de éxito.</figcaption>
+      </figure>
+
+      <figure class="sc-fig">
+        <div class="doc-phone">
+          <div class="status"><span>9:50</span><span>●●● ▲ ▮</span></div>
+          <div class="screen doc-editorial">
+            <div class="doc-storehead"><span class="doc-eyebrow" style="font-size:var(--doc-text-xs)">Mi cava</span><span class="doc-badge doc-badge--success">Verificado en la red</span></div>
+            <div class="screen-pad">
+              <h1 class="doc-display" style="font-size:var(--doc-text-3xl);margin:0 0 4px">Hola, María</h1>
+              <p class="doc-muted" style="margin:0 0 18px;font-size:var(--doc-text-sm)">3 botellas en custodia · 1 pase activo</p>
+              <div class="cava-grid">
+                <a class="holding" href="#"><div class="art"><span class="doc-badge doc-badge--accent doc-badge--strong doc-badge--nodot qty">×2</span><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/><path class="gold" d="M10 60h20M10 78h20"/></svg></div><span class="name">Gran Reserva 2026</span><span class="meta">Cinti Viejo · <span class="doc-gold">listo para retirar</span></span></a>
+                <a class="holding" href="#"><div class="art"><span class="doc-badge doc-badge--accent doc-badge--strong doc-badge--nodot qty">×1</span><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M15 4h10v20c0 6 7 10 7 18v66c0 4-2 8-6 8H14c-4 0-6-4-6-8V42c0-8 7-12 7-18z"/><path class="gold" d="M10 62h20"/></svg></div><span class="name">Tannat Reserva 2024</span><span class="meta">Altos de Calamuchita · en crianza · 38 días</span></a>
+              </div>
+              <div class="doc-card doc-card--lg" style="margin-top:18px;font-family:var(--doc-font-ui)"><div class="sc-row" style="justify-content:space-between"><div><strong style="font-size:var(--doc-text-sm)">Pase activo · Licorería La Cava</strong><div class="doc-subtle" style="font-size:var(--doc-text-xs)">2 × Gran Reserva 2026 · caduca en 6 días</div></div><button class="doc-btn doc-btn--secondary doc-btn--sm">Mostrar</button></div></div>
+              <div class="doc-alert doc-alert--info" style="margin-top:14px;font-family:var(--doc-font-ui)"><span>ⓘ</span><div><strong>Protege tu cava</strong>Añade un correo de recuperación o un segundo dispositivo.</div></div>
+            </div>
+          </div>
+          <nav class="tabs">
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/></svg>Inicio</a>
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M8 12h8"/></svg>Escáner</a>
+            <a href="#" aria-current="page"><svg viewBox="0 0 24 24"><path d="M9 3h6v4c0 2 3 3 3 6v8H6v-8c0-3 3-4 3-6z"/></svg>Cava</a>
+            <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</a>
+          </nav>
+        </div>
+        <figcaption>3.1 Mi Cava: HoldingCard con cantidad, estado del lote (listo / en crianza) y el pase activo.</figcaption>
+      </figure>
+
+      <figure class="sc-fig">
+        <div class="doc-phone doc-phone--noTabs">
+          <div class="status"><span>18:12</span><span>●●● ▲ ▮</span></div>
+          <div class="screen" style="background:var(--doc-bg-sunken);padding:14px 20px">
+            <div class="sc-row" style="justify-content:space-between;margin-bottom:12px"><button class="doc-btn doc-btn--tertiary doc-btn--sm">‹ Cava</button><span class="doc-badge doc-badge--success">Pase activo</span></div>
+            <div class="doc-ticket">
+              <div class="top"><span class="doc-eyebrow" style="font-size:var(--doc-text-xs)">Pase de retiro</span><strong class="doc-display" style="font-size:var(--doc-text-2xl)">2 × Singani Gran Reserva 2026</strong><span class="doc-subtle" style="font-size:var(--doc-text-sm)">Cinti Viejo · Titular: María Fernández</span></div>
+              <div class="qr"><div class="doc-qr"></div><span class="doc-subtle" style="font-size:var(--doc-text-xs);margin-top:10px">CLM-0005 · muéstralo en el mostrador</span></div>
+              <div class="bottom"><div><strong style="color:var(--doc-fg)">Licorería La Cava</strong><br>Av. Domingo Paz 123, Tarija<br>Lun–Sáb 10:00–20:00</div><div style="text-align:right"><strong style="color:var(--doc-fg)">Caduca</strong><br>2 oct 2026<br>en 6 días</div></div>
+            </div>
+            <p class="doc-subtle" style="font-size:var(--doc-text-xs);text-align:center;margin:14px 0 0">También válido en Destilería Cinti Viejo (Camargo). El pase se anula al entregar las botellas.</p>
+            <div class="sc-row" style="justify-content:center;margin-top:10px"><button class="doc-btn doc-btn--secondary doc-btn--sm">Cambiar punto</button><button class="doc-btn doc-btn--tertiary doc-btn--sm" style="color:var(--doc-danger)">Anular pase</button></div>
+          </div>
+        </div>
+        <figcaption>3.2 ClaimTicket. QR grande sobre fondo claro, caducidad en días, punto elegido y alternativas habilitadas para el lote.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================ visor -->
+  <section class="sc-section">
+    <h2><small>04</small>Visor QR · Viaje del producto y reviews</h2>
+    <p class="lead">Tras el ScanGate, una sola página de scroll narrativo con los datos reales del ERP: sello de autenticidad, línea de tiempo, cata y brand story, y al final la calificación.</p>
+    <div class="sc-frames">
+      <figure class="sc-fig">
+        <div class="doc-phone">
+          <div class="status"><span>21:05</span><span>●●● ▲ ▮</span></div>
+          <div class="screen doc-editorial" style="overflow:hidden">
+            <div class="journey">
+              <p class="doc-smallheading" style="margin:8px 0 0">Botella 0417 de 2.200</p>
+              <span class="doc-headingsep" style="height:1.5rem;margin:8px auto"></span>
+              <p class="doc-textheading" style="font-size:var(--doc-text-3xl);margin:0 0 16px">Gran Reserva 2026</p>
+              <div class="seal">✓ Autenticidad verificada en la red Stellar · lote SGR26CINTI</div>
+              <ol class="doc-timeline" style="margin-top:20px;font-family:var(--doc-font-ui)">
+                <li class="done">Origen · Los Parrales, Valle de Cinti · 2.350 m<span class="when">Enero 2026 · Moscatel de Alejandría</span></li>
+                <li class="done">Vendimia · 18.400 kg<span class="when">4 de marzo · Brix 23,4</span></li>
+                <li class="done">Destilación · 1.500 L de corazón al 60 %<span class="when">15 de abril · alambique de cobre</span></li>
+                <li class="done">Reposo en acero · 6 meses<span class="when">Hasta el 13 de octubre</span></li>
+                <li class="done">Embotellado · 2.200 botellas a 40 %<span class="when">20 de octubre</span></li>
+              </ol>
+              <div class="sc-grid sc-grid--3" style="gap:8px;margin-top:8px;font-family:var(--doc-font-ui)">
+                <div class="doc-card" style="padding:10px;text-align:center"><span class="doc-label">Servir</span><strong style="display:block;font-size:var(--doc-text-lg)">8–10 °C</strong></div>
+                <div class="doc-card" style="padding:10px;text-align:center"><span class="doc-label">Notas</span><strong style="display:block;font-size:var(--doc-text-sm)">Jazmín, uva, naranja</strong></div>
+                <div class="doc-card" style="padding:10px;text-align:center"><span class="doc-label">Maridaje</span><strong style="display:block;font-size:var(--doc-text-sm)">Queso de cabra</strong></div>
+              </div>
+            </div>
+          </div>
+          <nav class="tabs">
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/></svg>Inicio</a>
+            <a href="#" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M8 12h8"/></svg>Escáner</a>
+            <a href="#"><svg viewBox="0 0 24 24"><path d="M9 3h6v4c0 2 3 3 3 6v8H6v-8c0-3 3-4 3-6z"/></svg>Cava</a>
+            <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</a>
+          </nav>
+        </div>
+        <figcaption>4.2–4.3 JourneyTimeline con datos del lote y TastingCards. Fotografías y vídeo de la familia productora entre secciones.</figcaption>
+      </figure>
+      <figure class="sc-fig">
+        <div class="doc-card doc-card--lg" style="width:375px;padding:24px">
+          <span class="sc-cap">4.4 ReviewForm</span>
+          <p class="doc-display" style="font-size:var(--doc-text-2xl);margin:0 0 6px">¿Cómo fue la experiencia?</p>
+          <p class="doc-muted" style="font-size:var(--doc-text-sm);margin:0 0 14px;font-family:var(--doc-font-text)">Tu calificación ayuda a la bodega y a la tribu.</p>
+          <div class="stars">★★★★★</div>
+          <textarea class="doc-textarea" style="margin-top:14px" placeholder="Notas de cata, con qué lo acompañaste… (opcional)"></textarea>
+          <button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block" style="margin-top:14px">Enviar calificación</button>
+        </div>
+        <figcaption>Aparece al final del visor y tras completar un retiro.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================ desktop -->
+  <section class="sc-section">
+    <h2><small>05</small>Escritorio · cabecera transparente</h2>
+    <div class="sc-demo" style="padding:0">
+      <div class="desktop-head doc-editorial"><span class="doc-wordmark" style="font-size:var(--doc-text-lg)">Drinks <em>on</em> Chain</span><nav><a class="doc-textlink" href="#" aria-current="true">Catálogo</a><a class="doc-textlink" href="#">Bodegas</a><a class="doc-textlink" href="#">Mi cava</a></nav><div class="sc-row"><button class="doc-iconbtn" aria-label="Escanear">▣</button><button class="doc-btn doc-btn--secondary" style="font-family:var(--doc-font-ui)">Entrar</button></div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:32px;max-width:1200px;margin:0 auto" class="doc-editorial">
+        <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120" style="width:56px"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/></svg></div><span class="kind">Singani</span><span class="name">Gran Reserva 2026</span><span class="doc-price">Bs 190</span></a>
+        <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120" style="width:56px"><path d="M15 4h10v20c0 6 7 10 7 18v66c0 4-2 8-6 8H14c-4 0-6-4-6-8V42c0-8 7-12 7-18z"/></svg></div><span class="kind">Vino</span><span class="name">Tannat Reserva 2024</span><span class="doc-price">Bs 145</span></a>
+        <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120" style="width:56px"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/></svg></div><span class="kind">Singani</span><span class="name">Clásico 2025</span><span class="doc-price">Bs 95</span></a>
+        <a class="doc-bottlecard" href="#"><div class="art"><svg class="doc-bottle" viewBox="0 0 40 120" style="width:56px"><path d="M15 4h10v20c0 6 7 10 7 18v66c0 4-2 8-6 8H14c-4 0-6-4-6-8V42c0-8 7-12 7-18z"/></svg></div><span class="kind">Vino</span><span class="name">Moscatel Blanco 2025</span><span class="doc-price">Bs 110</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ componentes -->
+  <section class="sc-section">
+    <h2><small>06</small>Componentes específicos del Marketplace</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Componente</th><th>Qué es</th><th>Familia</th></tr></thead>
+      <tbody>
+        <tr><td><code>StoreShell</code> / <code>BottomTabs</code> / <code>StoreHeader</code></td><td>Pestañas inferiores en móvil, cabecera transparente en escritorio, <code>safe-area</code></td><td>Operativa</td></tr>
+        <tr><td><code>HeroBanner</code> / <code>BottleCard</code> / <code>PriceTag</code></td><td>Último lanzamiento; tarjeta con ilustración o foto, nombre, bodega y precio en oro</td><td>Editorial</td></tr>
+        <tr><td><code>StickyBuyBar</code></td><td>Barra persistente con precio y "Adquirir"; se oculta al abrir el checkout</td><td>Operativa</td></tr>
+        <tr><td><code>CheckoutSheet</code> / <code>OrderStatus</code></td><td>Tres pasos; adaptador <code>PaymentProvider</code> (redirección, widget, QR); estados pagado / pendiente / fallido</td><td>Operativa</td></tr>
+        <tr><td><code>VaultSplash</code></td><td>Único momento en tema Cava; crea la billetera y explica la biometría</td><td>Editorial</td></tr>
+        <tr><td><code>CavaGrid</code> / <code>HoldingCard</code></td><td>Activos con cantidad y estado del lote</td><td>Editorial</td></tr>
+        <tr><td><code>PickupPointPicker</code> / <code>ClaimTicket</code></td><td>Selector de puntos habilitados para el lote; ticket con QR, caducidad y dirección</td><td>Operativa</td></tr>
+        <tr><td><code>ScanGate</code> / <code>CameraScanner</code></td><td>Registro ligero al llegar desde un QR; escáner con permiso explicado y entrada manual</td><td>Editorial / Operativa</td></tr>
+        <tr><td><code>JourneyTimeline</code> / <code>TastingCards</code> / <code>StarRating</code> / <code>ReviewForm</code></td><td>Viaje del producto, cata, calificación</td><td>Editorial</td></tr>
+        <tr><td><code>WalletSettings</code></td><td>Recuperación (dispositivo, correo), billetera externa, dirección y explorador</td><td>Operativa</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>07</small>Reglas del Marketplace</h2>
+    <div class="sc-dos">
+      <div class="do"><h4>Sí</h4><ul><li>Todo se puede recorrer sin cuenta; la cuenta aparece solo cuando hace falta y dentro del flujo.</li><li>Un CTA en oro por pantalla (Adquirir, Pagar, Retirar).</li><li>El QR del pase siempre sobre fondo claro y a máximo brillo.</li><li>Explicar la biometría y la recuperación en lenguaje llano, sin palabras de cripto.</li><li>Bottom sheets para no perder la ficha.</li></ul></div>
+      <div class="dont"><h4>No</h4><ul><li>Mostrar direcciones, hashes o "wallet" en el recorrido normal (solo en Ajustes → Billetera avanzada).</li><li>Gráficos de precio o cualquier señal de inversión (MVP sin trading).</li><li>Pedir permisos de cámara sin explicar antes para qué.</li><li>Texto en serif en el checkout o en formularios.</li><li>Más de una tipografía de interfaz por pantalla.</li></ul></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

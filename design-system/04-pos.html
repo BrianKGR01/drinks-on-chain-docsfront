@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es" data-theme="cava">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POS · Sistema de diseño Drinks on Chain</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="showcase.css">
+<style>
+  .kiosk-pin { display:grid; place-items:center; align-content:center; gap:28px; text-align:center; padding:24px; }
+  .kiosk-pin .doc-wordmark { font-size:var(--doc-text-2xl); }
+  .kiosk-pin .branch { font-size:var(--doc-text-xl); color:var(--doc-fg-muted); margin-top:-16px; }
+  .green-body { display:grid; grid-template-columns:260px 1fr; gap:40px; align-items:center; }
+  .green-body .photo { aspect-ratio:3/4; border-radius:var(--doc-radius-lg); background:linear-gradient(180deg,#2a5a36,#173a21); border:2px solid rgba(255,255,255,.25); display:grid; place-items:center; }
+  .green-body .photo svg { width:90px; stroke:#d6e9d9; }
+  .success { display:grid; place-items:center; align-content:center; gap:20px; text-align:center; background:#173a21; color:var(--doc-cream-0); }
+  .success .stamp { width:200px; height:200px; border-radius:50%; border:6px solid var(--doc-green-300); display:grid; place-items:center; font-size:110px; color:var(--doc-green-300); transform:rotate(-8deg); }
+  .receipt { display:grid; grid-template-columns:1fr 340px; }
+  .receipt > div { padding:28px 36px; }
+  .receipt > div + div { border-left:1px solid var(--doc-border); background:var(--doc-bg-raised); display:grid; align-content:space-between; gap:20px; }
+  .receipt h2 { margin:0 0 4px; font:500 var(--doc-text-3xl)/1.1 var(--doc-font-display); }
+  .receipt .big { font:500 var(--doc-text-6xl)/1 var(--doc-font-display); }
+  .contrast td:nth-child(2) { font-family: ui-monospace, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="00-fundamentos.html">Fundamentos</a>
+  <a href="01-erp.html">ERP</a>
+  <a href="02-marketplace.html">Marketplace</a>
+  <a href="03-backoffice.html">Backoffice</a>
+  <a href="04-pos.html" aria-current="page">POS</a>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Sistema 4 · pos. · iPad o tablet Android · apaisado · modo kiosco</p>
+    <h1>Aplicación de claim</h1>
+    <p>Fricción cero para el cajero. Tema Cava Reserva completo (un fondo oscuro que no deslumbra en la tienda), familia operativa con Inter 24 px de base, cantidad a entregar en 64–96 px, semáforos a pantalla completa con borde de 16 px, teclas de 96 px y deslizador de 72 px. Una acción por pantalla y un solo botón secundario abajo. Sin menús, sin billetera: el POS valida el pase contra la API y el backend ejecuta la quema.</p>
+  </header>
+
+  <section class="sc-section">
+    <h2><small>01</small>Tema, densidad y contraste</h2>
+    <div class="sc-grid sc-grid--2">
+      <table class="sc-spec">
+        <thead><tr><th>Aspecto</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Tema</td><td>Cava Reserva en toda la app; el semáforo verde y rojo sustituyen el fondo</td></tr>
+          <tr><td>Tipografía</td><td>Inter 24 px base · 20 px ayudas · 64 px cantidad · 96 px PIN e icono de semáforo · Cormorant solo en el wordmark y en el recibo</td></tr>
+          <tr><td>Objetivos</td><td>≥ 72 px; teclas de 96 px; deslizador de 72 px de alto</td></tr>
+          <tr><td>Layout</td><td>KioskShell: pantalla completa apaisada 1024×768 / 1194×834, barra de estado de 36 px (punto, conexión, hora), una acción por pantalla</td></tr>
+          <tr><td>Cámara</td><td>80 % de la pantalla; retícula en oro; linterna arriba a la derecha</td></tr>
+          <tr><td>Sin conexión</td><td>Banner ámbar; las validaciones esperan; las entregas confirmadas se encolan y se sincronizan</td></tr>
+        </tbody>
+      </table>
+      <table class="sc-spec contrast">
+        <thead><tr><th>Par de colores</th><th>Contraste</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>crema-0 sobre cava-0</td><td>16,4 : 1</td><td>Texto principal · AAA</td></tr>
+          <tr><td>crema-1 sobre cava-0</td><td>10,3 : 1</td><td>Texto secundario · AAA</td></tr>
+          <tr><td>crema-0 sobre verde #1f4a2a</td><td>8,1 : 1</td><td>Semáforo verde · AAA</td></tr>
+          <tr><td>crema-0 sobre rojo #5a1f17</td><td>10,9 : 1</td><td>Semáforo rojo · AAA</td></tr>
+          <tr><td>oro-300 sobre cava-0</td><td>7,6 : 1</td><td>Retícula, acentos · AAA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sc-note" style="margin-top:16px"><strong>Legible a un metro.</strong> El cajero mira la tablet desde el otro lado del mostrador: ningún texto operativo por debajo de 20 px; los estados se leen por color, forma (borde grueso) e icono de 96 px, no solo por color.</p>
+  </section>
+
+  <!-- ============================================================ PIN -->
+  <section class="sc-section">
+    <h2><small>02</small>1.1 Login de sucursal · PinPad</h2>
+    <p class="lead">Pantalla de bloqueo. El dispositivo ya está vinculado al punto desde el Backoffice; el cajero abre su turno con un PIN de 4 dígitos y la app pasa al escáner.</p>
+    <div class="doc-tablet">
+      <div class="status"><span>Licorería La Cava · Tarija</span><span>● En línea · 10:02</span></div>
+      <div class="screen kiosk-pin">
+        <div class="doc-wordmark">Drinks <em>on</em> Chain</div>
+        <div class="branch">Licorería La Cava · mostrador 1</div>
+        <div class="doc-pindots"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        <div class="doc-pinpad">
+          <button>1</button><button>2</button><button>3</button>
+          <button>4</button><button>5</button><button>6</button>
+          <button>7</button><button>8</button><button>9</button>
+          <button style="background:transparent;border-color:transparent;font-size:var(--doc-text-xl);color:var(--doc-fg-subtle)">Ayuda</button><button>0</button><button style="font-size:var(--doc-text-2xl)">⌫</button>
+        </div>
+        <p style="margin:0;color:var(--doc-fg-subtle);font-size:var(--doc-text-lg)">Introduce tu PIN para abrir el turno</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ escáner -->
+  <section class="sc-section">
+    <h2><small>03</small>2.1 Escáner activo</h2>
+    <p class="lead">La cámara ocupa la pantalla; retícula en oro; linterna arriba a la derecha; un único botón secundario abajo. El escaneo es continuo: no hay botón "escanear".</p>
+    <div class="doc-tablet">
+      <div class="status"><span>Licorería La Cava · Juan P. · turno abierto</span><span>● En línea · 10:14</span></div>
+      <div class="screen doc-scanner">
+        <p class="hint">Apunta al código del pase de retiro del cliente</p>
+        <div class="torch">Linterna</div>
+        <div class="reticle"><i></i></div>
+        <div class="secondary"><button class="doc-btn doc-btn--secondary doc-btn--kiosk" style="color:var(--doc-cream-0);border-color:var(--doc-cream-2)">Ver historial de hoy · 7 entregas</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ semáforos -->
+  <section class="sc-section">
+    <h2><small>04</small>2.2 Semáforo verde · 2.3 Semáforo rojo</h2>
+    <p class="lead">Al leer un pase válido, el overlay verde bloquea la cámara: foto grande del producto, cantidad en 64 px, cliente y deslizador. Si el pase no es válido, rojo con el motivo en texto grande y un solo botón.</p>
+    <div class="sc-stack" style="gap:32px">
+      <div class="doc-tablet">
+        <div class="status"><span>Licorería La Cava · Juan P.</span><span>● En línea · 10:15</span></div>
+        <div class="screen">
+          <div class="doc-scanner"></div>
+          <div class="doc-traffic doc-traffic--green">
+            <div class="green-body">
+              <div class="photo"><svg class="doc-bottle" viewBox="0 0 40 120"><path d="M16 4h8v18c0 4 8 8 8 16v70c0 4-2 8-6 8H14c-4 0-6-4-6-8V38c0-8 8-12 8-16z"/><path d="M10 60h20M10 78h20" style="stroke:var(--doc-gold-300)"/></svg></div>
+              <div>
+                <p style="margin:0 0 8px;font-size:var(--doc-text-2xl);color:var(--doc-green-300);font-weight:600;letter-spacing:.06em">✓ PASE VÁLIDO · CLM-0007</p>
+                <p class="headline" style="margin:0">Entregar <span style="font-size:var(--doc-text-7xl)">4</span> botellas</p>
+                <p class="sub">Singani Gran Reserva 2026 · Destilería Cinti Viejo</p>
+                <p class="sub" style="color:var(--doc-cream-0)">Cliente: <strong>Carlos Mamani</strong></p>
+              </div>
+            </div>
+            <div class="doc-swipe"><span class="knob">›</span>Deslizar para confirmar entrega</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-tablet doc-tablet--auto">
+        <div class="status"><span>Licorería La Cava · Juan P.</span><span>● En línea · 10:21</span></div>
+        <div class="screen">
+          <div class="doc-scanner"></div>
+          <div class="doc-traffic doc-traffic--red" style="grid-template-rows:1fr auto;justify-items:center;text-align:center">
+            <div style="display:grid;place-items:center;align-content:center;gap:16px">
+              <div class="icon">⚠</div>
+              <p class="headline" style="margin:0;font-size:var(--doc-text-5xl)">Código ya canjeado</p>
+              <p class="sub">Este pase se usó el 24 de septiembre a las 17:40 en Vinoteca Sur. Si el cliente reclama, indícale que contacte con soporte desde su app.</p>
+            </div>
+            <button class="doc-btn doc-btn--kiosk" style="background:var(--doc-cream-0);color:#5a1f17;border-color:var(--doc-cream-0);min-width:420px">Volver a escanear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="sc-spec" style="margin-top:20px">
+      <thead><tr><th>Motivo de rechazo</th><th>Texto en pantalla</th><th>Origen</th></tr></thead>
+      <tbody>
+        <tr><td><code>already_used</code></td><td>Código ya canjeado</td><td>API: el pase tiene estado usado</td></tr>
+        <tr><td><code>expired</code></td><td>Código vencido</td><td>API: caducidad superada (días)</td></tr>
+        <tr><td><code>wrong_point</code></td><td>Punto no habilitado para este lote</td><td>API: el punto no está en la lista del lote</td></tr>
+        <tr><td><code>voided</code></td><td>Pase anulado</td><td>API: soporte lo anuló</td></tr>
+        <tr><td><code>unreadable</code></td><td>No se pudo leer el código</td><td>Cliente: el QR no es un pase; ofrece entrada manual</td></tr>
+        <tr><td><code>offline</code></td><td>Sin conexión: no se puede validar</td><td>Cliente: reintenta cuando vuelva la red</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ éxito / turno -->
+  <section class="sc-section">
+    <h2><small>05</small>3.1 Éxito · 3.2 Historial y cierre de turno</h2>
+    <p class="lead">Sello de dos segundos y vuelta automática al escáner. El historial es una lista tipo recibo, monoespaciada y a alto contraste, para cuadrar el estante físico.</p>
+    <div class="sc-stack" style="gap:32px">
+      <div class="doc-tablet">
+        <div class="status"><span>Licorería La Cava · Juan P.</span><span>● En línea · 10:15</span></div>
+        <div class="screen success">
+          <div class="stamp">✓</div>
+          <p style="margin:0;font:700 var(--doc-text-5xl)/1 var(--doc-font-ui);text-transform:uppercase;letter-spacing:.04em">Entregado</p>
+          <p style="margin:0;font-size:var(--doc-text-2xl);color:var(--doc-cream-1)">4 × Singani Gran Reserva 2026 · Carlos Mamani</p>
+          <p style="margin:0;font-size:var(--doc-text-lg);color:var(--doc-cream-2)">Registrado. Confirmación en la red en unos segundos · volviendo al escáner…</p>
+        </div>
+      </div>
+      <div class="doc-tablet doc-tablet--auto">
+        <div class="status"><span>Licorería La Cava · Juan P.</span><span>● En línea · 20:02</span></div>
+        <div class="screen receipt">
+          <div>
+            <h2>Entregas de hoy</h2>
+            <p style="margin:0 0 20px;color:var(--doc-fg-subtle);font-size:var(--doc-text-lg)">Jueves 25 de septiembre de 2026 · Juan Pérez · mostrador 1</p>
+            <table class="doc-table doc-table--receipt"><tbody>
+              <tr><td>10:15</td><td>Singani Gran Reserva 2026</td><td class="num">4</td><td><span class="doc-badge doc-badge--success" style="font-size:var(--doc-text-sm);height:28px">En cadena</span></td></tr>
+              <tr><td>11:40</td><td>Tannat Reserva 2024</td><td class="num">2</td><td><span class="doc-badge doc-badge--success" style="font-size:var(--doc-text-sm);height:28px">En cadena</span></td></tr>
+              <tr><td>13:05</td><td>Singani Clásico 2025</td><td class="num">1</td><td><span class="doc-badge doc-badge--success" style="font-size:var(--doc-text-sm);height:28px">En cadena</span></td></tr>
+              <tr><td>17:22</td><td>Singani Gran Reserva 2026</td><td class="num">2</td><td><span class="doc-badge doc-badge--info" style="font-size:var(--doc-text-sm);height:28px">Sincronizando</span></td></tr>
+              <tr><td>18:50</td><td>Moscatel Blanco 2025</td><td class="num">3</td><td><span class="doc-badge doc-badge--warning" style="font-size:var(--doc-text-sm);height:28px">Autorizada por soporte</span></td></tr>
+            </tbody></table>
+          </div>
+          <div>
+            <div><span class="doc-label" style="font-size:var(--doc-text-sm)">Botellas entregadas</span><div class="big">12</div><p style="margin:8px 0 0;color:var(--doc-fg-muted);font-size:var(--doc-text-lg)">7 entregas · 5 clientes · 0 rechazos</p></div>
+            <div class="doc-alert doc-alert--warning" style="font-size:var(--doc-text-md)"><span>⚠</span><div><strong>1 entrega pendiente de sincronizar</strong>Se confirmará al recuperar la conexión.</div></div>
+            <div class="sc-stack" style="gap:12px"><button class="doc-btn doc-btn--secondary doc-btn--kiosk doc-btn--block" style="font-size:var(--doc-text-xl)">Volver al escáner</button><button class="doc-btn doc-btn--primary doc-btn--kiosk doc-btn--block" style="font-size:var(--doc-text-xl)">Cerrar turno y bloquear</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ componentes -->
+  <section class="sc-section">
+    <h2><small>06</small>Componentes específicos del POS</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Componente</th><th>Qué es</th><th>Medidas</th></tr></thead>
+      <tbody>
+        <tr><td><code>KioskShell</code></td><td>Pantalla completa apaisada, barra de estado, bloqueo por inactividad, PWA en modo kiosco</td><td>1024×768 · 1194×834</td></tr>
+        <tr><td><code>PinPad</code></td><td>Teclado numérico con puntos de progreso y borrar</td><td>Teclas 96 px · cifras 36 px</td></tr>
+        <tr><td><code>ScannerViewport</code></td><td>Cámara continua (<code>BarcodeDetector</code> o <code>@zxing/browser</code>), retícula, linterna, aviso de permiso</td><td>Retícula 46 % del alto</td></tr>
+        <tr><td><code>TrafficLightOverlay</code></td><td>Verde con datos de entrega y deslizador; rojo con motivo y "Volver a escanear"</td><td>Borde 16 px · titular 64 px · cifra 96 px</td></tr>
+        <tr><td><code>SwipeToConfirm</code></td><td>Deslizador con umbral del 85 %; vibración al confirmar donde exista</td><td>72 px de alto</td></tr>
+        <tr><td><code>DeliverySuccess</code></td><td>Sello de 2 s y vuelta automática; "Confirmado en la red" cuando llega el hash</td><td>Sello 200 px</td></tr>
+        <tr><td><code>ShiftReceipt</code></td><td>Lista monoespaciada de entregas, total, cierre de turno</td><td>Texto 20 px</td></tr>
+        <tr><td><code>OfflineBanner</code> / <code>ManualCodeEntry</code></td><td>Aviso ámbar y cola; teclado para introducir el código del pase</td><td>Banner 48 px</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>07</small>Reglas del POS</h2>
+    <div class="sc-dos">
+      <div class="do"><h4>Sí</h4><ul><li>Una acción por pantalla; el resto, un botón secundario abajo.</li><li>Estados por color, forma e icono, nunca solo color.</li><li>Confirmación siempre por deslizador, nunca por toque.</li><li>Volver al escáner automáticamente tras el éxito.</li><li>Registrar la entrega en el momento y mostrar la confirmación en cadena cuando llegue.</li></ul></div>
+      <div class="dont"><h4>No</h4><ul><li>Menús, pestañas o navegación lateral.</li><li>Palabras de cripto ("quema", "token", "wallet") en pantalla: se dice "entregado" y "confirmado en la red".</li><li>Texto operativo por debajo de 20 px.</li><li>Pedir contraseñas: solo PIN.</li><li>Bloquear la entrega mientras la red confirma.</li></ul></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

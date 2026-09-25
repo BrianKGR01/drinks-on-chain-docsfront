@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Drinks on Chain · Design tokens (@doc/ui)
+   Tres capas: primitivos → semánticos (por tema) → componente.
+   Temas: "oro" (Oro Líquido, claro, por defecto) y "cava" (Cava Reserva, oscuro).
+   Se aplican con [data-theme="oro|cava"] en <html> o en cualquier contenedor.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  /* ---------- Primitivos: color ---------- */
+  --doc-paper-0: #fdfcf5;
+  --doc-paper-1: #f9f6ee;
+  --doc-paper-2: #f4efe2;
+  --doc-paper-3: #ece5d3;
+  --doc-ink-0: #000000;
+  --doc-ink-1: #464340;
+  --doc-ink-2: #625e54;
+  --doc-ink-3: #a0a095;
+  --doc-gold-300: #d3a642;
+  --doc-gold-500: #b8891f;
+  --doc-gold-700: #8a651a;
+  --doc-cava-0: #15120f;
+  --doc-cava-1: #1c1814;
+  --doc-cava-2: #241f1a;
+  --doc-cava-3: #2e2823;
+  --doc-cream-0: #f3eee2;
+  --doc-cream-1: #c9c1b3;
+  --doc-cream-2: #9a9184;
+  --doc-green-600: #3f7d4a;
+  --doc-green-300: #7fc48b;
+  --doc-red-600: #b3402c;
+  --doc-red-300: #e0705b;
+  --doc-amber-600: #b07a1a;
+  --doc-amber-300: #d9a441;
+  --doc-blue-600: #3b5f8a;
+  --doc-blue-300: #8fb0d9;
+
+  /* ---------- Primitivos: tipografía ---------- */
+  --doc-font-display: "Cormorant Garamond", Georgia, serif;
+  --doc-font-text: "EB Garamond", "Times New Roman", serif;
+  --doc-font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --doc-text-2xs: 0.6875rem; /* 11 */
+  --doc-text-xs: 0.75rem;    /* 12 */
+  --doc-text-sm: 0.875rem;   /* 14 */
+  --doc-text-md: 1rem;       /* 16 */
+  --doc-text-lg: 1.125rem;   /* 18 */
+  --doc-text-xl: 1.25rem;    /* 20 */
+  --doc-text-2xl: 1.5rem;    /* 24 */
+  --doc-text-3xl: 1.875rem;  /* 30 */
+  --doc-text-4xl: 2.25rem;   /* 36 */
+  --doc-text-5xl: 3rem;      /* 48 */
+  --doc-text-6xl: 4rem;      /* 64 */
+  --doc-text-7xl: 6rem;      /* 96 */
+
+  --doc-leading-tight: 1.2;
+  --doc-leading-normal: 1.5;
+  --doc-leading-none: 1;
+  --doc-tracking-display: 0.25em;
+  --doc-tracking-ui: 0.4em;
+
+  /* ---------- Primitivos: espacio ---------- */
+  --doc-space-1: 4px;
+  --doc-space-2: 8px;
+  --doc-space-3: 12px;
+  --doc-space-4: 16px;
+  --doc-space-5: 20px;
+  --doc-space-6: 24px;
+  --doc-space-8: 32px;
+  --doc-space-10: 40px;
+  --doc-space-12: 48px;
+  --doc-space-16: 64px;
+  --doc-space-20: 80px;
+
+  /* ---------- Forma ---------- */
+  --doc-radius-none: 0;
+  --doc-radius-sm: 2px;
+  --doc-radius-md: 4px;
+  --doc-radius-lg: 8px;
+  --doc-radius-full: 999px;
+  --doc-border-w: 1px;
+
+  /* ---------- Elevación ---------- */
+  --doc-shadow-overlay: 0 24px 64px -24px rgba(21, 18, 15, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --doc-shadow-paper-halo: 0 0 0 1px var(--doc-accent-soft), 0 0 18px 10px color-mix(in srgb, var(--doc-bg) 80%, transparent);
+
+  /* ---------- Movimiento ---------- */
+  --doc-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --doc-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --doc-dur-micro: 120ms;
+  --doc-dur-state: 200ms;
+  --doc-dur-transition: 320ms;
+  --doc-dur-reveal: 600ms;
+
+  /* ---------- Capas ---------- */
+  --doc-z-sticky: 10;
+  --doc-z-dropdown: 20;
+  --doc-z-overlay: 30;
+  --doc-z-modal: 40;
+  --doc-z-toast: 50;
+
+  /* ---------- Medidas de layout ---------- */
+  --doc-sidebar-w: 264px;
+  --doc-sidebar-w-collapsed: 72px;
+  --doc-topbar-h: 56px;
+  --doc-tabs-h: 64px;
+  --doc-content-max: 1280px;
+  --doc-content-max-wide: 1440px;
+  --doc-store-max: 1200px;
+  --doc-gutter: 24px;
+
+  /* ---------- Objetivos táctiles ---------- */
+  --doc-target-touch: 44px;
+  --doc-target-plant: 56px;
+  --doc-target-kiosk: 72px;
+}
+
+/* ==========================================================================
+   Semánticos · Oro Líquido (claro)
+   ========================================================================== */
+:root,
+[data-theme="oro"] {
+  color-scheme: light;
+  --doc-bg: var(--doc-paper-0);
+  --doc-bg-raised: var(--doc-paper-1);
+  --doc-bg-sunken: var(--doc-paper-2);
+  --doc-bg-deep: var(--doc-paper-3);
+  --doc-fg: var(--doc-ink-0);
+  --doc-fg-muted: var(--doc-ink-1);
+  --doc-fg-subtle: var(--doc-ink-2);
+  --doc-border: rgba(0, 0, 0, 0.11);
+  --doc-border-strong: var(--doc-ink-3);
+  --doc-rule: rgba(0, 0, 0, 0.32);
+  --doc-accent: var(--doc-gold-500);
+  --doc-accent-fg: var(--doc-paper-0);
+  --doc-accent-text: var(--doc-gold-700);
+  --doc-accent-soft: rgba(184, 137, 31, 0.14);
+  --doc-success: var(--doc-green-600);
+  --doc-success-soft: rgba(63, 125, 74, 0.14);
+  --doc-danger: var(--doc-red-600);
+  --doc-danger-soft: rgba(179, 64, 44, 0.12);
+  --doc-warning: var(--doc-amber-600);
+  --doc-warning-soft: rgba(176, 122, 26, 0.14);
+  --doc-info: var(--doc-blue-600);
+  --doc-info-soft: rgba(59, 95, 138, 0.12);
+  --doc-focus: var(--doc-gold-500);
+  --doc-overlay: rgba(21, 18, 15, 0.55);
+  --doc-on-status: var(--doc-paper-0);
+}
+
+/* ==========================================================================
+   Semánticos · Cava Reserva (oscuro)
+   ========================================================================== */
+[data-theme="cava"] {
+  color-scheme: dark;
+  --doc-bg: var(--doc-cava-0);
+  --doc-bg-raised: var(--doc-cava-1);
+  --doc-bg-sunken: var(--doc-cava-2);
+  --doc-bg-deep: var(--doc-cava-3);
+  --doc-fg: var(--doc-cream-0);
+  --doc-fg-muted: var(--doc-cream-1);
+  --doc-fg-subtle: var(--doc-cream-2);
+  --doc-border: rgba(255, 255, 255, 0.12);
+  --doc-border-strong: #5a524a;
+  --doc-rule: rgba(255, 255, 255, 0.32);
+  --doc-accent: var(--doc-gold-300);
+  --doc-accent-fg: var(--doc-cava-0);
+  --doc-accent-text: #e6bf63;
+  --doc-accent-soft: rgba(211, 166, 66, 0.18);
+  --doc-success: var(--doc-green-300);
+  --doc-success-soft: rgba(127, 196, 139, 0.16);
+  --doc-danger: var(--doc-red-300);
+  --doc-danger-soft: rgba(224, 112, 91, 0.16);
+  --doc-warning: var(--doc-amber-300);
+  --doc-warning-soft: rgba(217, 164, 65, 0.16);
+  --doc-info: var(--doc-blue-300);
+  --doc-info-soft: rgba(143, 176, 217, 0.16);
+  --doc-focus: var(--doc-gold-300);
+  --doc-overlay: rgba(0, 0, 0, 0.65);
+  --doc-on-status: var(--doc-cava-0);
+}
+
+/* Reducción de movimiento respetada en todos los componentes */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --doc-dur-micro: 0ms;
+    --doc-dur-state: 0ms;
+    --doc-dur-transition: 0ms;
+    --doc-dur-reveal: 0ms;
+  }
+}

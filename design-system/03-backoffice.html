@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es" data-theme="oro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backoffice · Sistema de diseño Drinks on Chain</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="showcase.css">
+<style>
+  .doc-ui.dense { font-size: var(--doc-text-sm); }
+  .alerts { display:grid; gap:0; }
+  .alerts .item { display:grid; grid-template-columns:8px 1fr auto; gap:12px; align-items:start; padding:10px 0; border-bottom:1px solid var(--doc-border); font-size:var(--doc-text-sm); }
+  .alerts .item i { width:8px; height:8px; border-radius:50%; margin-top:6px; background:var(--doc-info); }
+  .alerts .item.warn i { background:var(--doc-warning); }
+  .alerts .item.ok i { background:var(--doc-success); }
+  .alerts .item small { display:block; color:var(--doc-fg-subtle); font-size:var(--doc-text-xs); }
+  .drawer-stage { position:relative; height:520px; border:1px solid var(--doc-border); overflow:hidden; background:var(--doc-bg); }
+  .split { display:grid; grid-template-columns:1.2fr 1fr; min-height:420px; border:1px solid var(--doc-border); }
+  .split > div { padding:20px; }
+  .split > div + div { border-left:1px solid var(--doc-border); background:var(--doc-bg-raised); }
+  .chat { display:grid; gap:10px; }
+  .chat .msg { max-width:80%; padding:10px 12px; border-radius:var(--doc-radius-md); background:var(--doc-bg-sunken); font-size:var(--doc-text-sm); }
+  .chat .msg.me { justify-self:end; background:var(--doc-accent-soft); }
+  .chat .msg small { display:block; color:var(--doc-fg-subtle); font-size:var(--doc-text-2xs); margin-top:4px; }
+  .mint { display:grid; grid-template-columns:1fr 1px 1fr; gap:24px; }
+  .mint .sep { background:var(--doc-border); }
+</style>
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="00-fundamentos.html">Fundamentos</a>
+  <a href="01-erp.html">ERP</a>
+  <a href="02-marketplace.html">Marketplace</a>
+  <a href="03-backoffice.html" aria-current="page">Backoffice</a>
+  <a href="04-pos.html">POS</a>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Sistema 3 · admin. · escritorio · interno</p>
+    <h1>Backoffice</h1>
+    <p>Herramienta de trabajo intensivo para el equipo gestor de Drinks on Chain. Sidebar en Cava Reserva para anclar la vista, contenido en Oro Líquido para las tablas. Familia operativa, densidad compacta (Inter 14 px), cabeceras de tabla pegajosas, filtros como pills, buscador global. El oro solo en la acción crítica de cada pantalla. Los estados de transacción en cadena se muestran siempre con su hash y enlace al explorador; ninguna clave vive en este cliente.</p>
+  </header>
+
+  <section class="sc-section">
+    <h2><small>01</small>Tema y densidad</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Aspecto</th><th>Valor</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>Tema</td><td>Sidebar Cava Reserva (oscura) · topbar y contenido Oro Líquido (claro)</td><td>Contraste y fatiga visual baja en jornadas largas</td></tr>
+        <tr><td>Tipografía</td><td>Inter 14 px cuerpo · 12 px ayudas · 11 px cabeceras de tabla · Cormorant 30 px títulos · 36 px cifras KPI</td><td>Densidad de información</td></tr>
+        <tr><td>Densidad</td><td>Compacta: filas de 36 px, campos de 36 px, pills de 28 px; opción "cómoda" por usuario</td><td>Tablas de muchas filas</td></tr>
+        <tr><td>Layout</td><td>AdminShell: sidebar 264 px, topbar 56 px con buscador ⌘K y notificaciones, contenido máx. 1440 px, tablas a sangre</td><td>Documento maestro</td></tr>
+        <tr><td>Módulos</td><td>Dashboard · Socios (bodegas, puntos de recojo, dispositivos) · Tokenización · Soporte · Usuarios internos</td><td>Más los tres no documentados y necesarios (puntos, dispositivos, usuarios)</td></tr>
+        <tr><td>Estados de tx</td><td>pendiente (info) → enviada (info) → confirmada (éxito) → fallida (peligro), con hash</td><td>Transparencia de lo que firma el backend</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ shell -->
+  <section class="sc-section">
+    <h2><small>02</small>AdminShell · Dashboard</h2>
+    <div class="doc-appshell doc-appshell--admin dense">
+      <aside class="sidebar">
+        <div class="doc-wordmark">Drinks <em>on</em> Chain</div>
+        <nav>
+          <a href="#" aria-current="page">▣ Dashboard</a>
+          <span class="group doc-label">Red</span>
+          <a href="#">◫ Bodegas</a>
+          <a href="#">◱ Puntos de recojo</a>
+          <a href="#">◰ Dispositivos POS</a>
+          <span class="group doc-label">Producto</span>
+          <a href="#">◳ Tokenización</a>
+          <a href="#">◨ Colecciones</a>
+          <span class="group doc-label">Operación</span>
+          <a href="#">◇ Soporte</a>
+          <a href="#">◈ Auditoría</a>
+          <a href="#">⚙ Usuarios y roles</a>
+        </nav>
+        <div class="user"><span class="doc-avatar" style="background:rgba(211,166,66,.18);color:#e6bf63">AG</span><div><div style="font-weight:500">Ana Gutiérrez</div><div style="font-size:var(--doc-text-xs);color:var(--doc-cream-2)">Gestora · admin_plataforma</div></div></div>
+      </aside>
+      <header class="topbar">
+        <div class="doc-search">⌕ Buscar bodega, lote, usuario, ticket…<kbd>⌘K</kbd></div>
+        <div class="sc-row"><button class="doc-iconbtn" aria-label="Notificaciones">🔔</button><span class="doc-badge doc-badge--warning">2 alertas</span></div>
+      </header>
+      <div class="content">
+        <div class="sc-row" style="justify-content:space-between;margin-bottom:16px"><h1 style="margin:0">Operaciones</h1><div class="doc-pills"><button class="doc-pill" aria-pressed="true" style="height:28px">7 días</button><button class="doc-pill" style="height:28px">30 días</button><button class="doc-pill" style="height:28px">Año</button></div></div>
+        <div class="sc-grid sc-grid--4" style="margin-bottom:20px">
+          <div class="doc-card doc-stat"><span class="doc-label">Nuevos miembros</span><span class="value">318</span><span class="delta up">+24 % vs. semana anterior</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Botellas tokenizadas</span><span class="value">5.320</span><span class="delta">4 colecciones activas</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Retiros confirmados</span><span class="value">541</span><span class="delta up">98,7 % sin incidencias</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Tickets abiertos</span><span class="value" style="color:var(--doc-warning)">6</span><span class="delta down">2 urgentes</span></div>
+        </div>
+        <div class="sc-grid" style="grid-template-columns:1fr 1fr">
+          <div class="doc-card"><div class="sc-row" style="justify-content:space-between;margin-bottom:6px"><strong>Alertas del ERP</strong><button class="doc-btn doc-btn--tertiary doc-btn--sm">Ver pipeline</button></div>
+            <div class="alerts">
+              <div class="item ok"><i></i><div>Cinti Viejo finalizó embotellado · <strong>2.200 botellas</strong> Singani Gran Reserva 2026<small>hace 12 min · lote listo para emitir</small></div><button class="doc-btn doc-btn--primary doc-btn--sm">Revisar</button></div>
+              <div class="item warn"><i></i><div>Altos de Calamuchita · Tanque 04 con temperatura alta 3 días seguidos<small>hace 2 h · informativo</small></div><button class="doc-btn doc-btn--secondary doc-btn--sm">Ver</button></div>
+              <div class="item"><i></i><div>Emisión <code class="sc-code">VPAT24</code> confirmada en la red<small>ayer · hash 77be…0d</small></div><button class="doc-btn doc-btn--secondary doc-btn--sm">Explorador ↗</button></div>
+            </div></div>
+          <div class="doc-card"><div class="sc-row" style="justify-content:space-between;margin-bottom:6px"><strong>Cuentas operativas</strong><span class="doc-badge doc-badge--success">Relayer activo</span></div>
+            <table class="doc-table doc-table--compact"><thead><tr><th>Cuenta</th><th class="num">Saldo</th><th>Estado</th></tr></thead><tbody>
+              <tr><td>Relayer (comisiones)</td><td class="num">1.240 XLM</td><td><span class="doc-badge doc-badge--success">OK</span></td></tr>
+              <tr><td>Emisora plataforma</td><td class="num">—</td><td><span class="doc-badge doc-badge--info">Clawback habilitado</span></td></tr>
+              <tr><td>Renta de smart accounts</td><td class="num">312 XLM</td><td><span class="doc-badge doc-badge--warning">Extender TTL en 9 días</span></td></tr>
+            </tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ socios -->
+  <section class="sc-section">
+    <h2><small>03</small>Socios · Directorio de bodegas, perfil y alta</h2>
+    <p class="lead">Tabla compacta con filtros; el perfil se abre en un SlideOver. "Crear bodega" dispara en el backend la creación de la cuenta Stellar institucional: el cliente muestra la dirección y el estado. "Generar credenciales ERP" envía el correo seguro al enólogo.</p>
+    <div class="drawer-stage dense">
+      <div style="padding:20px">
+        <div class="sc-row" style="justify-content:space-between;margin-bottom:14px"><div class="sc-row"><div class="doc-search" style="min-width:260px;height:32px">⌕ Filtrar…</div><div class="doc-pills"><button class="doc-pill" aria-pressed="true" style="height:28px">Todas</button><button class="doc-pill" style="height:28px">Socias</button><button class="doc-pill" style="height:28px">En conversación</button><button class="doc-pill" style="height:28px">Tarija</button><button class="doc-pill" style="height:28px">Cinti</button></div></div><button class="doc-btn doc-btn--primary">+ Crear bodega</button></div>
+        <table class="doc-table doc-table--compact"><thead><tr><th>Bodega</th><th>Región</th><th class="num">Lotes</th><th class="num">Tokenizadas</th><th>Cuenta Stellar</th><th>Estado</th><th></th></tr></thead><tbody>
+          <tr aria-selected="true"><td><strong>Destilería Cinti Viejo</strong></td><td>Cinti · Camargo</td><td class="num">5</td><td class="num">3.100</td><td><code class="sc-code">GDQ4…7KXV</code></td><td><span class="doc-badge doc-badge--success">Socia</span></td><td class="num"><button class="doc-iconbtn" aria-label="Acciones">⋯</button></td></tr>
+          <tr><td><strong>Bodega Altos de Calamuchita</strong></td><td>Tarija · Santa Ana</td><td class="num">4</td><td class="num">2.220</td><td><code class="sc-code">GBX2…M9QA</code></td><td><span class="doc-badge doc-badge--success">Socia</span></td><td class="num"><button class="doc-iconbtn" aria-label="Acciones">⋯</button></td></tr>
+          <tr><td><strong>Viñedos del Guadalquivir</strong></td><td>Tarija · Concepción</td><td class="num">0</td><td class="num">0</td><td><span class="doc-subtle">—</span></td><td><span class="doc-badge doc-badge--info">En conversación</span></td><td class="num"><button class="doc-iconbtn" aria-label="Acciones">⋯</button></td></tr>
+          <tr><td><strong>Casa Uriondo</strong></td><td>Tarija · Uriondo</td><td class="num">0</td><td class="num">0</td><td><span class="doc-subtle">—</span></td><td><span class="doc-badge">Referencia</span></td><td class="num"><button class="doc-iconbtn" aria-label="Acciones">⋯</button></td></tr>
+        </tbody></table>
+        <div class="doc-pagination" style="margin-top:12px"><button>‹</button><button aria-current="page">1</button><button>›</button><span>4 bodegas</span></div>
+      </div>
+      <div class="doc-slideover" style="width:460px">
+        <header><div><h3>Destilería Cinti Viejo</h3><span class="doc-badge doc-badge--success" style="margin-top:4px">Socia desde marzo 2026</span></div><button class="doc-iconbtn" aria-label="Cerrar">×</button></header>
+        <div class="body sc-stack" style="gap:18px">
+          <div class="doc-tabs"><button aria-selected="true">Perfil</button><button>Usuarios ERP</button><button>Puntos</button><button>Lotes</button></div>
+          <dl class="doc-kv"><dt>Razón social</dt><dd>Destilería Cinti Viejo S.R.L.</dd><dt>Región</dt><dd>Valle de Cinti · Camargo</dd><dt>Contacto</dt><dd>Lucía Rojas · enóloga</dd><dt>Descuento pactado</dt><dd>20 %</dd></dl>
+          <div class="doc-card" style="padding:12px 14px"><span class="doc-label">Cuenta Stellar institucional</span><div class="sc-row" style="justify-content:space-between;margin-top:6px"><code class="sc-code">GDQ4…7KXV</code><span class="doc-badge doc-badge--success">Activa</span></div><p class="doc-subtle" style="margin:8px 0 0;font-size:var(--doc-text-xs)">Creada por el backend al dar de alta la bodega. Custodia en KMS. <a href="#">Ver en stellar.expert ↗</a></p></div>
+          <div class="doc-card" style="padding:12px 14px;border-color:var(--doc-accent)"><strong style="font-size:var(--doc-text-sm)">Generar credenciales ERP</strong><p class="doc-subtle" style="margin:4px 0 10px;font-size:var(--doc-text-xs)">Envía un correo seguro con el primer acceso al ERP al contacto de la bodega.</p><div class="sc-row"><input class="doc-input" style="min-height:32px" value="lucia@cintiviejo.test"><button class="doc-btn doc-btn--primary doc-btn--sm">Enviar</button></div></div>
+        </div>
+        <footer><button class="doc-btn doc-btn--secondary">Desactivar</button><button class="doc-btn doc-btn--primary">Guardar cambios</button></footer>
+      </div>
+    </div>
+    <div class="sc-grid sc-grid--2" style="margin-top:16px">
+      <div class="doc-card dense"><span class="sc-cap">PickupPointForm · alta de punto de recojo</span>
+        <div class="sc-grid sc-grid--2">
+          <div class="doc-field"><label>Nombre</label><input class="doc-input" style="min-height:36px" value="Licorería La Cava"></div>
+          <div class="doc-field"><label>Ciudad</label><input class="doc-input" style="min-height:36px" value="Tarija"></div>
+          <div class="doc-field"><label>Bodegas que entrega</label><select class="doc-select" style="min-height:36px"><option>Cinti Viejo, Altos de Calamuchita</option></select></div>
+          <div class="doc-field"><label>PIN de sucursal</label><input class="doc-input doc-input--numeric" style="min-height:36px" value="••••"></div>
+        </div>
+        <div class="sc-row" style="justify-content:flex-end;margin-top:12px"><button class="doc-btn doc-btn--primary doc-btn--sm">Crear punto</button></div></div>
+      <div class="doc-card dense"><span class="sc-cap">DeviceEnrollCard · vincular tablet POS</span>
+        <div class="sc-row" style="gap:20px"><div class="doc-qr doc-qr--sm"></div><div><p style="margin:0 0 6px"><strong>Código de alta</strong> · válido 15 minutos</p><p class="doc-display" style="font-size:var(--doc-text-4xl);margin:0;letter-spacing:.1em">7Q4K-92</p><p class="doc-subtle" style="margin:6px 0 0;font-size:var(--doc-text-xs)">Escanéalo o tecléalo en la tablet del punto. El dispositivo queda enlazado a Licorería La Cava.</p></div></div>
+        <table class="doc-table doc-table--compact" style="margin-top:12px"><tbody><tr><td>iPad · mostrador 1</td><td><span class="doc-badge doc-badge--success">Vinculado</span></td><td class="num"><button class="doc-btn doc-btn--tertiary doc-btn--sm" style="color:var(--doc-danger)">Revocar</button></td></tr><tr><td>Android · mostrador 2</td><td><span class="doc-badge doc-badge--info">Pendiente</span></td><td class="num"></td></tr></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ tokenización -->
+  <section class="sc-section">
+    <h2><small>04</small>Tokenización · Pipeline y modal de emisión</h2>
+    <p class="lead">Kanban con tarjetas mínimas. El modal de emisión cubre el 80 % de la pantalla: bloque de solo lectura con los datos inmutables del ERP a la izquierda, bloque comercial a la derecha, y un único botón en oro con confirmación. El estado de la transacción se muestra con hash y enlace.</p>
+    <div class="sc-demo dense">
+      <span class="sc-cap">3.1 MintPipeline</span>
+      <div class="doc-kanban">
+        <div class="col"><h4>Listos <span>2</span></h4><div class="item"><strong>SGR 2026 · 01</strong><span>Cinti Viejo · 2.200 bot.</span><small>lote listo hace 12 min</small><span class="doc-badge doc-badge--success" style="justify-self:start">Trazabilidad completa</span></div><div class="item"><strong>Moscatel Blanco 25</strong><span>Altos de Calamuchita · 1.480 bot.</span><small>ayer</small></div></div>
+        <div class="col"><h4>En revisión <span>1</span></h4><div class="item doc-card--selected"><strong>Syrah 2024</strong><span>Viñedos del Guadalquivir · 900 bot.</span><small>Ana G. · falta acuerdo de precio</small></div></div>
+        <div class="col"><h4>Emitiendo <span>1</span></h4><div class="item"><strong>Blend de Altura 23</strong><span>1.200 bot.</span><span class="doc-tx"><span class="doc-badge doc-badge--info">Enviada</span><code>c1a0…9e</code></span></div></div>
+        <div class="col"><h4>Publicadas <span>3</span></h4><div class="item"><strong>Tannat Reserva 24</strong><span>Bs 145 · 2.200 bot.</span><span class="doc-tx"><span class="doc-badge doc-badge--success">Confirmada</span><code>a91f…c2</code></span></div><div class="item"><strong>VPAT 24</strong><span>Bs 120 · 900 bot.</span><span class="doc-tx"><span class="doc-badge doc-badge--success">Confirmada</span><code>77be…0d</code></span></div></div>
+        <div class="col"><h4>Fallidas <span>1</span></h4><div class="item" style="border-color:var(--doc-danger)"><strong>Clásico 2025</strong><span>Cinti Viejo · 3.000 bot.</span><span class="doc-tx"><span class="doc-badge doc-badge--danger">Fallida</span><code>tx_underfunded</code></span><button class="doc-btn doc-btn--secondary doc-btn--sm" style="justify-self:start">Reintentar</button></div></div>
+      </div>
+    </div>
+    <div class="doc-overlay-stage" style="margin-top:16px;padding:32px;display:grid;place-items:center">
+      <div class="doc-modal dense" style="width:min(960px,100%)">
+        <header><div><h3>Configurar colección · Singani Gran Reserva 2026</h3><span class="doc-subtle" style="font-size:var(--doc-text-xs)">Destilería Cinti Viejo · lote lot_2026_sgr_01</span></div><button class="doc-iconbtn" aria-label="Cerrar">×</button></header>
+        <div class="body">
+          <div class="mint">
+            <div><span class="doc-label" style="display:block;margin-bottom:10px">Datos inmutables del ERP · solo lectura</span>
+              <dl class="doc-kv" style="row-gap:10px"><dt>Cepa</dt><dd>Moscatel de Alejandría</dd><dt>Terroir</dt><dd>Los Parrales · Cinti · 2.350 m <span class="doc-badge doc-badge--accent doc-badge--nodot">D.O.</span></dd><dt>Vendimia</dt><dd>4 mar 2026 · 18.400 kg · Brix 23,4</dd><dt>Destilación</dt><dd>1.500 L corazón · 60 %</dd><dt>Reposo</dt><dd>180 días · liberado 13 oct</dd><dt>Embotellado</dt><dd><strong>2.200 botellas</strong> · 40 % · 20 oct 2026</dd><dt>QR</dt><dd>2.200 códigos sincronizados</dd></dl>
+              <div class="doc-alert doc-alert--success" style="margin-top:14px"><span>✓</span><div><strong>Trazabilidad completa</strong>Todos los pasos tienen registro, responsable y fecha.</div></div></div>
+            <div class="sep"></div>
+            <div><span class="doc-label" style="display:block;margin-bottom:10px">Configuración comercial</span>
+              <div class="sc-stack">
+                <div class="doc-field"><label>Precio fijo de lanzamiento</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="190"><span class="addon">Bs</span></div><span class="help">Precio de bodega con 20 % de descuento de distribuidor pactado. Sin fases de preventa en el MVP.</span></div>
+                <div class="doc-field"><label>Código del activo</label><input class="doc-input" value="SGR26CINTI"><span class="help">Hasta 12 caracteres · emisor: cuenta de la bodega · clawback habilitado</span></div>
+                <div class="doc-field"><label>Puntos de recojo habilitados</label><select class="doc-select"><option>Cinti Viejo (Camargo), Licorería La Cava, Vinoteca Sur, Bodega &amp; Cava Equipetrol</option></select></div>
+                <div class="doc-field"><label>Retiro disponible desde</label><input class="doc-input" value="2026-10-21"></div>
+              </div></div>
+          </div>
+        </div>
+        <footer><span class="doc-subtle" style="margin-right:auto;font-size:var(--doc-text-xs)">La emisión la firma el backend con la clave de la bodega y publica la colección en el Marketplace.</span><button class="doc-btn doc-btn--secondary">Guardar borrador</button><button class="doc-btn doc-btn--primary doc-btn--lg">Aprobar, emitir y publicar</button></footer>
+      </div>
+    </div>
+    <div class="sc-demo dense" style="margin-top:16px"><span class="sc-cap">TxStatusBadge · los cuatro estados</span>
+      <div class="sc-row" style="gap:28px"><span class="doc-tx"><span class="doc-badge doc-badge--info">Pendiente</span><code>preparando</code></span><span class="doc-tx"><span class="doc-badge doc-badge--info">Enviada</span><code>c1a0…9e</code><a href="#" style="font-size:var(--doc-text-xs)">explorador ↗</a></span><span class="doc-tx"><span class="doc-badge doc-badge--success">Confirmada</span><code>a91f…c2</code><a href="#" style="font-size:var(--doc-text-xs)">explorador ↗</a></span><span class="doc-tx"><span class="doc-badge doc-badge--danger">Fallida</span><code>tx_underfunded</code><button class="doc-btn doc-btn--tertiary doc-btn--sm">Reintentar</button></span></div></div>
+  </section>
+
+  <!-- ============================================================ soporte -->
+  <section class="sc-section">
+    <h2><small>05</small>Soporte · Helpdesk y resolución de disputas</h2>
+    <div class="sc-demo dense" style="padding:0;border:0">
+      <table class="doc-table doc-table--compact"><thead><tr><th>Ticket</th><th>Miembro</th><th>Asunto</th><th>Urgencia</th><th>Estado</th><th>Actualizado</th></tr></thead><tbody>
+        <tr aria-selected="true"><td><code class="sc-code">TK-0042</code></td><td>Carlos Mamani</td><td>El pase no carga en la licorería</td><td><span class="doc-badge doc-badge--danger">Alta</span></td><td><span class="doc-badge doc-badge--info">En proceso</span></td><td>hace 4 min</td></tr>
+        <tr><td><code class="sc-code">TK-0041</code></td><td>María Fernández</td><td>¿Cómo añado un correo de recuperación?</td><td><span class="doc-badge">Baja</span></td><td><span class="doc-badge doc-badge--warning">Abierto</span></td><td>hace 1 h</td></tr>
+        <tr><td><code class="sc-code">TK-0039</code></td><td>Julia Ortiz</td><td>Pago con QR no se reflejó</td><td><span class="doc-badge doc-badge--warning">Media</span></td><td><span class="doc-badge doc-badge--success">Resuelto</span></td><td>ayer</td></tr>
+      </tbody></table>
+    </div>
+    <div class="split dense" style="margin-top:16px">
+      <div>
+        <div class="sc-row" style="justify-content:space-between;margin-bottom:12px"><div><strong>TK-0042 · El pase no carga en la licorería</strong><div class="doc-subtle" style="font-size:var(--doc-text-xs)">Carlos Mamani · carlos@tribu.test · abierto hace 22 min desde el Marketplace</div></div><span class="doc-badge doc-badge--danger">Alta</span></div>
+        <div class="chat">
+          <div class="msg">Estoy en Licorería La Cava y mi pase no carga, no tengo señal. El cajero no puede escanear nada. <small>Carlos · 18:02</small></div>
+          <div class="msg me">Hola Carlos, verifico tu cava y autorizo la entrega directamente en el punto. Un momento. <small>Ana G. · 18:05</small></div>
+        </div>
+        <div class="sc-row" style="margin-top:14px"><input class="doc-input" style="min-height:36px" placeholder="Responder…"><button class="doc-btn doc-btn--secondary doc-btn--sm">Enviar</button></div>
+      </div>
+      <div>
+        <span class="doc-label" style="display:block;margin-bottom:10px">Herramientas</span>
+        <div class="doc-field"><label>Verificar cava por correo</label><div class="sc-row"><input class="doc-input" style="min-height:36px" value="carlos@tribu.test"><button class="doc-btn doc-btn--secondary doc-btn--sm">Buscar</button></div></div>
+        <table class="doc-table doc-table--compact" style="margin:12px 0"><thead><tr><th>Activo</th><th class="num">Bot.</th><th>Pase</th></tr></thead><tbody><tr><td>SGR 2026</td><td class="num">4</td><td><span class="doc-badge doc-badge--success">CLM-0007 activo</span></td></tr></tbody></table>
+        <div class="doc-alert doc-alert--info" style="margin-bottom:12px"><span>ⓘ</span><div><strong>Propiedad verificada en cadena</strong>4 unidades de <code class="sc-code">SGR26CINTI</code> en <code class="sc-code">CAQ7…3PLM</code>.</div></div>
+        <div class="sc-stack" style="gap:8px"><button class="doc-btn doc-btn--primary doc-btn--block">Autorizar entrega manual en La Cava</button><button class="doc-btn doc-btn--secondary doc-btn--block">Anular pase y generar uno nuevo</button><button class="doc-btn doc-btn--tertiary doc-btn--block">Marcar como resuelto</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ componentes -->
+  <section class="sc-section">
+    <h2><small>06</small>Componentes específicos del Backoffice</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Componente</th><th>Qué es</th></tr></thead>
+      <tbody>
+        <tr><td><code>AdminShell</code></td><td>Sidebar Cava Reserva + topbar clara con buscador global (⌘K) y notificaciones; contenido máx. 1440 px</td></tr>
+        <tr><td><code>KpiCard</code> / <code>AlertsFeed</code></td><td>Cifra display 36 px con variación; lista de eventos del ERP y de la red con acción por fila</td></tr>
+        <tr><td><code>WineryTable</code> / <code>WineryDrawer</code> / <code>CredentialsDialog</code></td><td>Tabla compacta, perfil en SlideOver con pestañas, envío de credenciales del ERP</td></tr>
+        <tr><td><code>PickupPointForm</code> / <code>DeviceEnrollCard</code></td><td>Alta de punto (bodegas y lotes que entrega, PIN, cajeros); código de alta y lista de tablets vinculadas</td></tr>
+        <tr><td><code>MintPipeline</code> / <code>MintReviewModal</code> / <code>CollectionCard</code></td><td>Kanban de emisiones; modal al 80 % con revisión y configuración; tarjeta de colección con estado de tx</td></tr>
+        <tr><td><code>TxStatusBadge</code></td><td>Pendiente / enviada / confirmada / fallida con hash, enlace al explorador y reintento</td></tr>
+        <tr><td><code>TicketTable</code> / <code>TicketSplitView</code> / <code>HoldingsLookup</code></td><td>Helpdesk; historial + herramientas; verificación de cava por correo con lectura en cadena</td></tr>
+        <tr><td><code>RoleMatrix</code></td><td>Usuarios internos y permisos por módulo</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>07</small>Reglas del Backoffice</h2>
+    <div class="sc-dos">
+      <div class="do"><h4>Sí</h4><ul><li>Cabeceras de tabla pegajosas, columnas ordenables, paginación visible.</li><li>Un botón en oro por pantalla, siempre la acción crítica, siempre con confirmación.</li><li>Hash y enlace al explorador junto a cualquier estado de transacción.</li><li>Filtros como pills persistentes en la URL.</li><li>Atajos de teclado: ⌘K, / para filtrar, Esc para cerrar.</li></ul></div>
+      <div class="dont"><h4>No</h4><ul><li>Mostrar ni pedir claves privadas, semillas o secretos de relayer en el cliente.</li><li>Fotografías o ilustraciones en el contenido de trabajo.</li><li>Tema oscuro fuera de la barra lateral.</li><li>Acciones destructivas sin confirmación escrita del identificador.</li><li>Más de un nivel de modal.</li></ul></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es" data-theme="oro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamentos · Sistema de diseño Drinks on Chain</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="showcase.css">
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="00-fundamentos.html" aria-current="page">Fundamentos</a>
+  <a href="01-erp.html">ERP</a>
+  <a href="02-marketplace.html">Marketplace</a>
+  <a href="03-backoffice.html">Backoffice</a>
+  <a href="04-pos.html">POS</a>
+  <span class="spacer"></span>
+  <button class="sc-toggle" id="themeToggle" type="button">Tema: Oro Líquido</button>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Sistema de diseño · v2 · 25-09-2026</p>
+    <h1>Fundamentos</h1>
+    <p>Papel, tinta y un solo oro. Los tokens que ya usan las dos landings, extendidos con una rampa de estados y un tema oscuro, y organizados en dos familias: <strong>editorial</strong> (landings y Marketplace) y <strong>operativa</strong> (ERP, Backoffice, POS). Esta página muestra los tokens de <code class="sc-code">tokens.css</code> y los componentes base en ambos temas. Usa el botón "Tema" para alternar toda la página.</p>
+  </header>
+
+  <!-- ============================================================ familias -->
+  <section class="sc-section">
+    <h2><small>01</small>Dos familias, un sistema</h2>
+    <p class="lead">Comparten paleta, radio, hairline y oro. Difieren en la tipografía de trabajo, la densidad y la decoración.</p>
+    <table class="sc-spec">
+      <thead><tr><th>Familia</th><th>Sistemas</th><th>Tipografía</th><th>Densidad</th><th>Decoración</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Editorial</strong></td><td>Landing principal · Sitio de bodegas · Marketplace (escaparate, ficha, cava, visor)</td><td>Cormorant Garamond (display) + EB Garamond (texto)</td><td>Aireada</td><td>Ornamentos a tinta, fotografías con marco, separadores, letra espaciada</td></tr>
+        <tr><td><strong>Operativa</strong></td><td>ERP · Backoffice · POS · Marketplace (checkout, perfil, ajustes)</td><td>Inter (interfaz y cifras tabulares) + Cormorant solo en wordmark y títulos de página</td><td>Cómoda (ERP), compacta (Backoffice), gigante (POS)</td><td>Ninguna: espacio, peso y oro escaso</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ color -->
+  <section class="sc-section">
+    <h2><small>02</small>Color · primitivos</h2>
+    <p class="lead">Los valores de las landings más una rampa cálida para el tema oscuro y cuatro estados operativos con variante clara y oscura. Nunca se usan directamente en componentes: solo a través de los semánticos.</p>
+    <div class="sc-grid sc-grid--6" id="prims"></div>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>03</small>Color · semánticos por tema</h2>
+    <p class="lead">Lo que consumen los componentes. Oro Líquido a la izquierda, Cava Reserva a la derecha; cada bloque va envuelto en su <code class="sc-code">data-theme</code>.</p>
+    <div class="sc-themes">
+      <div data-theme="oro" class="doc-ui"><span class="sc-cap">Oro Líquido · claro</span><div class="sc-grid sc-grid--3 sem"></div></div>
+      <div data-theme="cava" class="doc-ui"><span class="sc-cap">Cava Reserva · oscuro</span><div class="sc-grid sc-grid--3 sem"></div></div>
+    </div>
+    <p class="sc-note" style="margin-top:16px"><strong>Regla del oro:</strong> un elemento seleccionado, un título, un CTA por pantalla. Para texto pequeño sobre papel se usa <code class="sc-code">accent-text</code> (oro profundo, AA), nunca <code class="sc-code">accent</code>. El rojo solo significa peligro o rechazo.</p>
+  </section>
+
+  <!-- ============================================================ tipografía -->
+  <section class="sc-section">
+    <h2><small>04</small>Tipografía</h2>
+    <div class="sc-grid sc-grid--3">
+      <div class="sc-demo"><span class="sc-cap">Display · Cormorant Garamond</span>
+        <p class="doc-display" style="font-size:var(--doc-text-4xl);margin:0 0 8px">Cada botella, con su lugar</p>
+        <p class="doc-eyebrow" style="margin:0">Valle de Cinti · 2.350 m</p>
+        <p class="doc-muted" style="font-size:var(--doc-text-xs);margin:12px 0 0">Títulos editoriales, wordmark, títulos de página en apps, cifras destacadas.</p></div>
+      <div class="sc-demo"><span class="sc-cap">Texto editorial · EB Garamond</span>
+        <p class="doc-prose" style="font-size:var(--doc-text-lg);margin:0">El singani reposa en tanques neutros de acero para redondear su perfil sin adquirir notas de madera. Seis meses inamovibles para la categoría Gran Reserva.</p>
+        <p class="doc-muted" style="font-size:var(--doc-text-xs);margin:12px 0 0">Párrafos de landings, Marketplace y visor.</p></div>
+      <div class="sc-demo"><span class="sc-cap">Interfaz · Inter</span>
+        <p style="margin:0 0 6px;font-weight:600">Registrar ingreso</p>
+        <p style="margin:0 0 6px;font-size:var(--doc-text-sm)">Peso neto recibido · <span class="doc-num">18.400 kg</span></p>
+        <p style="margin:0;font-size:var(--doc-text-xs);color:var(--doc-fg-subtle)">Tanque 03 · 22,4 °C · densidad 1,082</p>
+        <p class="doc-muted" style="font-size:var(--doc-text-xs);margin:12px 0 0">Menús, tablas, formularios, botones, badges y todas las cifras (<code class="sc-code">tabular-nums</code>).</p></div>
+    </div>
+    <h3 style="margin:32px 0 8px;font:500 var(--doc-text-xl)/1.2 var(--doc-font-display)">Escala (raíz fija de 16 px en aplicaciones)</h3>
+    <div id="typescale"></div>
+  </section>
+
+  <!-- ============================================================ espacio / forma / motion -->
+  <section class="sc-section">
+    <h2><small>05</small>Espacio, forma, elevación, movimiento</h2>
+    <div class="sc-grid sc-grid--2">
+      <div class="sc-demo"><span class="sc-cap">Espaciado · múltiplos de 4</span>
+        <div class="sc-space" id="spaces"></div></div>
+      <div class="sc-demo"><span class="sc-cap">Radio</span>
+        <div class="sc-row">
+          <div style="width:64px;height:64px;border:1px solid var(--doc-border-strong);border-radius:var(--doc-radius-none)"></div>
+          <div style="width:64px;height:64px;border:1px solid var(--doc-border-strong);border-radius:var(--doc-radius-sm)"></div>
+          <div style="width:64px;height:64px;border:1px solid var(--doc-border-strong);border-radius:var(--doc-radius-md)"></div>
+          <div style="width:64px;height:64px;border:1px solid var(--doc-border-strong);border-radius:var(--doc-radius-lg)"></div>
+          <div style="width:64px;height:64px;border:1px solid var(--doc-border-strong);border-radius:var(--doc-radius-full)"></div>
+        </div>
+        <p class="doc-muted" style="font-size:var(--doc-text-xs);margin:12px 0 0">none (editorial) · sm 2 (badges) · md 4 (inputs, botones, tarjetas de datos) · lg 8 (modales, sheets, tarjetas del Marketplace) · full (pills, avatares)</p></div>
+      <div class="sc-demo"><span class="sc-cap">Elevación · una sola sombra, solo en overlays</span>
+        <div class="sc-row">
+          <div class="doc-card" style="width:160px">Superficie: sin sombra, hairline</div>
+          <div class="doc-card" style="width:160px;box-shadow:var(--doc-shadow-overlay)">Overlay: <code class="sc-code">shadow-overlay</code></div>
+        </div></div>
+      <div class="sc-demo"><span class="sc-cap">Movimiento</span>
+        <table class="sc-spec"><tbody>
+          <tr><td><code>ease-out</code></td><td>cubic-bezier(.22, 1, .36, 1)</td><td>Entradas, revelados</td></tr>
+          <tr><td><code>ease-in-out</code></td><td>cubic-bezier(.65, 0, .35, 1)</td><td>Velos, transiciones de pantalla</td></tr>
+          <tr><td><code>dur-micro</code> 120 ms</td><td><code>dur-state</code> 200 ms</td><td><code>dur-transition</code> 320 · <code>dur-reveal</code> 600</td></tr>
+        </tbody></table>
+        <p class="doc-muted" style="font-size:var(--doc-text-xs);margin:12px 0 0"><code class="sc-code">prefers-reduced-motion</code> pone todas las duraciones a 0.</p></div>
+    </div>
+    <div class="sc-grid sc-grid--3" style="margin-top:16px">
+      <div class="sc-demo"><span class="sc-cap">Objetivos táctiles</span>
+        <div class="sc-row" style="align-items:flex-end">
+          <div style="display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--doc-fg-subtle)"><span style="display:block;width:44px;height:44px;background:var(--doc-accent-soft);border:1px solid var(--doc-accent)"></span>44 · Marketplace</div>
+          <div style="display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--doc-fg-subtle)"><span style="display:block;width:56px;height:56px;background:var(--doc-accent-soft);border:1px solid var(--doc-accent)"></span>56 · ERP táctil</div>
+          <div style="display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--doc-fg-subtle)"><span style="display:block;width:72px;height:72px;background:var(--doc-accent-soft);border:1px solid var(--doc-accent)"></span>72 · POS</div>
+        </div></div>
+      <div class="sc-demo"><span class="sc-cap">Breakpoints</span>
+        <table class="sc-spec"><tbody>
+          <tr><td>sm</td><td>375</td><td>Marketplace móvil</td></tr>
+          <tr><td>md</td><td>768</td><td>Marketplace tablet, ERP tablet</td></tr>
+          <tr><td>lg</td><td>1024</td><td>POS apaisado, ERP</td></tr>
+          <tr><td>xl / 2xl</td><td>1280 / 1440</td><td>ERP y Backoffice</td></tr>
+        </tbody></table></div>
+      <div class="sc-demo"><span class="sc-cap">Capas</span>
+        <table class="sc-spec"><tbody>
+          <tr><td>sticky</td><td>10</td><td>Cabeceras de tabla, barra de compra</td></tr>
+          <tr><td>dropdown</td><td>20</td><td>Menús, popovers</td></tr>
+          <tr><td>overlay / modal</td><td>30 / 40</td><td>Velo y contenedor</td></tr>
+          <tr><td>toast</td><td>50</td><td>Notificaciones</td></tr>
+        </tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ componentes base -->
+  <section class="sc-section">
+    <h2><small>06</small>Componentes base en ambos temas</h2>
+    <p class="lead">Los mismos componentes, los mismos tokens semánticos; solo cambia el tema del contenedor.</p>
+    <div class="sc-themes">
+      <div data-theme="oro" class="doc-ui base-kit"></div>
+      <div data-theme="cava" class="doc-ui base-kit"></div>
+    </div>
+    <template id="baseKit">
+      <span class="sc-cap">Button</span>
+      <div class="sc-row"><button class="doc-btn doc-btn--primary">Registrar ingreso</button><button class="doc-btn doc-btn--secondary">Cancelar</button><button class="doc-btn doc-btn--tertiary">Ver historial</button><button class="doc-btn doc-btn--danger">Rechazar lote</button><button class="doc-btn doc-btn--primary doc-btn--loading" aria-busy="true">Guardando</button><button class="doc-btn doc-btn--primary" disabled>Deshabilitado</button></div>
+      <div class="sc-row" style="margin-top:10px"><button class="doc-btn doc-btn--secondary doc-btn--sm">sm</button><button class="doc-btn doc-btn--secondary">md</button><button class="doc-btn doc-btn--secondary doc-btn--lg">lg</button><button class="doc-btn doc-btn--primary doc-btn--xl">xl táctil</button></div>
+      <hr class="doc-rule">
+      <span class="sc-cap">Field · Input · Select</span>
+      <div class="sc-grid sc-grid--2">
+        <div class="doc-field"><label>Correo electrónico <span class="req">*</span></label><input class="doc-input" placeholder="nombre@bodega.bo"><span class="help">Usaremos este correo para las credenciales.</span></div>
+        <div class="doc-field"><label>Cepa</label><select class="doc-select"><option>Moscatel de Alejandría</option><option>Tannat</option></select></div>
+        <div class="doc-field"><label>Altitud</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="2350"><span class="addon">m s. n. m.</span></div></div>
+        <div class="doc-field"><label>Contraseña</label><input class="doc-input" type="password" value="••••••" aria-invalid="true"><span class="error">La contraseña no es correcta.</span></div>
+      </div>
+      <div class="sc-row" style="margin-top:12px"><label class="doc-check"><input type="checkbox" checked> Recordar dispositivo</label><label class="doc-check"><input type="radio" name="r" checked> Vino</label><label class="doc-check"><input type="radio" name="r"> Singani</label><span class="doc-switch" role="switch" aria-checked="true"></span><span style="font-size:var(--doc-text-sm)">Notificaciones</span></div>
+      <hr class="doc-rule">
+      <span class="sc-cap">Badge · Tag · Pill</span>
+      <div class="sc-row"><span class="doc-badge">Borrador</span><span class="doc-badge doc-badge--info">En fermentación</span><span class="doc-badge doc-badge--warning">Bloqueado</span><span class="doc-badge doc-badge--success">Aprobado</span><span class="doc-badge doc-badge--danger">Rechazado</span><span class="doc-badge doc-badge--accent">Tokenizado</span><span class="doc-badge doc-badge--accent doc-badge--strong doc-badge--nodot">D.O. Singani</span><span class="doc-tag">Moscatel</span></div>
+      <div class="doc-pills" style="margin-top:10px"><button class="doc-pill" aria-pressed="true">Todas</button><button class="doc-pill">Moscatel</button><button class="doc-pill">Tannat</button><button class="doc-pill">Syrah</button></div>
+      <hr class="doc-rule">
+      <span class="sc-cap">Card · StatCard · KeyValueList</span>
+      <div class="sc-grid sc-grid--3">
+        <div class="doc-card doc-stat"><span class="doc-label">Lotes activos</span><span class="value">12</span><span class="delta up">+2 esta semana</span></div>
+        <div class="doc-card doc-stat"><span class="doc-label">Kilos hoy</span><span class="value">18.400</span><span class="delta">3 ingresos</span></div>
+        <div class="doc-card"><dl class="doc-kv"><dt>Terroir</dt><dd>Cinti 02</dd><dt>Altitud</dt><dd>2.350 m</dd><dt>Cepa</dt><dd>Moscatel</dd></dl></div>
+      </div>
+      <hr class="doc-rule">
+      <span class="sc-cap">DataTable</span>
+      <table class="doc-table"><thead><tr><th>Lote</th><th>Bodega</th><th>Estado</th><th class="num">Botellas</th></tr></thead><tbody>
+        <tr><td><strong>SGR 2026 · 01</strong></td><td>Cinti Viejo</td><td><span class="doc-badge doc-badge--warning">Reposo</span></td><td class="num">—</td></tr>
+        <tr aria-selected="true"><td><strong>Tannat Reserva 24</strong></td><td>Altos de Calamuchita</td><td><span class="doc-badge doc-badge--accent">Tokenizado</span></td><td class="num">2.200</td></tr>
+        <tr><td><strong>Moscatel Blanco 25</strong></td><td>Altos de Calamuchita</td><td><span class="doc-badge doc-badge--success">Listo</span></td><td class="num">1.480</td></tr>
+      </tbody></table>
+      <hr class="doc-rule">
+      <span class="sc-cap">Tabs · Breadcrumbs · Pagination · Stepper</span>
+      <div class="doc-tabs"><button aria-selected="true">Resumen</button><button>Bitácora</button><button>Laboratorio</button></div>
+      <ul class="doc-crumbs" style="margin-top:12px"><li>Vinificación</li><li>Tanques</li><li aria-current="page">Tanque 03</li></ul>
+      <div class="doc-pagination" style="margin-top:12px"><button>‹</button><button aria-current="page">1</button><button>2</button><button>3</button><button>›</button><span>1–20 de 48</span></div>
+      <ol class="doc-stepper" style="margin-top:12px"><li class="done" data-step="1">Cantidad</li><li aria-current="step" data-step="2">Pago</li><li data-step="3">Confirmación</li></ol>
+      <hr class="doc-rule">
+      <span class="sc-cap">Alert · Toast · EmptyState · Skeleton · Progress</span>
+      <div class="sc-stack">
+        <div class="doc-alert doc-alert--warning"><span>⚠</span><div><strong>Lote inmovilizado por normativa</strong>Mínimo 6 meses de reposo. Faltan 142 días.</div></div>
+        <div class="sc-row"><span class="doc-toast"><span class="dot"></span>Ingreso registrado · Tanque 03</span></div>
+        <div class="doc-empty"><h4>Aún no hay cosechas</h4><p>Registra la primera cosecha de este terroir para empezar a trazar sus lotes.</p><button class="doc-btn doc-btn--primary doc-btn--sm">Nueva cosecha</button></div>
+        <div class="sc-stack" style="gap:8px"><span class="doc-skeleton" style="width:60%"></span><span class="doc-skeleton" style="width:90%"></span><span class="doc-skeleton" style="width:40%"></span></div>
+        <div class="doc-progress"><span style="width:62%"></span></div>
+      </div>
+      <hr class="doc-rule">
+      <span class="sc-cap">Timeline</span>
+      <ol class="doc-timeline"><li class="done">Origen · Cinti 02<span class="when">12 ene 2026</span></li><li class="done">Vendimia · 18.400 kg<span class="when">4 mar 2026</span></li><li class="done">Destilación · 1.500 L corazón · 60 %<span class="when">15 abr 2026</span></li><li class="current">Reposo · candado hasta el 13 oct<span class="when">en curso</span></li><li>Embotellado</li></ol>
+    </template>
+  </section>
+
+  <!-- ============================================================ overlays -->
+  <section class="sc-section">
+    <h2><small>07</small>Overlays</h2>
+    <p class="lead">Modal (decisiones), SlideOver (formularios laterales en ERP y Backoffice) y BottomSheet (Marketplace en móvil). Un solo velo, una sola sombra.</p>
+    <div class="sc-grid sc-grid--3">
+      <div class="doc-overlay-stage" style="height:340px;display:grid;place-items:center"><div class="doc-modal" style="width:88%"><header><h3>Destino técnico del lote</h3><button class="doc-iconbtn" aria-label="Cerrar">×</button></header><div class="body" style="font-size:var(--doc-text-sm)">Al elegir una opción, la ruta contraria queda bloqueada.</div><footer><button class="doc-btn doc-btn--secondary">Cancelar</button><button class="doc-btn doc-btn--primary">Confirmar</button></footer></div></div>
+      <div class="doc-overlay-stage" style="height:340px"><div class="doc-slideover" style="width:78%"><header><h3>Nueva cosecha</h3><button class="doc-iconbtn" aria-label="Cerrar">×</button></header><div class="body sc-stack"><div class="doc-field"><label>Inicio de vendimia</label><input class="doc-input" value="2026-03-04"></div><div class="doc-field"><label>Rendimiento proyectado</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="18000"><span class="addon">kg</span></div></div></div><footer><button class="doc-btn doc-btn--primary doc-btn--block">Guardar temporada</button></footer></div></div>
+      <div class="doc-overlay-stage" style="height:340px"><div class="doc-sheet" style="height:72%"><header style="padding-top:20px"><h3>Adquirir · 2 botellas</h3></header><div class="body" style="font-size:var(--doc-text-sm)">Singani Gran Reserva 2026 · Bs 190 c/u</div><footer><button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block">Pagar Bs 380</button></footer></div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ editorial -->
+  <section class="sc-section">
+    <h2><small>08</small>Componentes editoriales</h2>
+    <p class="lead">Heredados de las landings. Se usan en los sitios públicos y en el escaparate, la ficha, la cava y el visor del Marketplace.</p>
+    <div class="sc-demo doc-editorial" style="padding:48px 24px">
+      <p class="doc-smallheading">Valle de Cinti</p>
+      <span class="doc-headingsep"></span>
+      <p class="doc-textheading" style="margin:0 auto 24px;max-width:18ch">Singani Gran Reserva</p>
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:32px;max-width:820px;margin:0 auto;align-items:start">
+        <figure class="doc-inkphoto" style="margin:0"><div class="art"></div><span class="credit">Foto · CC BY-SA</span></figure>
+        <div class="doc-prose"><p>Moscatel de Alejandría cultivado a 2.350 metros. Destilado en alambique de cobre, mil quinientos litros de corazón al sesenta por ciento, seis meses de reposo en acero.</p><p><a class="doc-textlink" href="#" aria-current="true">Ver la trazabilidad completa</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ reglas -->
+  <section class="sc-section">
+    <h2><small>09</small>Reglas de uso</h2>
+    <div class="sc-dos">
+      <div class="do"><h4>Sí</h4><ul><li>Un CTA en oro por pantalla; el resto secundarios o terciarios.</li><li>Iconos de trazo fino, sin rellenos.</li><li>Fotografías con marco hairline y crédito visible.</li><li>Cifras siempre en Inter con <code class="sc-code">tabular-nums</code>.</li><li>Estados vacío, cargando y error diseñados desde el inicio.</li><li>Foco visible de 2 px en oro.</li></ul></div>
+      <div class="dont"><h4>No</h4><ul><li>Fondos dorados grandes o degradados.</li><li>Rojo como acento o decoración.</li><li>Sombras difusas en tarjetas o botones.</li><li>Radios grandes fuera de modales, sheets y tarjetas del Marketplace.</li><li>Serif en tablas densas o formularios de planta.</li><li>Texto oro claro sobre papel (usar <code class="sc-code">accent-text</code>).</li></ul></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const label = () => btn.textContent = 'Tema: ' + (html.dataset.theme === 'cava' ? 'Cava Reserva' : 'Oro Líquido');
+  btn.addEventListener('click', () => { html.dataset.theme = html.dataset.theme === 'cava' ? 'oro' : 'cava'; label(); });
+  label();
+
+  const prims = [
+    ['paper-0','#fdfcf5','Fondo de página'],['paper-1','#f9f6ee','Superficies'],['paper-2','#f4efe2','Fondos hundidos'],['paper-3','#ece5d3','Barras, cabeceras de tabla'],
+    ['ink-0','#000000','Texto'],['ink-1','#464340','Texto secundario'],['ink-2','#625e54','Ayuda'],['ink-3','#a0a095','Bordes fuertes'],
+    ['gold-300','#d3a642','Oro sobre cava'],['gold-500','#b8891f','Oro · acento'],['gold-700','#8a651a','Oro para texto'],['cava-0','#15120f','Fondo oscuro'],
+    ['cava-1','#1c1814','Superficie oscura'],['cava-2','#241f1a','Hundido oscuro'],['cava-3','#2e2823','Barras oscuras'],['cream-0','#f3eee2','Texto sobre cava'],
+    ['cream-1','#c9c1b3','Secundario sobre cava'],['cream-2','#9a9184','Ayuda sobre cava'],['green-600','#3f7d4a','Éxito'],['green-300','#7fc48b','Éxito · cava'],
+    ['red-600','#b3402c','Peligro'],['red-300','#e0705b','Peligro · cava'],['amber-600','#b07a1a','Aviso, candado'],['amber-300','#d9a441','Aviso · cava'],
+    ['blue-600','#3b5f8a','Información, en curso'],['blue-300','#8fb0d9','Información · cava']
+  ];
+  document.getElementById('prims').innerHTML = prims.map(([n,v,u]) => `<div class="sc-swatch"><div class="chip" style="background:${v}"></div><div class="meta"><strong>${n}</strong><code>${v}</code><span>${u}</span></div></div>`).join('');
+
+  const sem = ['bg','bg-raised','bg-sunken','bg-deep','fg','fg-muted','fg-subtle','border','border-strong','accent','accent-text','accent-soft','success','success-soft','danger','danger-soft','warning','warning-soft','info','info-soft','focus','overlay'];
+  document.querySelectorAll('.sem').forEach(el => {
+    el.innerHTML = sem.map(n => `<div class="sc-swatch"><div class="chip" style="background:var(--doc-${n})"></div><div class="meta"><strong>${n}</strong><code>--doc-${n}</code></div></div>`).join('');
+  });
+
+  const scale = [['2xs',11,'Etiquetas de tabla'],['xs',12,'Ayudas, metadatos'],['sm',14,'Cuerpo denso (Backoffice)'],['md',16,'Cuerpo (ERP, Marketplace)'],['lg',18,'Cuerpo cómodo, tablets'],['xl',20,'Subtítulos'],['2xl',24,'Títulos de sección · POS base'],['3xl',30,'Títulos de página'],['4xl',36,'Cifras KPI'],['5xl',48,'Báscula, cuenta regresiva'],['6xl',64,'POS · cantidad'],['7xl',96,'POS · PIN, semáforo']];
+  document.getElementById('typescale').innerHTML = scale.map(([n,px,u]) => `<div class="sc-type-row"><code class="sc-code">text-${n}</code><span style="font-size:${Math.min(px,48)}px;line-height:1.1;font-family:${px>=30?'var(--doc-font-display)':'var(--doc-font-ui)'};font-weight:${px>=30?500:400}">${u}</span><span class="val">${px} px${px>48?' (mostrado a 48)':''}</span></div>`).join('');
+
+  const spaces = [[1,4],[2,8],[3,12],[4,16],[5,20],[6,24],[8,32],[10,40],[12,48],[16,64]];
+  document.getElementById('spaces').innerHTML = spaces.map(([k,v]) => `<div><span style="width:${v}px;height:${v}px"></span>${k} · ${v}</div>`).join('');
+
+  const tpl = document.getElementById('baseKit');
+  document.querySelectorAll('.base-kit').forEach(el => el.appendChild(tpl.content.cloneNode(true)));
+})();
+</script>
+</body>
+</html>

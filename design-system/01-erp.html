@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es" data-theme="oro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERP · Sistema de diseño Drinks on Chain</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="showcase.css">
+<style>
+  .lab { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .lab .doc-card { display:grid; gap:8px; text-align:center; }
+  .lab .doc-card .doc-input { text-align:center; font-size:var(--doc-text-4xl); min-height:80px; font-weight:500; }
+  .lab .range { font-size:var(--doc-text-xs); color:var(--doc-fg-subtle); }
+  .terroirs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .terroir { display:grid; gap:10px; }
+  .terroir .map { height:110px; border-radius:var(--doc-radius-sm); background:
+    repeating-linear-gradient(0deg, transparent 0 11px, var(--doc-border) 11px 12px),
+    repeating-linear-gradient(90deg, transparent 0 11px, var(--doc-border) 11px 12px), var(--doc-bg-sunken); position:relative; }
+  .terroir .map::after { content:""; position:absolute; left:30%; top:28%; width:40%; height:44%; border:1.5px solid var(--doc-accent); transform:rotate(-8deg); background:var(--doc-accent-soft); }
+  .terroir h4 { font:500 var(--doc-text-lg)/1.2 var(--doc-font-display); }
+  .login { display:grid; grid-template-columns:1fr 1fr; min-height:440px; border:1px solid var(--doc-border); }
+  .login .art { background: linear-gradient(180deg, var(--doc-paper-2), var(--doc-paper-3)); position:relative; overflow:hidden; }
+  .login .art::before { content:""; position:absolute; inset:0; background: repeating-linear-gradient(115deg, rgba(0,0,0,.06) 0 1px, transparent 1px 7px); }
+  .login .art .cap { position:absolute; left:32px; bottom:28px; }
+  .login .form { padding:48px; display:grid; align-content:center; gap:16px; max-width:420px; margin:0 auto; width:100%; }
+  .barrels td .doc-progress { width:140px; display:inline-block; vertical-align:middle; margin-right:8px; }
+  .qrgrid { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+  .qrgrid .doc-qr { width:100%; height:auto; aspect-ratio:1; border-width:6px; }
+</style>
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="00-fundamentos.html">Fundamentos</a>
+  <a href="01-erp.html" aria-current="page">ERP</a>
+  <a href="02-marketplace.html">Marketplace</a>
+  <a href="03-backoffice.html">Backoffice</a>
+  <a href="04-pos.html">POS</a>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Sistema 1 · erp. · escritorio + tablet de planta</p>
+    <h1>ERP de trazabilidad</h1>
+    <p>Un cuaderno de bitácora limpio. Tema Oro Líquido, familia operativa (Inter 16 px), densidad cómoda, objetivos táctiles de 56 px en las pantallas de planta. El oro señala el lote seleccionado, la aptitud D.O. y la acción principal; el verde y el rojo solo aparecen en aprobar / rechazar y en el estado de los tanques; el ámbar es el color de los candados de tiempo.</p>
+  </header>
+
+  <section class="sc-section">
+    <h2><small>01</small>Tema y densidad</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Aspecto</th><th>Valor</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>Tema</td><td>Oro Líquido (claro) en toda la aplicación</td><td>Trabajo de planta con luz natural; coherencia con las landings</td></tr>
+        <tr><td>Tipografía</td><td>Inter 16 px cuerpo · 14 px tablas · Cormorant 30 px títulos de página · 64 px input de báscula</td><td>Herramienta de carga rápida; la serif solo identifica</td></tr>
+        <tr><td>Densidad</td><td>Cómoda: filas de 44 px, campos de 40 px; 56 px en pantallas táctiles (pesaje, análisis, bitácora)</td><td>Guantes y pantallas industriales</td></tr>
+        <tr><td>Layout</td><td>AppShell: sidebar 264 px (72 px colapsada en tablet), topbar 56 px con migas y acción principal, contenido máx. 1280 px</td><td>Documento maestro</td></tr>
+        <tr><td>Módulos</td><td>Panel · Origen · Vendimia · Vinificación · Crianza · Destilación · Envasado · Cuenta de la bodega · Ajustes</td><td>Uno por módulo del ERP</td></tr>
+        <tr><td>Estados de lote</td><td>origen → vendimia → fermentación → crianza | destilación → reposo → embotellado → listo → tokenizado</td><td>Badge por estado: neutro, info, ámbar (bloqueado), éxito (listo), oro (tokenizado)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ shell + dashboard -->
+  <section class="sc-section">
+    <h2><small>02</small>AppShell · Dashboard</h2>
+    <p class="lead">Sidebar fija con wordmark serif, navegación por módulos y usuario abajo. Topbar con migas de pan y la acción principal siempre a la derecha.</p>
+    <div class="doc-appshell">
+      <aside class="sidebar">
+        <div class="doc-wordmark">Drinks <em>on</em> Chain</div>
+        <nav>
+          <a href="#" aria-current="page">▣ Panel</a>
+          <span class="group doc-label">Trazabilidad</span>
+          <a href="#">◫ Origen y terroirs</a>
+          <a href="#">◱ Vendimia y laboratorio</a>
+          <a href="#">◰ Vinificación</a>
+          <a href="#">◳ Crianza</a>
+          <a href="#">◲ Destilación y reposo</a>
+          <a href="#">◨ Envasado y QR</a>
+          <span class="group doc-label">Bodega</span>
+          <a href="#">◇ Cuenta Stellar</a>
+          <a href="#">⚙ Ajustes</a>
+        </nav>
+        <div class="user"><span class="doc-avatar">LR</span><div><div style="font-weight:500">Lucía Rojas</div><div class="doc-subtle" style="font-size:var(--doc-text-xs)">Enóloga · Cinti Viejo</div></div></div>
+      </aside>
+      <header class="topbar">
+        <ul class="doc-crumbs"><li>Cinti Viejo</li><li aria-current="page">Panel</li></ul>
+        <div class="sc-row"><span class="doc-badge doc-badge--info">3 tareas hoy</span><button class="doc-btn doc-btn--primary">+ Registrar ingreso</button></div>
+      </header>
+      <div class="content">
+        <h1>Buenos días, Lucía</h1>
+        <div class="sc-grid sc-grid--4" style="margin-bottom:24px">
+          <div class="doc-card doc-stat"><span class="doc-label">Lotes activos</span><span class="value">12</span><span class="delta up">+2 esta semana</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Kilos procesados hoy</span><span class="value">18.400</span><span class="delta">3 ingresos</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Tanques en fermentación</span><span class="value">4 <span style="font-size:var(--doc-text-lg);color:var(--doc-fg-subtle)">/ 8</span></span><span class="delta">1 listo para bifurcar</span></div>
+          <div class="doc-card doc-stat"><span class="doc-label">Alertas</span><span class="value" style="color:var(--doc-warning)">2</span><span class="delta">Temperatura · Tanque 04</span></div>
+        </div>
+        <div class="sc-grid" style="grid-template-columns:2fr 1fr">
+          <div class="doc-card" style="padding:0">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--doc-border)"><strong>Tareas pendientes</strong><button class="doc-btn doc-btn--tertiary doc-btn--sm">Ver todas</button></div>
+            <table class="doc-table"><thead><tr><th>Tarea</th><th>Lote</th><th>Vence</th><th></th></tr></thead><tbody>
+              <tr><td>Medir temperatura</td><td>Tanque 04 · Moscatel 26</td><td><span class="doc-badge doc-badge--warning">Hoy 14:00</span></td><td class="num"><button class="doc-btn doc-btn--secondary doc-btn--sm">Registrar</button></td></tr>
+              <tr><td>Aprobar ingreso de uva</td><td>Cinti 02 · 6.200 kg</td><td><span class="doc-badge doc-badge--danger">Vencida</span></td><td class="num"><button class="doc-btn doc-btn--primary doc-btn--sm">Analizar</button></td></tr>
+              <tr><td>Decidir destino del lote</td><td>Tanque 03 · SGR 26</td><td>Mañana</td><td class="num"><button class="doc-btn doc-btn--secondary doc-btn--sm">Bifurcar</button></td></tr>
+            </tbody></table>
+          </div>
+          <div class="doc-card"><strong style="display:block;margin-bottom:12px">Candados activos</strong>
+            <ol class="doc-timeline"><li class="current">SGR 2026 · 01 · reposo<span class="when">Faltan 142 días</span></li><li class="current">Tannat Reserva 24 · roble francés<span class="when">Faltan 38 días</span></li><li class="done">Moscatel Blanco 25<span class="when">Liberado · listo para embotellar</span></li></ol></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ login -->
+  <section class="sc-section">
+    <h2><small>03</small>Login dividido</h2>
+    <p class="lead">Mitad imagen (viñedos o barricas, tratada a tinta), mitad formulario mínimo. Sin registro público: los usuarios los crea el equipo gestor desde el Backoffice. Idioma fijo español.</p>
+    <div class="login">
+      <div class="art"><div class="cap"><p class="doc-eyebrow" style="margin:0 0 6px">Valle de Cinti · 2.350 m</p><p class="doc-display" style="font-size:var(--doc-text-3xl);margin:0;max-width:16ch">La verdad física del producto, de la tierra a la botella.</p></div></div>
+      <div class="form">
+        <div class="doc-wordmark" style="font-size:var(--doc-text-xl)">Drinks <em>on</em> Chain</div>
+        <p class="doc-label" style="margin:-8px 0 0">ERP de trazabilidad</p>
+        <div class="doc-field"><label>Correo electrónico</label><input class="doc-input doc-input--lg" placeholder="nombre@bodega.bo"></div>
+        <div class="doc-field"><label>Contraseña</label><input class="doc-input doc-input--lg" type="password" value="••••••••"></div>
+        <button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block">Iniciar sesión</button>
+        <button class="doc-btn doc-btn--tertiary">¿Olvidaste tu contraseña?</button>
+        <p class="doc-subtle" style="font-size:var(--doc-text-xs);margin:8px 0 0">Acceso exclusivo para bodegas asociadas. Si tu bodega no tiene credenciales, contacta con el equipo de Drinks on Chain.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ terroirs -->
+  <section class="sc-section">
+    <h2><small>04</small>Origen · Directorio de terroirs y badge D.O.</h2>
+    <p class="lead">Búsqueda, pills por cepa y grid de tarjetas. El badge "Apto para Singani D.O." se ilumina en oro cuando la cepa es Moscatel de Alejandría y la altitud supera los 1.600 m; la validación es en cliente y en servidor.</p>
+    <div class="sc-demo">
+      <div class="sc-row" style="justify-content:space-between;margin-bottom:20px">
+        <div class="sc-row"><div class="doc-search" style="min-width:280px">⌕ Buscar terroir…</div><div class="doc-pills"><button class="doc-pill" aria-pressed="true">Todos</button><button class="doc-pill">Moscatel</button><button class="doc-pill">Tannat</button><button class="doc-pill">Syrah</button></div></div>
+        <button class="doc-btn doc-btn--primary">+ Nuevo terroir</button>
+      </div>
+      <div class="terroirs">
+        <div class="doc-card terroir doc-card--selected"><div class="map"></div><h4>Cinti 02 · Los Parrales</h4><dl class="doc-kv"><dt>Altitud</dt><dd>2.350 m</dd><dt>Cepa</dt><dd>Moscatel de Alejandría</dd><dt>Superficie</dt><dd>4,2 ha</dd></dl><span class="doc-badge doc-badge--accent doc-badge--strong doc-badge--nodot" style="justify-self:start">✓ Apto para Singani D.O.</span></div>
+        <div class="doc-card terroir"><div class="map"></div><h4>Santa Ana 01 · La Angostura</h4><dl class="doc-kv"><dt>Altitud</dt><dd>1.860 m</dd><dt>Cepa</dt><dd>Tannat</dd><dt>Superficie</dt><dd>6,8 ha</dd></dl><span class="doc-tag" style="justify-self:start">Vino</span></div>
+        <div class="doc-card terroir"><div class="map"></div><h4>Concepción 03 · El Portillo</h4><dl class="doc-kv"><dt>Altitud</dt><dd>1.540 m</dd><dt>Cepa</dt><dd>Moscatel de Alejandría</dd><dt>Superficie</dt><dd>2,1 ha</dd></dl><span class="doc-badge doc-badge--warning" style="justify-self:start">No apto D.O. · altitud &lt; 1.600 m</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ pesaje / análisis -->
+  <section class="sc-section">
+    <h2><small>05</small>Vendimia · Pesaje y análisis (pantallas táctiles)</h2>
+    <p class="lead">El input gigante imita el display de la báscula. Botones de 56 px. En el análisis, tres lecturas y dos decisiones masivas; "Aprobar lote" genera el identificador inmutable.</p>
+    <div class="sc-grid sc-grid--2">
+      <div class="sc-demo sc-demo--sunken">
+        <span class="sc-cap">3.1 Registro de pesaje</span>
+        <div class="sc-stack" style="gap:20px">
+          <div class="doc-field"><label>Terroir de origen</label><select class="doc-select doc-input--lg"><option>Cinti 02 · Los Parrales · Moscatel</option></select></div>
+          <div class="doc-field"><label>Peso neto recibido</label><div class="doc-inputgroup"><input class="doc-input doc-input--giant" value="18.400"><span class="addon">kg</span></div><span class="help">Fecha y hora se registran automáticamente · 4 mar 2026 · 09:42</span></div>
+          <button class="doc-btn doc-btn--primary doc-btn--xl doc-btn--block">Registrar ingreso</button>
+        </div>
+      </div>
+      <div class="sc-demo sc-demo--sunken">
+        <span class="sc-cap">3.2 Análisis preliminar</span>
+        <div class="lab">
+          <div class="doc-card"><span class="doc-label">Grados Brix</span><input class="doc-input" value="23,4"><span class="range">Objetivo 22–25</span></div>
+          <div class="doc-card"><span class="doc-label">pH</span><input class="doc-input" value="3,40"><span class="range">Objetivo 3,2–3,6</span></div>
+          <div class="doc-card"><span class="doc-label">Acidez total</span><input class="doc-input" value="5,9"><span class="range">g/L · objetivo 5–7</span></div>
+        </div>
+        <div class="sc-grid sc-grid--2" style="margin-top:20px">
+          <button class="doc-btn doc-btn--danger doc-btn--xl">Rechazar lote</button>
+          <button class="doc-btn doc-btn--success doc-btn--xl">Aprobar lote</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ tanques -->
+  <section class="sc-section">
+    <h2><small>06</small>Vinificación · Mapa de tanques, bitácora y bifurcación</h2>
+    <div class="sc-grid" style="grid-template-columns:3fr 2fr">
+      <div class="sc-demo">
+        <span class="sc-cap">4.1 Mapa de tanques</span>
+        <div class="doc-tanks">
+          <div class="doc-tank"><span class="id">TANQUE 01</span><div class="gauge"><span style="height:0"></span></div><span class="doc-badge">Vacío</span></div>
+          <div class="doc-tank"><span class="id">TANQUE 02</span><div class="gauge"><span style="height:88%"></span></div><span class="doc-badge doc-badge--info">Lleno</span></div>
+          <div class="doc-tank doc-card--selected"><span class="id">TANQUE 03</span><div class="gauge ferment"><span style="height:74%"></span></div><span class="temp">22,4 °C</span><span class="doc-badge doc-badge--info">Fermentando · día 9</span></div>
+          <div class="doc-tank"><span class="id">TANQUE 04</span><div class="gauge ferment"><span style="height:66%"></span></div><span class="temp" style="color:var(--doc-warning)">27,1 °C</span><span class="doc-badge doc-badge--warning">Temperatura alta</span></div>
+          <div class="doc-tank"><span class="id">TANQUE 05</span><div class="gauge"><span style="height:50%"></span></div><span class="doc-badge doc-badge--warning">Reposo · 142 d</span></div>
+          <div class="doc-tank"><span class="id">TANQUE 06</span><div class="gauge"><span style="height:0"></span></div><span class="doc-badge">Vacío</span></div>
+        </div>
+        <hr class="doc-rule">
+        <span class="sc-cap">4.2 Bitácora · Tanque 03</span>
+        <table class="doc-table"><thead><tr><th>Fecha</th><th class="num">Temp. °C</th><th class="num">Densidad</th><th>Operario</th></tr></thead><tbody>
+          <tr><td>12 mar</td><td class="num">22,4</td><td class="num">1,048</td><td>M. Quispe</td></tr>
+          <tr><td>11 mar</td><td class="num">22,9</td><td class="num">1,061</td><td>M. Quispe</td></tr>
+          <tr><td>10 mar</td><td class="num">23,5</td><td class="num">1,074</td><td>R. Flores</td></tr>
+        </tbody></table>
+        <div class="sc-row" style="margin-top:12px;justify-content:flex-end"><button class="doc-btn doc-btn--secondary">+ Añadir registro diario</button></div>
+      </div>
+      <div class="doc-overlay-stage" style="display:grid;place-items:center;padding:24px">
+        <div class="doc-modal" style="width:100%">
+          <header><h3>Destino técnico de este lote</h3></header>
+          <div class="body"><p style="margin:0 0 16px;font-size:var(--doc-text-sm);color:var(--doc-fg-muted)">La fermentación del Tanque 03 ha concluido. Al elegir, la ruta contraria queda bloqueada.</p>
+            <div class="sc-grid sc-grid--2">
+              <button class="doc-card" style="cursor:pointer;text-align:left;display:grid;gap:8px;min-height:120px"><span style="font-size:28px">◳</span><strong>A crianza</strong><span class="doc-subtle" style="font-size:var(--doc-text-sm)">Vino · barricas o botella</span></button>
+              <button class="doc-card doc-card--selected" style="cursor:pointer;text-align:left;display:grid;gap:8px;min-height:120px"><span style="font-size:28px">◲</span><strong>A destilación</strong><span class="doc-subtle" style="font-size:var(--doc-text-sm)">Singani · alambique y reposo</span></button>
+            </div></div>
+          <footer><button class="doc-btn doc-btn--secondary">Cancelar</button><button class="doc-btn doc-btn--primary">Confirmar destino</button></footer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ crianza / destilación -->
+  <section class="sc-section">
+    <h2><small>07</small>Crianza y destilación · Barricas, cortes y candado</h2>
+    <div class="sc-grid sc-grid--2">
+      <div class="sc-demo">
+        <span class="sc-cap">5.1A Barricas</span>
+        <table class="doc-table barrels"><thead><tr><th>Lote</th><th>Madera</th><th>Meses</th><th>Restante</th></tr></thead><tbody>
+          <tr><td><strong>Tannat Reserva 24</strong></td><td><select class="doc-select" style="min-height:32px;font-size:var(--doc-text-sm)"><option>Roble francés</option></select></td><td><input class="doc-input doc-input--numeric" style="min-height:32px;width:64px" value="12"></td><td><span class="doc-progress"><span style="width:82%"></span></span><span class="doc-num" style="font-size:var(--doc-text-sm)">38 d</span></td></tr>
+          <tr><td><strong>Syrah 24</strong></td><td><select class="doc-select" style="min-height:32px;font-size:var(--doc-text-sm)"><option>Roble americano</option></select></td><td><input class="doc-input doc-input--numeric" style="min-height:32px;width:64px" value="8"></td><td><span class="doc-progress"><span style="width:35%"></span></span><span class="doc-num" style="font-size:var(--doc-text-sm)">156 d</span></td></tr>
+        </tbody></table>
+        <hr class="doc-rule">
+        <span class="sc-cap">5.1B Cortes del alambique</span>
+        <div class="sc-grid sc-grid--4">
+          <div class="doc-field"><label>Cabeza</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="120"><span class="addon">L</span></div></div>
+          <div class="doc-field"><label>Corazón</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="1.500" style="border-color:var(--doc-accent)"><span class="addon">L</span></div></div>
+          <div class="doc-field"><label>Cola</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="210"><span class="addon">L</span></div></div>
+          <div class="doc-field"><label>Grado inicial</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="60"><span class="addon">% vol</span></div></div>
+        </div>
+      </div>
+      <div class="sc-demo sc-demo--sunken">
+        <span class="sc-cap">5.2B Candado de reposo normativo</span>
+        <div class="doc-lock"><span style="font-size:40px;color:var(--doc-warning)">🔒</span><div class="days">142</div><div class="meta"><strong>Lote inmovilizado por normativa</strong>Mínimo 6 meses para Singani Gran Reserva. Se libera el 13 de octubre de 2026.</div></div>
+        <div style="margin-top:20px" class="sc-stack">
+          <div class="doc-progress"><span style="width:22%"></span></div>
+          <div class="sc-row" style="justify-content:space-between;font-size:var(--doc-text-xs);color:var(--doc-fg-subtle)"><span>16 abr 2026 · inicio del reposo</span><span>13 oct 2026 · fin</span></div>
+          <button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block" disabled>Pasar a embotellado</button>
+          <p class="doc-subtle" style="font-size:var(--doc-text-xs);margin:0;text-align:center">El botón se habilita cuando el contador llega a cero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ envasado -->
+  <section class="sc-section">
+    <h2><small>08</small>Envasado · Embotellado, éxito y exportación de QR</h2>
+    <div class="sc-grid sc-grid--2">
+      <div class="sc-demo">
+        <span class="sc-cap">6.1 Formulario de embotellado</span>
+        <div class="sc-stack">
+          <div class="sc-grid sc-grid--2">
+            <div class="doc-field"><label>Adición de agua</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="750"><span class="addon">L</span></div><span class="help">Ajuste de 60 % a 40 % vol</span></div>
+            <div class="doc-field"><label>Botellas llenadas (750 ml)</label><div class="doc-inputgroup"><input class="doc-input doc-input--numeric" value="2.200"><span class="addon">ud</span></div></div>
+          </div>
+          <div class="doc-alert doc-alert--info"><span>ⓘ</span><div><strong>Conciliación</strong>18.400 kg → 12.100 L vino base → 1.500 L corazón → 2.250 L a 40 % → 2.200 botellas. Merma de envasado 2,2 %.</div></div>
+          <button class="doc-btn doc-btn--primary doc-btn--lg doc-btn--block">Cerrar producción y generar identidad</button>
+        </div>
+      </div>
+      <div class="sc-demo">
+        <span class="sc-cap">6.2 Éxito y exportación</span>
+        <div style="text-align:center;padding:8px 0 20px"><div style="width:72px;height:72px;margin:0 auto 12px;border-radius:50%;border:2px solid var(--doc-success);display:grid;place-items:center;color:var(--doc-success);font-size:32px">✓</div><p class="doc-display" style="font-size:var(--doc-text-2xl);margin:0">Singani Gran Reserva 2026 · sellado</p><p class="doc-muted" style="margin:6px 0 0;font-size:var(--doc-text-sm)">2.200 códigos QR generados · apuntan a <code class="sc-code">app./b/{código}</code></p></div>
+        <div class="qrgrid"><div class="doc-qr"></div><div class="doc-qr"></div><div class="doc-qr"></div><div class="doc-qr"></div><div class="doc-qr"></div><div class="doc-qr"></div></div>
+        <div class="sc-row" style="margin-top:20px;justify-content:space-between"><span class="doc-badge doc-badge--accent">Sincronizado · pendiente de emisión</span><button class="doc-btn doc-btn--primary">⤓ Exportar lote de códigos QR</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ cuenta -->
+  <section class="sc-section">
+    <h2><small>09</small>Cuenta Stellar de la bodega (solo lectura)</h2>
+    <p class="lead">La cuenta la crea y custodia el backend al dar de alta la bodega. El ERP no guarda ninguna clave: muestra dirección, activos emitidos y enlaces al explorador. Oculto por bandera si el backend no lo expone.</p>
+    <div class="doc-card" style="max-width:820px">
+      <div class="sc-row" style="justify-content:space-between;margin-bottom:16px"><div><span class="doc-label">Cuenta institucional · testnet</span><div style="font:500 var(--doc-text-sm)/1.4 ui-monospace,Menlo,monospace;margin-top:4px">GDQ4…7KXV <button class="doc-btn doc-btn--tertiary doc-btn--sm">Copiar</button> <a class="doc-btn doc-btn--tertiary doc-btn--sm" href="#">Ver en stellar.expert ↗</a></div></div><span class="doc-badge doc-badge--success">Activa</span></div>
+      <table class="doc-table"><thead><tr><th>Activo</th><th>Lote</th><th class="num">Emitidas</th><th class="num">En circulación</th><th class="num">Quemadas</th><th>Última tx</th></tr></thead><tbody>
+        <tr><td><code class="sc-code">SGR26CINTI</code></td><td>Singani Gran Reserva 2026</td><td class="num">2.200</td><td class="num">1.947</td><td class="num">253</td><td><span class="doc-tx"><span class="doc-badge doc-badge--success">Confirmada</span><code>a91f…c2</code></span></td></tr>
+        <tr><td><code class="sc-code">VPAT24</code></td><td>Vino Patrimonial 2024</td><td class="num">900</td><td class="num">612</td><td class="num">288</td><td><span class="doc-tx"><span class="doc-badge doc-badge--success">Confirmada</span><code>77be…0d</code></span></td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  <!-- ============================================================ componentes -->
+  <section class="sc-section">
+    <h2><small>10</small>Componentes específicos del ERP</h2>
+    <table class="sc-spec">
+      <thead><tr><th>Componente</th><th>Qué es</th><th>Tokens clave</th></tr></thead>
+      <tbody>
+        <tr><td><code>AppShell</code></td><td>Sidebar + topbar + contenido; colapsable a 72 px en tablet</td><td><code>sidebar-w</code>, <code>topbar-h</code>, <code>content-max</code></td></tr>
+        <tr><td><code>LotStatusBadge</code></td><td>Badge con el estado del lote, un color por familia de estados</td><td><code>info</code>, <code>warning</code>, <code>success</code>, <code>accent</code></td></tr>
+        <tr><td><code>DoBadge</code></td><td>Aptitud D.O.; oro fuerte si cumple, ámbar si no, con el motivo</td><td><code>accent</code> strong, <code>warning</code> soft</td></tr>
+        <tr><td><code>BigNumberInput</code></td><td>Input numérico de 64 px con unidad; teclado numérico en tablet</td><td><code>text-6xl</code>, <code>bg-sunken</code>, <code>target-plant</code></td></tr>
+        <tr><td><code>LabReadingCard</code></td><td>Tarjeta con lectura, objetivo y estado</td><td><code>text-4xl</code></td></tr>
+        <tr><td><code>TankGrid</code> / <code>TankCard</code></td><td>Cuadrícula de tanques con nivel, temperatura y estado</td><td><code>accent-soft</code>, <code>warning</code></td></tr>
+        <tr><td><code>DecisionModal</code></td><td>Modal obligatorio con dos opciones masivas y confirmación</td><td><code>z-modal</code>, <code>radius-lg</code></td></tr>
+        <tr><td><code>CountdownLock</code></td><td>Días restantes, barra de progreso, botón deshabilitado hasta cero</td><td><code>warning</code>, <code>text-5xl</code></td></tr>
+        <tr><td><code>BarrelRow</code> / <code>StillCutsForm</code></td><td>Fila editable de barrica; formulario de cortes con el corazón destacado</td><td><code>accent</code> en el campo clave</td></tr>
+        <tr><td><code>BottlingSummary</code> / <code>QrExportCard</code></td><td>Conciliación de rendimiento; éxito con sello y descarga de códigos</td><td><code>success</code>, <code>info-soft</code></td></tr>
+        <tr><td><code>WineryAccountPanel</code></td><td>Panel de lectura de la cuenta Stellar con enlaces al explorador</td><td>monoespaciada para direcciones y hashes</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>11</small>Reglas del ERP</h2>
+    <div class="sc-dos">
+      <div class="do"><h4>Sí</h4><ul><li>Una acción principal por pantalla, arriba a la derecha, en oro.</li><li>Etiquetas encima del campo, ayuda debajo, unidades como sufijo.</li><li>Cifras en Inter tabular, con separador de miles.</li><li>Candados y bloqueos en ámbar con el motivo y la fecha de liberación.</li><li>Confirmación explícita antes de decisiones irreversibles (bifurcar, aprobar, cerrar producción).</li></ul></div>
+      <div class="dont"><h4>No</h4><ul><li>Fotografías o ilustraciones dentro de los módulos de trabajo (solo en el login).</li><li>Rojo fuera de rechazar, eliminar y alertas críticas.</li><li>Tablas con más de 7 columnas sin priorizar; mover el resto al detalle.</li><li>Texto por debajo de 14 px en pantallas táctiles.</li><li>Serif en formularios o tablas.</li></ul></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
