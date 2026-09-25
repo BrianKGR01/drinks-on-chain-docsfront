@@ -42,12 +42,12 @@ Alternativa aceptable si el negocio necesita dar de alta bodegas reales antes: a
 | 0.6 Corrección de marca | Pie, contacto y aviso legal de ambos sitios solo con Drinks on Chain | PR mergeado en ambos repos |
 
 **Avance**
-- [ ] 0.1 Repo `doc-design-system` y `@doc/ui` 0.1
-- [ ] 0.2 Repo `doc-mocks` y `@doc/mocks` 0.1 (esquemas del ERP ajustados a su documentación)
-- [ ] 0.3 Plantilla de aplicación
+- [x] 0.1 Repo `doc-design-system` y `@doc/ui` 0.1 · 2026-09-25 (`drinks-on-chain-design-system`, `@drinks-on-chain/ui` v0.1.0)
+- [x] 0.2 Repo `doc-mocks` y `@doc/mocks` 0.1 (esquemas del ERP ajustados a su documentación) · 2026-09-25 (`drinks-on-chain-mocks`, `@drinks-on-chain/mocks` v0.1.0)
+- [x] 0.3 Plantilla de aplicación · 2026-09-25 (`drinks-on-chain-app-template`; el ERP nació de ella)
 - [ ] 0.4 Spike Stellar en testnet
 - [ ] 0.5 `@doc/wallet` 0.1
-- [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado)
+- [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado) — hecha en `dev` de ambos repos · 25-09-2026; falta el merge a `main`
 
 ## 3. Sistema 0 · Sitios públicos (pendientes; 2,5 semanas, en paralelo con Etapas 0–1)
 
@@ -66,25 +66,25 @@ Detalle en `07-roadmap-landing-principal.md`: marca, sitemap/robots/OG y metadat
 Terminado cuando: navegar entre los dos sitios y volver funciona en móvil y escritorio con URLs reales; Lighthouse accesibilidad ≥ 95 en ambos.
 
 **Avance · landing principal** (detalle en `drinks-on-chain-landing/docs/ROADMAP.md`)
-- [ ] Barrera de edad: sin desplazamiento debajo y entrada siempre al héroe
-- [ ] Barrera de edad sobre el mapa del héroe, con transición al héroe (como el sitio de bodegas)
-- [ ] Botón "Conocer las bodegas" visible en la sección de bodegas
-- [ ] Corrección de marca (pie, contacto, aviso legal)
-- [ ] `sitemap.xml`, `robots.txt`, imagen OG por defecto y metadatos por ruta
-- [ ] Cabeceras de seguridad
-- [ ] Fuentes autoalojadas y Lighthouse móvil ≥ 90
-- [ ] Revisión de textos ES/EN y accesibilidad por teclado
-- [ ] Analítica (Vercel Web Analytics, sin cookies)
-- [ ] PR `dev → main`
+- [x] Barrera de edad: sin desplazamiento debajo y entrada siempre al héroe · 25-09-2026
+- [x] Barrera de edad sobre el mapa del héroe, con transición al héroe (como el sitio de bodegas) · 25-09-2026
+- [x] Botón "Conocer las bodegas" visible en la sección de bodegas · 25-09-2026
+- [x] Corrección de marca (pie, contacto, aviso legal) · 25-09-2026
+- [x] `sitemap.xml`, `robots.txt`, imagen OG por defecto y metadatos por ruta · 25-09-2026
+- [x] Cabeceras de seguridad · 25-09-2026
+- [ ] Fuentes autoalojadas y Lighthouse móvil ≥ 90 — fuentes autoalojadas y accesibilidad 100 hechas; rendimiento móvil 69–77, pendiente
+- [ ] Revisión de textos ES/EN y accesibilidad por teclado — teclado hecho (barrera modal, foco visible); falta revisar los textos existentes
+- [x] Analítica (Vercel Web Analytics, sin cookies) · 25-09-2026 — falta activarla en el panel de Vercel
+- [ ] PR `dev → main` — abierto, pendiente de revisión
 
 **Avance · sitio de bodegas** (detalle en `drinks-on-chain-front/docs/ROADMAP.md`)
-- [ ] Barrera de edad: sin desplazamiento ni interacción debajo
-- [ ] B.1 Datos: bodegas y puntos de recojo alineados con el catálogo de `08`
-- [ ] B.2 Navegación: menú nuevo, pie común, `/vinos` → landing, variables de entorno
-- [ ] B.3 Páginas: `/acceso`, `/unirse`, `/puntos-de-recojo`, `/bodegas`, `/bodegas/[slug]`
-- [ ] B.4 Mapa: conmutador Parcelas / Bodegas y encuadre de las parcelas de una bodega
-- [ ] B.5 Rutas: `/parcelas → /valles`, sitemap/robots, cabeceras, marca
-- [ ] PR `dev → main`
+- [x] Barrera de edad: sin desplazamiento ni interacción debajo · 25-09-2026
+- [x] B.1 Datos: bodegas y puntos de recojo alineados con el catálogo de `08` · 25-09-2026
+- [x] B.2 Navegación: menú nuevo, pie común, `/vinos` → landing, variables de entorno · 25-09-2026
+- [x] B.3 Páginas: `/acceso`, `/unirse`, `/puntos-de-recojo`, `/bodegas`, `/bodegas/[slug]` · 25-09-2026
+- [x] B.4 Mapa: conmutador Parcelas / Bodegas y encuadre de las parcelas de una bodega · 25-09-2026
+- [x] B.5 Rutas: `/parcelas → /valles`, sitemap/robots, cabeceras, marca · 25-09-2026
+- [ ] PR `dev → main` — abierto, pendiente de revisión
 
 ## 4. Etapa 1 · Sistema 1, ERP (`doc-erp-web`, 4 semanas)
 
@@ -103,13 +103,13 @@ Shell: AppShell claro, Inter 16 px, sidebar por módulos (Panel · Origen · Ven
 Terminado cuando: el recorrido completo del caso de ejemplo del documento maestro se hace con mocks en escritorio y tablet, con Playwright verde y sin errores de consola. Integración temprana: en la semana 4 se conecta el login y el módulo de origen al backend real del ERP para validar la capa de acceso a datos.
 
 **Avance**
-- [ ] 1A Acceso y panel
-- [ ] 1B Origen
-- [ ] 1C Vendimia y vinificación
-- [ ] 1D Crianza y destilación
-- [ ] 1E Envasado y QR
-- [ ] 1F Cuenta de la bodega
-- [ ] 1G Calidad (Playwright del flujo de ejemplo)
+- [x] 1A Acceso y panel · 2026-09-25 (sin selector de bodega: el backend no permite cambiar la bodega activa, 09 §8 punto 13)
+- [x] 1B Origen · 2026-09-25
+- [x] 1C Vendimia y vinificación · 2026-09-25
+- [x] 1D Crianza y destilación · 2026-09-25
+- [x] 1E Envasado y QR · 2026-09-25 (códigos por botella provisionales, 09 §8 punto 20)
+- [x] 1F Cuenta de la bodega · 2026-09-25 (activos por lote pendientes del backend)
+- [x] 1G Calidad (Playwright del flujo de ejemplo) · 2026-09-25 (auditoría axe, teclado y estados; falta probar con datos reales del backend, 10 §2.1)
 
 ## 5. Etapa 2 · Sistema 2, Marketplace (`doc-marketplace-app`, 5 semanas)
 
