@@ -33,7 +33,7 @@ Un mismo humano puede tener varios roles. Cada sistema vive en su propio subdomi
 | raíz (`drinksonchain.*`) | Landing principal B2C | `drinks-on-chain-landing` | **Construida y desplegada** (M0, M1 y rutas de M2). Pendientes: calidad, SEO técnico, cabeceras, dominio |
 | `bodegas.` | Sitio de las bodegas (mapa grabado, parcelas, vinos) | `drinks-on-chain-front` | **Construido y desplegado** como landing original. Pendiente convertirlo en sitio B2B (menú, `/acceso`, `/unirse`, `/puntos-de-recojo`, perfiles de bodega, capa de bodegas en el mapa) |
 | `app.` | S2 Marketplace + visor QR + cava | `doc-marketplace-app` | Por crear |
-| `erp.` | S1 ERP de trazabilidad | `doc-erp-web` | Por crear (el backend del ERP ya existe; su documentación de endpoints está por incorporar a `08-datos-de-prueba.md`) |
+| `erp.` | S1 ERP de trazabilidad | `doc-erp-web` | Por crear. El backend del ERP ya existe y está desplegado; su contrato real está en `09-contrato-erp-backend.md` y sus datos de prueba en `mocks/erp/` |
 | `admin.` | S3 Backoffice | `doc-backoffice-web` | Por crear |
 | `pos.` | S4 Aplicación de claim | `doc-claim-pos` | Por crear |
 | — | Sistema de diseño (`@doc/ui`) | `doc-design-system` | Por crear. Especificación en `05-sistema-de-diseno.md` y maquetas en `design-system/` |
@@ -128,6 +128,8 @@ Alto contraste, tipografía gigante, botones masivos, cámara al 80 %. Tema oscu
 ## 7. Modelo de entidades compartido
 
 Base de los tipos y los datos de prueba (`08-datos-de-prueba.md`). C = crea, L = lee, M = modifica.
+
+> Nota del 25-09-2026: para el ERP, el backend real modela la trazabilidad como una cadena de entidades por etapa (`Terroir → HarvestBatch → FermentationTank → WineAgingBatch | ProductionBatch → BottlingBatch → BatchLabAnalysis`) y **no** tiene una entidad "Lote"; el "Lote" con máquina de estados de esta tabla es una vista derivada en el cliente. El detalle está en `09-contrato-erp-backend.md` §2. El resto de la tabla sigue vigente para los sistemas sin backend.
 
 | Entidad | S1 | S2 | S3 | S4 | Notas |
 |---|---|---|---|---|---|

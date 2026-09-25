@@ -35,6 +35,8 @@ Versión 2 · 25 de septiembre de 2026. Sustituye a la v1 (`antiguo/04-billetera
 
 Decisión: **A por defecto, B como respaldo silencioso, D como opción avanzada, C documentada pero fuera del MVP**. Las cuatro caben detrás de `@doc/wallet`.
 
+Estado real del backend (25-09-2026, ver `09-contrato-erp-backend.md`): hoy **ya implementa la opción B para todos los usuarios**: al registrarse crea una billetera custodial (`walletType: CUSTODIAL`, dirección clásica `G…`, `walletPurpose: CONSUMER_NFT` o `PRODUCER_SIGNING`) y una institucional por bodega al aprobarla. Eso confirma el respaldo y el modelo de cuentas de bodega de este documento. La opción A se añade como `walletType: SELF_CUSTODY` cuando exista el registro de direcciones `C…` (punto 9 de 09 §8).
+
 Nota sobre "login con Google": con la opción A el usuario también ve a Google en pantalla, porque su passkey se guarda en el Gestor de contraseñas de Google y se sincroniza entre sus dispositivos Android/Chrome. La diferencia es que la clave nunca sale de su dispositivo ni pasa por un proveedor.
 
 ## 4. Quién hace qué en la creación de la billetera (la pregunta central)

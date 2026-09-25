@@ -2,7 +2,7 @@
 
 Versión 1 · 25 de septiembre de 2026. Define cómo se construye todo el frontend sin backend: un único juego de datos de prueba en JSON, coherente entre los seis sitios y aplicaciones, tipado, generado por script y servido por un interceptor HTTP en desarrollo. Cuando llegue cada backend, se cambia el origen de datos, no las pantallas.
 
-> **Pendiente**: la documentación de los endpoints del backend del ERP (la única que existe hoy) todavía no se ha incorporado. Cuando se comparta, la sección 7 se completa con el mapeo endpoint ↔ pantalla y los tipos se ajustan a sus DTO antes de escribir los fixtures del ERP.
+> **Actualización 25-09-2026**: la documentación del backend del ERP ya está incorporada. El contrato real (OpenAPI), el mapa endpoint ↔ pantalla y los puntos de alineación viven en `09-contrato-erp-backend.md`; los fixtures del ERP con las formas exactas de sus DTO están generados en `mocks/erp/`. Las secciones 4 y 5 de este documento describen el modelo **genérico** del ecosistema (útil para Marketplace, Backoffice y POS, que aún no tienen backend); para el ERP mandan el documento 09 y `mocks/erp/`.
 
 ## 1. Principios
 
@@ -113,12 +113,12 @@ Cada app tiene una página de desarrollo `/__mocks` (solo en desarrollo) para ca
 
 Capa de acceso a datos por aplicación en `src/lib/api/`: un cliente HTTP tipado (`fetch` + zod en las respuestas) y un adaptador por recurso que convierte los DTO del backend a los tipos de `@doc/mocks`. Las pantallas importan solo los tipos y los hooks (`useLots()`, `useCollection(id)`), nunca URLs. Cambiar de mocks a backend real es: (1) apagar MSW, (2) apuntar `NEXT_PUBLIC_API_URL`, (3) ajustar los adaptadores donde los DTO difieran.
 
-### 7.1 ERP (backend existente)
-Por completar con la documentación de endpoints que comparta el equipo de backend. Al recibirla:
-1. Listar endpoints y agruparlos por pantalla del ERP.
-2. Comparar sus DTO con los esquemas de `@doc/mocks` (lote, terroir, cosecha, tanque, registro, embotellado) y ajustar los esquemas **antes** de generar fixtures del ERP, para no rehacer.
-3. Anotar autenticación (tipo de token, refresco, roles), paginación, formatos de fecha y errores.
-4. Escribir los handlers MSW del ERP imitando exactamente esas rutas y respuestas, de modo que la integración sea solo cambiar la URL base.
+### 7.1 ERP (backend existente) — hecho
+Resuelto en `09-contrato-erp-backend.md` y `mocks/erp/`:
+1. Endpoints agrupados por pantalla del ERP (09 §3).
+2. Esquemas ajustados a los DTO reales: el backend no tiene una entidad "lote"; el ERP trabaja con la cadena `Terroir → HarvestBatch → FermentationTank → WineAgingBatch | ProductionBatch → BottlingBatch → BatchLabAnalysis` y una vista derivada `LotView` calculada en el cliente (09 §2). Los fixtures de la sección 4 de este documento que se referían al ERP (`lots`, `vessels`, `logs`, `bottlings`) quedan sustituidos por los de `mocks/erp/`.
+3. Autenticación JWT con refresco, envoltorio `{ success, data | error }`, paginación `limit`/`offset`, enumeraciones (09 §1 y §4).
+4. Los handlers MSW del ERP imitarán las 35 rutas reales con esos fixtures (Etapa 0.2); la integración es cambiar `NEXT_PUBLIC_API_URL`. Quedan 12 puntos por confirmar con backend (09 §8), el más importante el esquema de respuesta de las listas.
 
 ### 7.2 Resto de sistemas (backend por construir)
 Los handlers de `marketplace`, `backoffice` y `pos` proponen rutas REST convencionales (`GET /collections`, `POST /orders`, `GET /me/holdings`, `POST /claims`, `POST /claims/:id/validate`, `POST /claims/:id/confirm`, `POST /wineries`, `POST /collections/:id/mint`, `GET /tx/:hash`) que se comparten con backend como borrador del contrato. Ver `04-billeteras-stellar.md` §10 para lo específico de billeteras y tokens.

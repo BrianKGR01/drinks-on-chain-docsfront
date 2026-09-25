@@ -30,6 +30,8 @@ Versión 2 · 25 de septiembre de 2026 (v1 en `antiguo/`). Registro vivo: cada d
 | 2026-09-25 | No se planifica nada sobre bodegas socias reales; todos los datos de bodegas son de prueba o de referencia | Pedido del cliente |
 | 2026-09-25 | Sistema de diseño con **dos familias** (editorial y operativa) sobre los mismos tokens; maquetas HTML por sistema en `design-system/` | Las apps deben ser herramientas claras sin perder la identidad de las landings |
 | 2026-09-25 | Orden de construcción: Etapa 0 (fundaciones) → ERP → Marketplace → POS → Backoffice → integración; los pendientes de los sitios públicos se cierran en paralelo | El backend del ERP ya existe; Marketplace + POS forman la demo para el grant; ver 03 |
+| 2026-09-25 | **El OpenAPI del backend desplegado es la fuente de verdad** del contrato del ERP (por encima de `backend/endpoints.md` y de las guías, que discrepan en nombres de campos). Los fixtures del ERP siguen sus DTO exactos; el "Lote" del ERP es una vista derivada en el cliente | Evitar rehacer al integrar; ver 09 |
+| 2026-09-25 | La documentación de frontend vive en el repo `drinks-on-chain-docsfront` (esta carpeta) con `index.html` publicado en GitHub Pages para el sistema de diseño; mismo flujo `dev → main` y Conventional Commits | Que backend y cliente vean las decisiones |
 
 ## 2. Preguntas cerradas el 25-09-2026 (registro)
 
@@ -75,7 +77,7 @@ Mientras tanto el checkout se construye con `PaymentProvider` en modo mock (ver 
 
 ## 5. Preguntas para el equipo de backend
 
-1. **Documentación del ERP**: endpoints, autenticación, DTO, paginación y errores (pendiente de recibir; se incorpora en 08 §7.1).
+1. **Contrato del ERP**: recibido e incorporado (09). Quedan los 12 puntos de alineación de 09 §8: esquema de respuesta de las listas, URL del QR configurable, bifurcación y estado del tanque sin `PATCH`, análisis obligatorio en el pesaje, discrepancias del catálogo con el OpenAPI, registro de direcciones `C…`, códigos QR por botella, `traceability/public` realmente público, y **datos de prueba cargados en el servidor de desarrollo** (hoy está vacío).
 2. **Contrato del token**: ¿aceptan el activo clásico por lote con clawback vía SAC (04 §6) o prefieren un contrato SEP-41? ¿Emisor por bodega o único?
 3. **Relayer**: ¿OpenZeppelin Relayer autoalojado o servicio de terceros? ¿Cómo entrega el cliente la autorización de corta vida?
 4. **Indexación** de saldos y eventos: ¿Mercury o servicio propio? ¿Websocket o sondeo para `lot.ready`, `mint.confirmed`, `claim.confirmed`?

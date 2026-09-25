@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es" data-theme="oro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drinks on Chain · Documentación de frontend</title>
+<meta name="description" content="Planificación del frontend del ecosistema Drinks on Chain: análisis, roadmap, billeteras Stellar, sistema de diseño y datos de prueba.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/ui.css">
+<link rel="stylesheet" href="design-system/showcase.css">
+<style>
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--doc-space-4); }
+  .cards a { display: grid; gap: 6px; padding: var(--doc-space-5); border: 1px solid var(--doc-border); border-radius: var(--doc-radius-md); background: var(--doc-bg-raised); color: inherit; text-decoration: none; transition: border-color var(--doc-dur-state); }
+  .cards a:hover { border-color: var(--doc-accent); }
+  .cards a strong { font: 500 var(--doc-text-xl)/1.2 var(--doc-font-display); }
+  .cards a span { font-size: var(--doc-text-sm); color: var(--doc-fg-muted); }
+  .cards a small { font: 500 var(--doc-text-2xs)/1 var(--doc-font-ui); letter-spacing: .12em; text-transform: uppercase; color: var(--doc-accent-text); }
+  .docs { width: 100%; border-collapse: collapse; font-size: var(--doc-text-sm); }
+  .docs td { padding: 10px 12px; border-bottom: 1px solid var(--doc-border); vertical-align: top; }
+  .docs td:first-child { white-space: nowrap; font-weight: 500; }
+  .docs a { color: var(--doc-accent-text); text-decoration: none; }
+  .docs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body class="doc-ui">
+<nav class="sc-nav">
+  <span class="doc-wordmark">Drinks <em>on</em> Chain</span>
+  <a href="index.html" aria-current="page">Documentación</a>
+  <a href="design-system/00-fundamentos.html">Sistema de diseño</a>
+  <span class="spacer"></span>
+  <a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront" rel="noopener">Repositorio ↗</a>
+</nav>
+
+<main class="sc-page">
+  <header class="sc-hero">
+    <p class="doc-eyebrow">Frontend · planificación · v2 · septiembre 2026</p>
+    <h1>Documentación de frontend</h1>
+    <p>Análisis del ecosistema, roadmap por sistema, billeteras sobre Stellar, sistema de diseño y datos de prueba de las aplicaciones de Drinks on Chain: landing principal, sitio de bodegas, ERP, Marketplace, Backoffice y POS. Los documentos son Markdown en el repositorio; el sistema de diseño se navega aquí.</p>
+  </header>
+
+  <section class="sc-section">
+    <h2><small>Sistema de diseño</small>Maquetas navegables</h2>
+    <p class="lead">Tokens reales (dos temas: Oro Líquido y Cava Reserva), componentes base en ambos temas y una página por sistema con su shell, sus pantallas clave y sus reglas.</p>
+    <div class="cards">
+      <a href="design-system/00-fundamentos.html"><small>00</small><strong>Fundamentos</strong><span>Paleta, tipografía, escala, espaciado, forma, movimiento, componentes base y overlays en los dos temas.</span></a>
+      <a href="design-system/01-erp.html"><small>Sistema 1 · erp.</small><strong>ERP de trazabilidad</strong><span>AppShell, login, terroirs, pesaje, análisis, tanques, bifurcación, candados, embotellado y QR.</span></a>
+      <a href="design-system/02-marketplace.html"><small>Sistema 2 · app.</small><strong>Marketplace, visor y cava</strong><span>Escaparate, ficha, checkout, entrar, bóveda, Mi Cava, pase de retiro y viaje del producto.</span></a>
+      <a href="design-system/03-backoffice.html"><small>Sistema 3 · admin.</small><strong>Backoffice</strong><span>AdminShell, KPI, socios, puntos y dispositivos, pipeline de emisión, modal de minting, soporte.</span></a>
+      <a href="design-system/04-pos.html"><small>Sistema 4 · pos.</small><strong>Aplicación de claim</strong><span>PIN, escáner, semáforos verde y rojo, deslizador, éxito y cierre de turno.</span></a>
+      <a href="design-system/tokens.css"><small>Código</small><strong>tokens.css</strong><span>Los tokens tal como irán en el paquete <code class="sc-code">@doc/ui</code>: primitivos, semánticos y temas.</span></a>
+    </div>
+  </section>
+
+  <section class="sc-section">
+    <h2><small>Documentos</small>Planificación</h2>
+    <p class="lead">Markdown en el repositorio. Cada enlace abre el documento en GitHub.</p>
+    <table class="docs">
+      <tbody>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/README.md">README</a></td><td>Índice, repositorios y estado.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/01-analisis-ecosistema.md">01 · Análisis del ecosistema</a></td><td>Qué es, actores, sistemas, estado hecho/pendiente, flujos cruzados, modelo de entidades.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/02-plan-landing-ecosistema.md">02 · Sitios públicos</a></td><td>Landing principal y sitio de bodegas: públicos, subdominios, estado, seguridad.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/03-roadmap-frontend.md">03 · Roadmap del frontend</a></td><td>Paso a paso por sistema: Etapa 0, sitios públicos, ERP, Marketplace, POS, Backoffice, integración.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/04-billeteras-stellar.md">04 · Billeteras sobre Stellar</a></td><td>Qué hace el cliente y qué el backend, en qué sistema, opciones por fricción y coste, modelo de token.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/05-sistema-de-diseno.md">05 · Sistema de diseño</a></td><td>Dos familias, tokens, tipografía, componentes, layouts y adaptación por sistema.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/06-decisiones-y-preguntas.md">06 · Decisiones y preguntas</a></td><td>Decisiones con fecha, qué pedir al banco, preguntas abiertas.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/07-roadmap-landing-principal.md">07 · Roadmap de la landing principal</a></td><td>Hitos con estado y pendientes.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/08-datos-de-prueba.md">08 · Datos de prueba</a></td><td>Repo de mocks, catálogo, fixtures, esquemas, MSW, contrato con el backend.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/09-contrato-erp-backend.md">09 · Contrato con el backend del ERP</a></td><td>Endpoints reales ↔ pantallas, DTO, enumeraciones, envoltorio, roles, vista "Lote", puntos de alineación.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/blob/main/10-preparacion-etapas-0-1.md">10 · Preparación de las Etapas 0 y 1</a></td><td>Qué debe entregar el cliente y qué crea el equipo antes de empezar.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/tree/main/mocks/erp">mocks/erp</a></td><td>Datos de prueba del ERP con las formas exactas del backend, generados por script determinista.</td></tr>
+        <tr><td><a href="https://github.com/BrianKGR01/drinks-on-chain-docsfront/tree/main/backend">backend</a></td><td>Documentación entregada por el equipo de backend (catálogo de endpoints y guías de prueba).</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>
