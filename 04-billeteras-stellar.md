@@ -1,5 +1,14 @@
 # 04 · Billeteras sobre Stellar: qué hace el cliente, en qué sistema y por qué
 
+> **Sustituido por `docs-back/06` y las decisiones A-01…A-05 y A-28 (27–28-09-2026).** Versión 2.1 · 27 de septiembre de 2026: solo se añade esta nota; el resto del documento queda como registro de la propuesta del 25-09 y **no debe usarse como referencia**. Pasará a `antiguo/` en la siguiente revisión.
+>
+> Qué cambió:
+> - **Token**: ya no es un activo clásico por lote con *clawback*. Es **un NFT por botella** (A-01), con **un contrato por bodega** sobre OpenZeppelin para Stellar y la bodega como emisora (A-02, A-28). La quema al canjear la hace el operador (`redeem_burn`), no un *clawback*.
+> - **Emisión**: en **preventa**, cuando la bodega autoriza el lote y su cuota desde el ERP (A-03); el hash del expediente se ancla al terminar el proceso del lote (A-22).
+> - **Billetera del consumidor**: la **crea y gestiona el backend** (A-04) como dirección custodial derivada de una semilla maestra (SEP-0005), sin fondear; el usuario nunca firma ni ve cripto (A-28). Sin Dynamic ni Privy (A-05). Las smart accounts con passkey (`smart-account-kit` y *relayer* propio) quedan para la **Fase 2**: se anulan del MVP el spike 0.4 y `@doc/wallet` 0.5 (03 v3).
+> - **Pase**: se llama **pase de canje**, caduca **en horas** (24 h por defecto, D-15 abierta) y se regenera al caducar (A-07); vive en la base de datos, no en la red.
+> - Detalle vigente: [`docs-back/06-tokens-billeteras-y-cadena.md`](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/06-tokens-billeteras-y-cadena.md) y [`docs-back/04-decisiones-y-preguntas.md`](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/04-decisiones-y-preguntas.md) §1.
+
 Versión 2 · 25 de septiembre de 2026. Sustituye a la v1 (`antiguo/04-billeteras-stellar.md`). Verificado contra la documentación pública de Stellar y los repositorios oficiales el 25-09-2026.
 
 **Corrección respecto a la v1**: `passkey-kit` quedó como librería de legado y **Launchtube (el relayer hospedado por la SDF) fue retirado**. El camino oficial hoy es `smart-account-kit` (repositorio `stellar/smart-account-kit`), construido sobre los contratos de cuenta inteligente de OpenZeppelin (auditados), con patrocinio de comisiones a través de un relayer que opera el propio proyecto (OpenZeppelin Relayer, código abierto) o un servicio de terceros. Todo lo demás de la v1 se mantiene o se precisa aquí.

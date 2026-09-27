@@ -1,6 +1,6 @@
 # 09 · Contrato con el backend del ERP
 
-Versión 1 · 25 de septiembre de 2026. Fuente de verdad: el **OpenAPI 3.0 del backend desplegado** (`GET https://136.243.223.39.sslip.io/docs-json`, 35 rutas, 38 esquemas, descargado el 25-09-2026), contrastado con los tres documentos que entregó el equipo de backend en `backend/` (`endpoints.md`, `guia_pruebas_manuales_trazabilidad.md`, `guia_pruebas_manuales_vino.md`). Donde el catálogo o las guías discrepan del OpenAPI, manda el OpenAPI (ver §8).
+Versión 1.1 · 27 de septiembre de 2026 (nota en §8 sobre qué etapa del backend resuelve cada punto de alineación). Versión 1 · 25 de septiembre de 2026. Fuente de verdad: el **OpenAPI 3.0 del backend desplegado** (`GET https://136.243.223.39.sslip.io/docs-json`, 35 rutas, 38 esquemas, descargado el 25-09-2026), contrastado con los tres documentos que entregó el equipo de backend en `backend/` (`endpoints.md`, `guia_pruebas_manuales_trazabilidad.md`, `guia_pruebas_manuales_vino.md`). Donde el catálogo o las guías discrepan del OpenAPI, manda el OpenAPI (ver §8).
 
 Los datos de prueba del ERP en `mocks/erp/` siguen exactamente estos DTO; se generan con `mocks/erp/generate.py`.
 
@@ -158,3 +158,28 @@ Handlers MSW del ERP (a escribir en `doc-mocks`): imitan las 35 rutas con el env
 | 18 | **`phyto-status` pisa las notas** | `PATCH …/phyto-status` sobrescribe `notes` del lote | Separar notas del dictamen o concatenarlas; exponer el nombre de quien dictamina, no solo `certifiedByMemberId` |
 | 19 | **Errores de validación** | `details` llega como cadenas ("campo: mensaje") | Proponer `details: [{ field, message }]` para marcar el campo exacto |
 | 20 | **Activos por lote y códigos por botella** | No se exponen saldos de tokens ni códigos individuales | La cuenta Stellar del ERP y la exportación de QR por botella quedan provisionales hasta tenerlos |
+
+### Nota del 27-09-2026: dónde se resuelve cada punto
+
+El roadmap del backend (`docs-back/08-roadmap.md`, [en GitHub](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/08-roadmap.md)) recoge estos puntos en sus etapas; el ERP los adopta en la ola del plan maestro con el mismo número (03 v3, sub-etapas 1H–1K). Los cambios del backend son aditivos o se anuncian en su PR y en `docs-back/04`.
+
+| Etapa del backend (ola) | Puntos | Paso del roadmap del backend y funcionalidades |
+|---|---|---|
+| **Etapa 0** (Ola 0) | 1 listas, 19 errores de validación | 0.3 Estándares de API: `data: { items, total, limit, offset }` con máximo 100 y `details: [{ field, message }]` (OPS-02, A-33) |
+| | 13 bodega activa | 0.5–0.6 Sesiones seguras y organizaciones: organización activa en la sesión y `POST /v1/auth/switch-organization` (IAM-08, EQP-09) |
+| | 17 permisos del agrónomo | 0.6 Roles por membresía (EQP-01); se confirma en el OpenAPI de la etapa |
+| | 7 discrepancias catálogo ↔ OpenAPI | 0.9 OpenAPI publicado y versionado como contrato (OPS-12); `endpoints.md` queda como histórico |
+| | 12 datos de prueba en el servidor | 0.10 Semilla determinista alineada con `@drinks-on-chain/mocks` (OPS-09) |
+| **Etapa 1** (Ola 1) | 14 recuperar contraseña | 1.2 Cuentas: recuperación por enlace de un solo uso (IAM-05) |
+| | 8 alta de bodega | 1.3–1.4 Solicitudes con captcha, alta directa e invitación al dueño (ORG-01…05, A-08, A-10) |
+| **Etapa 2** (Ola 2) | 2 URL del QR, 15 numeración del código de lote | 2.5 Embotellado seguro: URL de QR configurable por entorno y código de lote sin colisiones (OP-06, ERP-16) |
+| | 10 archivos de QR, 20 códigos por botella | 2.6 Códigos de botella: un código único por botella y exportación para la imprenta (ERP-15, A-26) |
+| | 3 bifurcación, 4 estado del tanque | 2.3 Vinificación: tanques con transiciones y bifurcación coherente con el destino (ERP-06, ERP-09) |
+| | 6 análisis en el pesaje, 18 `phyto-status` | 2.2 Origen y vendimia: análisis separable del pesaje y dictamen propio que bloquea la fermentación (ERP-04, ERP-05) |
+| | 5 cosecha como entidad | 2.1 Lote como entidad (`Lot`, ERP-01); la cosecha sigue fundida en el pesaje |
+| | 16 crianza sin fecha de inicio | 2.4 Crianza, destilación y reposo con candados del lote (ERP-10…12); `startDate` se confirma en el OpenAPI de la etapa |
+| | 11 `traceability/public` | 2.10 Pasaporte público de lote y de botella sin cuenta (PUB-01, PUB-02) |
+| **Etapa 3** (Ola 3) | 20 activos por lote | Cuenta de la bodega en solo lectura con NFT emitidos, vendidos y quemados por lote (ORG-12) |
+| **Etapas 3–4** | 9 billeteras | Sin direcciones `C…` en el MVP: el backend crea direcciones custodiales derivadas (A-28, CHN-03) |
+
+El **contrato de sesiones, organizaciones, listas y errores** de la Ola 0 (qué implementa el backend y qué consumen `@drinks-on-chain/mocks` y los clientes de API) está en `plan/contratos/o0-sesiones-y-estandares.md`, documento local de coordinación en la carpeta paraguas del ecosistema, junto a `PLAN-MAESTRO.md`.
