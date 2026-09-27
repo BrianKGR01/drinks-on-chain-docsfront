@@ -1,69 +1,92 @@
-# 03 · Roadmap del frontend, paso a paso por sistema
+# 03 · Roadmap del frontend por olas
 
-Versión 2 · 25 de septiembre de 2026 (v1 en `antiguo/`). Alcance: solo cliente. Cada sistema se construye completo contra `@doc/mocks` con `@doc/ui`, de modo que integrar el backend sea cambiar el origen de datos. Estimaciones para **una persona de frontend a tiempo completo**; con dos, los sistemas se solapan como indica §9.
+Versión 3 · 27 de septiembre de 2026 (v2 en [`antiguo/03-roadmap-frontend-v2.md`](antiguo/03-roadmap-frontend-v2.md), v1 en [`antiguo/03-roadmap-frontend.md`](antiguo/03-roadmap-frontend.md)). Alcance: las cuatro aplicaciones (ERP, Marketplace, POS, Backoffice), los dos sitios públicos y los paquetes compartidos (`@drinks-on-chain/ui`, `@drinks-on-chain/mocks`, plantilla). El backend entró en el alcance del ecosistema el 26-09-2026 y su roadmap vive en `docs-back/08-roadmap.md` ([`drinks-on-chain-docsback`](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/08-roadmap.md)).
 
-**Cómo se sigue el avance**: cada etapa tiene, debajo de su tabla, una lista **Avance** con casillas (`- [ ]` pendiente, `- [x]` hecho). Se marca una casilla cuando el paso cumple su columna "Terminado cuando" y el trabajo está en `dev`; al lado se anota la fecha y, si aplica, el PR. Cada repositorio lleva además su propio `docs/ROADMAP.md` con el detalle fino de sus tareas.
+**Calendario común**: el orden en el tiempo lo fija el **plan maestro** (`PLAN-MAESTRO.md`), documento local de coordinación que vive en la carpeta paraguas del ecosistema, fuera de este repositorio. Allí están las olas, las pistas (OPS, BE, SC, PK, ERP, BO, MK, POS, WEB, E2E, DOC), los hitos H0–H6 y el tablero con los IDs `O<ola>-<pista>-<n>` que se citan aquí. Las 16 contradicciones entre esta documentación y las decisiones acordadas del backend (A-01…A-34, 27 y 28-09-2026) se listan en `plan/02-reconciliacion-documentos.md` (también local) y quedan registradas en `docs-back/04` §2.3 (C30–C45).
+
+## Qué cambia respecto a la v2
+
+| # | Cambio | Motivo |
+|---|---|---|
+| 1 | El roadmap se ordena por **olas** del plan maestro, no por sistemas consecutivos. Backoffice 4A–4B se adelanta a la Ola 1 | A-34, R9: el ciclo del MVP manda (back office y bodegas → ERP → tokenización → Marketplace → POS) |
+| 2 | **0.4 (spike de passkeys) y 0.5 (`@doc/wallet`) salen del MVP** | R2, A-04, A-05, A-28: el backend crea direcciones custodiales derivadas; smart accounts en Fase 2 |
+| 3 | Marketplace **2B**: cuenta por correo, sin passkey ni `VaultSplash`; dirección informativa de solo lectura | R2, R6, A-13 |
+| 4 | Marketplace **2D**: cava con **un NFT por botella** y **pase de canje** con caducidad en horas (24 h por defecto, D-15) que se regenera | R1, R3, A-01, A-07 |
+| 5 | POS **3A**: tableta vinculada + **PIN personal del cajero**; **3B/3C**: captura del **código de botella** | R4, R5, A-25, A-26 |
+| 6 | Backoffice **4B**: solicitudes e **invitaciones** en lugar de credenciales; **4C**: **bandeja de solicitudes de tokenización** en lugar del kanban "lote listo" | R7, R8, A-08, A-10, A-03 |
+| 7 | ERP: sub-etapas nuevas **1H–1L** (sesiones y organización activa, cuenta y equipo, lote real y códigos por botella, autorizar tokenización, puntos de canje) | R7, R8, R10–R12 |
+| 8 | Nombres reales: repos `drinks-on-chain-<sistema>` en la organización `drinks-on-chain`, paquetes `@drinks-on-chain/*` (antes `@doc/*`, `doc-*`) | Decisión del 25-09 (06 §1) |
+| 9 | Los handlers MSW de los sistemas nuevos se generan desde el **OpenAPI borrador** de cada ola, no desde las rutas propuestas en 08 §7.2 | R16, OPS-12 |
+
+**Cómo se sigue el avance**: cada ola tiene una lista **Avance** con casillas (`- [ ]` pendiente, `- [x]` hecho). Se marca una casilla cuando el paso cumple su "terminado cuando" (§11 y `plan/04` §7) y el trabajo está en `dev`; al lado se anota la fecha y el PR o commit, y se marca a la vez la tarea del tablero del plan maestro. Cada repositorio lleva además su `docs/ROADMAP.md` con el detalle fino. Las casillas marcadas en la v2 se conservan con su fecha original.
 
 ## Tablero resumido
 
-- [ ] Etapa 0 · Fundaciones
-- [ ] Sistema 0 · Sitios públicos (landing principal y sitio de bodegas)
-- [ ] Etapa 1 · S1 ERP
-- [ ] Etapa 2 · S2 Marketplace
-- [ ] Etapa 3 · S4 POS
-- [ ] Etapa 4 · S3 Backoffice
-- [ ] Etapa 5 · Integración y salida
+- [ ] Ola 0 · Cimientos y saneamiento (en curso desde el 27-09-2026)
+- [ ] Ola 1 · Back office y alta de bodegas
+- [ ] Ola 2 · ERP completo y trazabilidad confiable
+- [ ] Ola 3 · Tokenización y cadena
+- [ ] Ola 4 · Marketplace
+- [ ] Ola 5 · Canje y POS
+- [ ] Ola 6 · Salida a producción
+- [ ] Ola F · Precios y pagos (cuando el negocio y el banco lo definan)
 
 ## 1. Orden y motivo
 
 ```
-Etapa 0 · Fundaciones ─────────────┐
-Sistema 0 · Sitios públicos (pendientes, en paralelo, pequeño)
-                                   ▼
-Etapa 1 · S1 ERP ──► Etapa 2 · S2 Marketplace ──► Etapa 3 · S4 POS ──► Etapa 4 · S3 Backoffice ──► Etapa 5 · Integración
+Ola 0 · Cimientos ─► Ola 1 · Back office y bodegas ─► Ola 2 · ERP confiable ─► Ola 3 · Tokenización
+                                                                                     │
+Ola F · Precios y pagos ◄┄┄ Ola 6 · Producción ◄─ Ola 5 · Canje y POS ◄─ Ola 4 · Marketplace
 ```
 
-- **ERP primero**: es el único sistema con backend existente, así que su integración puede empezar antes y validar la capa de acceso a datos y la autenticación reales.
-- **Marketplace segundo**: es la cara del producto, el único con billetera y el que más decisiones de diseño concentra; el spike de Stellar de la Etapa 0 se estrena aquí.
-- **POS tercero**: es pequeño y cierra el recorrido compra → pase → entrega → quema, que es la demostración que pide el Stellar Community Fund.
-- **Backoffice cuarto**: es interno y su forma depende de lo que ya existe en los otros tres (colecciones, claims, puntos, dispositivos); construirlo al final evita rehacer.
+- **El ciclo del MVP manda** (A-34): sin bodegas activas no hay ERP con equipo; sin lote no hay tokenización; sin NFT no hay Marketplace; sin NFT vendidos no hay canje. El orden de la v2 (ERP → Marketplace → POS → Backoffice) queda sustituido (R9); el propio 03 v2 ya admitía adelantar 4B.
+- **Contrato primero**: al abrir cada ola el backend publica el OpenAPI borrador; `@drinks-on-chain/mocks` se regenera desde él; las apps construyen contra mocks mientras el backend implementa y se conectan al entorno de desarrollo al cierre de la ola.
+- **Una ola por delante como máximo**: una app puede adelantarse a su ola con los mocks del OpenAPI borrador de la siguiente (por ejemplo, Marketplace 2A en la Ola 2 o 2B–2C en la Ola 3), nunca dos.
+- **Cada ola termina en un hito** (H0–H6) verificado con pruebas entre aplicaciones (`drinks-on-chain-e2e`), no solo con la suma de las partes.
 
-Alternativa aceptable si el negocio necesita dar de alta bodegas reales antes: adelantar la sub-etapa 4B (Socios y puntos) del Backoffice justo después del ERP.
+## 2. Olas y tareas de frontend
 
-## 2. Etapa 0 · Fundaciones (2 semanas)
+| Ola | Backend (`docs-back/08`) | Tareas de frontend (IDs del plan maestro) | Sub-etapas de este roadmap | Hito |
+|---|---|---|---|---|
+| **0** · Cimientos y saneamiento | Etapa 0 | O0-PK-1 `ui` 0.2 publicada, plantilla a `main`, `parseDecimal` · O0-PK-2 `mocks` 0.2 y prueba de contrato · O0-ERP-1 cliente de API con sesiones nuevas · O0-ERP-2 integración temprana del ERP · O0-WEB-1 cierre del Sistema 0 · O0-DOC-1 reconciliación | 0.1–0.3, 0.6, 0.7–0.9, Sistema 0, ERP 1A–1G (hechas), **1H** | H0: el ERP inicia sesión, cambia de organización y lista parcelas contra desarrollo |
+| **1** · Back office y alta de bodegas | Etapa 1 | O1-PK-1 mocks `backoffice`/`identity`, Combobox, CommandPalette, tablas densas · O1-BO-1 Backoffice creado y 4A · O1-BO-2 4B · O1-ERP-1 cuenta, organización y equipo · O1-WEB-1 `/unirse` real · O1-E2E-1 repo E2E y recorrido H1 | **4A**, **4B**, **1I**, `/unirse` | H1: de cero a bodega con equipo |
+| **2** · ERP completo y trazabilidad confiable | Etapa 2 · B.3 | O2-PK-1 mocks ERP v2 y `public` · O2-ERP-1 lote real y códigos de botella · O2-MK-1 Marketplace creado, visor 2E real y catálogo 2A (mocks) · O2-WEB-1 enlaces al Marketplace y perfiles públicos · O2-E2E-1 recorrido H2 y pruebas de elusión | **1J**, **2E**, **2A** (mocks) | H2: "Singani Gran Reserva 2026" contra desarrollo; elusiones rechazadas con 422 |
+| **3** · Tokenización y cadena | Etapa 3 | O3-PK-1 mocks `tokenization`/`chain`, OpenAPI borrador de la Etapa 4, `TxStatusBadge` · O3-ERP-1 autorizar tokenización y cuenta de la bodega · O3-BO-1 4C · O3-MK-1 2B y 2C (mocks) · O3-E2E-1 recorrido H3 en testnet | **1K**, **1F** real, **4C**, **2B**–**2C** (mocks) | H3: 100 NFT emitidos en testnet y hash anclado al certificar |
+| **4** · Marketplace | Etapa 4 | O4-PK-1 mocks `marketplace` y `pos`, `CameraScanner` · O4-MK-1 Marketplace real, cava, reseñas, PWA · O4-BO-1 pedidos y moderación · O4-POS-1 POS creado, 3A–3B (mocks) · O4-E2E-1 recorrido H4 | **2A**–**2C** reales, **2D** (cava), reseñas de **2E**, **2F**, **4F**, **3A**–**3B** (mocks) | H4: compra en preventa, "pago recibido", dos NFT en la cava |
+| **5** · Canje y POS | Etapa 5 | O5-POS-1 POS real y 3D en tabletas · O5-MK-1 pase de canje y post-canje · O5-BO-1 puntos, soporte 4D y campañas · O5-ERP-1 puntos de la bodega · O5-WEB-1 puntos y postulación en el sitio de bodegas · O5-E2E-1 ciclo completo | **3A**–**3D** reales, pase de **2D**, post-canje de **2E**, **4D**, **1L** | H5: ciclo del MVP de la etapa 1 a la 12 en testnet |
+| **6** · Salida a producción | Etapa 6 · B.4 | O6-FE-1 calidad de salida del frontend · O6-E2E-1 recorrido en staging y demo SCF | §9 (integración y salida) | H6: aprobación del cliente |
+| **F** · Precios y pagos | Etapa F | `PaymentProvider` real con la pasarela del banco, política de precio, reembolsos, textos legales | §9.4 | — |
+
+## 3. Ola 0 · Cimientos y saneamiento
+
+### 3.1 Fundaciones (antes Etapa 0)
 
 | Paso | Entregable | Terminado cuando |
 |---|---|---|
-| 0.1 Repo `doc-design-system` | Tokens (`tokens.css` + `@theme` Tailwind 4) a partir de `design-system/tokens.css`; componentes base (§3.1 de 05) sobre primitivas accesibles; AppShell, AdminShell, StoreShell, KioskShell, AuthLayout; Storybook con temas claro/oscuro; CI; publicación `@doc/ui` 0.1 en GitHub Packages | Las cinco maquetas de `design-system/` se reproducen con componentes del paquete |
-| 0.2 Repo `doc-mocks` | Esquemas zod, catálogo, seed determinista, fixtures, handlers MSW por dominio, escenarios, página `/__mocks`; publicación `@doc/mocks` 0.1 | `pnpm seed` regenera los JSON idénticos; CI valida fixtures contra esquemas; **los esquemas del ERP ajustados a la documentación de endpoints recibida** |
-| 0.3 Plantilla de aplicación | `create-next-app` con Next 16, TypeScript estricto, Tailwind 4, `@doc/ui`, `@doc/mocks` + MSW, `src/lib/api` con cliente tipado y adaptadores, diccionario ES, `launch.json`, CI (lint, tsc, test, build), `dev`/`main`, README, Vercel | Crear `doc-erp-web` desde la plantilla lleva menos de una hora |
-| 0.4 Spike Stellar (3 días) | En testnet con `smart-account-kit`: crear smart account con passkey, desplegar vía relayer de prueba, recibir un activo clásico con clawback desde una cuenta emisora, leer saldo, ejecutar clawback desde el emisor, abrir todo en stellar.expert. Informe con tiempos, compatibilidad de dispositivos y API definitiva de `@doc/wallet` | Recorrido completo grabado; decisión cerrada con backend sobre token y relayer |
-| 0.5 `@doc/wallet` 0.1 | Interfaz de 04 §7 con implementaciones `mock` y `passkey` (testnet), hooks React | El Marketplace puede construir 2A con `mock` y probar con `passkey` |
-| 0.6 Corrección de marca | Pie, contacto y aviso legal de ambos sitios solo con Drinks on Chain | PR mergeado en ambos repos |
+| 0.1 `drinks-on-chain-design-system` | Tokens, componentes base, shells (AppShell, AdminShell, StoreShell, KioskShell, AuthLayout), Storybook, CI, publicación de `@drinks-on-chain/ui` por GitHub Release | Las cinco maquetas de `design-system/` se reproducen con componentes del paquete |
+| 0.2 `drinks-on-chain-mocks` | Esquemas zod, catálogo, seed determinista, fixtures, handlers MSW, escenarios; `@drinks-on-chain/mocks` 0.1 | `pnpm seed` regenera los JSON idénticos; CI valida fixtures contra esquemas |
+| 0.3 `drinks-on-chain-app-template` | Next 16, TypeScript estricto, Tailwind 4, `ui` + `mocks` + MSW, `src/lib/api`, diccionario ES, CI | Crear una app desde la plantilla lleva menos de una hora |
+| ~~0.4 Spike Stellar con passkeys~~ | **Fuera del MVP** (R2, A-28): la billetera del consumidor la crea el backend; las smart accounts con `smart-account-kit` quedan para la Fase 2 | — |
+| ~~0.5 `@doc/wallet`~~ | **Fuera del MVP** (R2, A-28): el cliente no crea ni firma con billeteras; solo muestra la dirección que devuelve la API | — |
+| 0.6 Corrección de marca | Pie, contacto y aviso legal de ambos sitios solo con Drinks on Chain | Fusionado en `main` de ambos repos |
+| 0.7 `ui` 0.2 publicada (O0-PK-1) | Etiqueta `v0.2.0` en `main` y su Release; ERP y plantilla consumen `ui` 0.2.x; plantilla a `main`; `lib/format.ts` (`parseDecimal` único) en la plantilla | El ERP compila con `ui` 0.2.x y la plantilla tiene `main` con CI verde |
+| 0.8 `mocks` 0.2 (O0-PK-2) | Listas `{ items, total, limit, offset }` (máximo 100) y errores con `details: [{ field, message }]` (R11); sesión con cookie y organización activa; prueba de contrato de los fixtures contra el OpenAPI; `pnpm openapi:pull` | Los fixtures pasan la prueba de contrato contra el OpenAPI de la Etapa 0 |
+| 0.9 Integración temprana (O0-ERP-2) | Login, perfil y Origen del ERP contra el backend de desarrollo (prueba `backend-real`) | La prueba `backend-real` pasa contra desarrollo |
 
 **Avance**
-- [x] 0.1 Repo `doc-design-system` y `@doc/ui` 0.1 · 2026-09-25 (`drinks-on-chain-design-system`, `@drinks-on-chain/ui` v0.1.0)
-- [x] 0.2 Repo `doc-mocks` y `@doc/mocks` 0.1 (esquemas del ERP ajustados a su documentación) · 2026-09-25 (`drinks-on-chain-mocks`, `@drinks-on-chain/mocks` v0.1.0)
+- [x] 0.1 Repo `drinks-on-chain-design-system` y `@drinks-on-chain/ui` 0.1 · 2026-09-25 (v0.1.0)
+- [x] 0.2 Repo `drinks-on-chain-mocks` y `@drinks-on-chain/mocks` 0.1 (esquemas del ERP ajustados a su documentación) · 2026-09-25 (v0.1.0)
 - [x] 0.3 Plantilla de aplicación · 2026-09-25 (`drinks-on-chain-app-template`; el ERP nació de ella)
-- [ ] 0.4 Spike Stellar en testnet
-- [ ] 0.5 `@doc/wallet` 0.1
-- [ ] 0.6 Corrección de marca en ambos sitios (PR mergeado) — hecha en `dev` de ambos repos · 25-09-2026; falta el merge a `main`
+- ~~0.4 Spike Stellar en testnet~~ · **fuera del MVP** (R2, A-28: smart accounts en Fase 2)
+- ~~0.5 `@doc/wallet` 0.1~~ · **fuera del MVP** (R2, A-28)
+- [x] 0.6 Corrección de marca en ambos sitios · 2026-09-25 (hecha en `dev`; fusionada en `main` con el PR #4 de cada repo el mismo día)
+- [ ] 0.7 `ui` 0.2 publicada, plantilla a `main`, `parseDecimal` compartido (O0-PK-1)
+- [ ] 0.8 `mocks` 0.2 y prueba de contrato (O0-PK-2)
+- [ ] 0.9 Integración temprana del ERP con desarrollo (O0-ERP-2)
 
-## 3. Sistema 0 · Sitios públicos (pendientes; 2,5 semanas, en paralelo con Etapas 0–1)
+### 3.2 Sistema 0 · Sitios públicos (O0-WEB-1)
 
-### Landing principal (`drinks-on-chain-landing`), 1 semana
-Detalle en `07-roadmap-landing-principal.md`: marca, sitemap/robots/OG y metadatos por ruta, cabeceras de seguridad, fuentes autoalojadas y Lighthouse ≥ 90, textos y accesibilidad, analítica, PR.
-
-### Sitio de bodegas (`drinks-on-chain-front`), 1,5 semanas
-| Paso | Entregable |
-|---|---|
-| B.1 Datos | `bodegas.json` y `puntos-de-recojo.json` alineados con el catálogo de `@doc/mocks`; relación parcela ↔ bodega; estados Socia / En conversación / Referencia |
-| B.2 Navegación | Menú Mapa · Bodegas · Puntos de recojo · Unirse · Acceso; pie común; `/vinos` enlaza a la landing principal; variables `NEXT_PUBLIC_URL_LANDING`, `_ERP`, `_POS` |
-| B.3 Páginas | `/acceso` (dos tarjetas), `/unirse` (propuesta + formulario mock), `/puntos-de-recojo`, `/bodegas` y `/bodegas/[slug]` con mini-mapa SVG de sus parcelas |
-| B.4 Mapa | Conmutador Parcelas / Bodegas; marcadores de sede; al seleccionar una bodega se encuadran sus parcelas |
-| B.5 Rutas | `/parcelas/[v]/[p]` → `/valles/[v]/[p]` con redirección permanente; sitemap/robots; cabeceras; marca |
-
-Terminado cuando: navegar entre los dos sitios y volver funciona en móvil y escritorio con URLs reales; Lighthouse accesibilidad ≥ 95 en ambos.
+Landing principal (`drinks-on-chain-landing`, detalle en `07-roadmap-landing-principal.md`) y sitio de bodegas (`drinks-on-chain-front`). Pasos B.1–B.5 del sitio de bodegas como en la v2. Para cerrar el Sistema 0 en la Ola 0 falta: Lighthouse móvil ≥ 90 en la landing, revisión de textos ES/EN, variables `NEXT_PUBLIC_URL_*` en el proyecto de Vercel de bodegas con puertos coherentes (ERP en 3002), CI y pruebas de humo en ambos sitios. "Puntos de recojo" pasa a llamarse **puntos de canje** en los textos (R4); la página y el formulario de postulación de un punto llegan en la Ola 5 (O5-WEB-1).
 
 **Avance · landing principal** (detalle en `drinks-on-chain-landing/docs/ROADMAP.md`)
 - [x] Barrera de edad: sin desplazamiento debajo y entrada siempre al héroe · 25-09-2026
@@ -75,7 +98,8 @@ Terminado cuando: navegar entre los dos sitios y volver funciona en móvil y esc
 - [ ] Fuentes autoalojadas y Lighthouse móvil ≥ 90 — fuentes autoalojadas y accesibilidad 100 hechas; rendimiento móvil 69–77, pendiente
 - [ ] Revisión de textos ES/EN y accesibilidad por teclado — teclado hecho (barrera modal, foco visible); falta revisar los textos existentes
 - [x] Analítica (Vercel Web Analytics, sin cookies) · 25-09-2026 — falta activarla en el panel de Vercel
-- [ ] PR `dev → main` — abierto, pendiente de revisión
+- [x] PR `dev → main` · 25-09-2026 (PR #4 fusionado)
+- [ ] CI y pruebas de humo (O0-WEB-1)
 
 **Avance · sitio de bodegas** (detalle en `drinks-on-chain-front/docs/ROADMAP.md`)
 - [x] Barrera de edad: sin desplazamiento ni interacción debajo · 25-09-2026
@@ -84,137 +108,172 @@ Terminado cuando: navegar entre los dos sitios y volver funciona en móvil y esc
 - [x] B.3 Páginas: `/acceso`, `/unirse`, `/puntos-de-recojo`, `/bodegas`, `/bodegas/[slug]` · 25-09-2026
 - [x] B.4 Mapa: conmutador Parcelas / Bodegas y encuadre de las parcelas de una bodega · 25-09-2026
 - [x] B.5 Rutas: `/parcelas → /valles`, sitemap/robots, cabeceras, marca · 25-09-2026
-- [ ] PR `dev → main` — abierto, pendiente de revisión
+- [x] PR `dev → main` · 25-09-2026 (PR #4 fusionado)
+- [ ] Variables `NEXT_PUBLIC_URL_*` en Vercel, puertos coherentes, CI y pruebas de humo (O0-WEB-1)
 
-## 4. Etapa 1 · Sistema 1, ERP (`doc-erp-web`, 4 semanas)
+### 3.3 ERP: lo hecho y la adaptación a sesiones (O0-ERP-1)
 
-Shell: AppShell claro, Inter 16 px, sidebar por módulos (Panel · Origen · Vendimia · Vinificación · Crianza · Destilación · Envasado · Cuenta de la bodega · Ajustes). Datos: handlers `erp` de `@doc/mocks` imitando los endpoints reales.
-
-| Sub-etapa | Pantallas | Componentes nuevos | Reglas en cliente | Semana |
-|---|---|---|---|---|
-| 1A Acceso y panel | Login dividido (imagen + formulario), recuperar contraseña, selector de bodega, Dashboard (StatCards: lotes activos, kilos hoy, alertas; tabla de tareas pendientes), perfil, ajustes | AppShell, LotStatusBadge | Redirección por rol | 1 |
-| 1B Origen | Directorio de terroirs (búsqueda, pills por cepa, grid de tarjetas), ficha con DoBadge, alta/edición, slide-over "Nueva cosecha" | DoBadge, TerroirCard | Aptitud D.O.: Moscatel de Alejandría y altitud > 1.600 m | 1 |
-| 1C Vendimia y vinificación | Pesaje con BigNumberInput, análisis con LabReadingCard (Brix, pH, acidez) y botones aprobar/rechazar, TankGrid, bitácora con tabla y "Añadir registro", DecisionModal de bifurcación | BigNumberInput, LabReadingCard, TankGrid, DecisionModal | Táctil ≥ 56 px; la bifurcación bloquea la ruta contraria | 2 |
-| 1D Crianza y destilación | Tabla de barricas con madera, meses y CountdownLock; formulario de cortes (cabeza, corazón, cola, grado); candado de reposo con días restantes | CountdownLock, BarrelRow, StillCutsForm | El embotellado permanece deshabilitado hasta que el candado llega a cero | 3 |
-| 1E Envasado y QR | Formulario de embotellado (agua añadida, botellas), éxito con sello, BottlingSummary, exportación de QR (ZIP/CSV mock con códigos reales que apuntan a `app./b/{código}`) | BottlingSummary, QrExportCard, LotTimeline | Conciliación kilos → litros → botellas con avisos de merma | 3 |
-| 1F Cuenta de la bodega | Panel de solo lectura: dirección, activos por lote, historial con enlaces al explorador; oculto por bandera si el backend no lo expone | WineryAccountPanel | — | 4 |
-| 1G Calidad | Estados vacío/cargando/error en todas las pantallas, teclado, lector de pantalla, Playwright del flujo "Singani Gran Reserva 2026" de origen a QR | — | — | 4 |
-
-Terminado cuando: el recorrido completo del caso de ejemplo del documento maestro se hace con mocks en escritorio y tablet, con Playwright verde y sin errores de consola. Integración temprana: en la semana 4 se conecta el login y el módulo de origen al backend real del ERP para validar la capa de acceso a datos.
+Las sub-etapas 1A–1G del ERP (`drinks-on-chain-erp`) están hechas contra mocks y se describen en §5. En la Ola 0 se añade **1H** (§5) y se conecta el ERP al backend de desarrollo (0.9).
 
 **Avance**
-- [x] 1A Acceso y panel · 2026-09-25 (sin selector de bodega: el backend no permite cambiar la bodega activa, 09 §8 punto 13)
+- [x] 1A Acceso y panel · 2026-09-25 (sin selector de bodega: el backend no permitía cambiar la bodega activa, 09 §8 punto 13; lo resuelve 1H)
 - [x] 1B Origen · 2026-09-25
 - [x] 1C Vendimia y vinificación · 2026-09-25
 - [x] 1D Crianza y destilación · 2026-09-25
-- [x] 1E Envasado y QR · 2026-09-25 (códigos por botella provisionales, 09 §8 punto 20)
-- [x] 1F Cuenta de la bodega · 2026-09-25 (activos por lote pendientes del backend)
+- [x] 1E Envasado y QR · 2026-09-25 (códigos por botella provisionales, 09 §8 punto 20; los reales llegan en 1J)
+- [x] 1F Cuenta de la bodega · 2026-09-25 (activos por lote pendientes del backend; con datos reales en la Ola 3)
 - [x] 1G Calidad (Playwright del flujo de ejemplo) · 2026-09-25 (auditoría axe, teclado y estados; falta probar con datos reales del backend, 10 §2.1)
+- [ ] 1H Sesiones y organización activa (O0-ERP-1)
 
-## 5. Etapa 2 · Sistema 2, Marketplace (`doc-marketplace-app`, 5 semanas)
+## 4. Olas 1 a 6: avance
 
-Shell: StoreShell (pestañas inferiores en móvil, cabecera en escritorio), PWA instalable, familia editorial en escaparate/ficha/visor/cava y operativa en checkout/perfil. Datos: handlers `marketplace`; billetera: `@doc/wallet` en modo `mock` (y `passkey` en testnet para pruebas).
+**Ola 1 · Back office y alta de bodegas**
+- [ ] 4A Backoffice creado, acceso con 2FA, tablero, usuarios internos (O1-BO-1)
+- [ ] 4B Solicitudes, alta directa, bodegas, equipo, configuración y bitácora (O1-BO-2)
+- [ ] 1I Cuenta, organización y equipo en el ERP (O1-ERP-1)
+- [ ] `/unirse` del sitio de bodegas con el formulario real y captcha (O1-WEB-1)
+- [ ] Mocks `backoffice`/`identity` y componentes de tabla (O1-PK-1)
 
-| Sub-etapa | Pantallas | Componentes nuevos | Semana |
+**Ola 2 · ERP completo y trazabilidad confiable**
+- [ ] 1J Lote real y códigos por botella (O2-ERP-1)
+- [ ] Marketplace creado (`drinks-on-chain-marketplace`), 2E visor real y 2A catálogo con mocks (O2-MK-1)
+- [ ] Enlaces al Marketplace y perfiles públicos de bodega (O2-WEB-1)
+- [ ] Mocks ERP v2 y dominio `public` (O2-PK-1)
+
+**Ola 3 · Tokenización y cadena**
+- [ ] 1K Autorizar tokenización y 1F con la cuenta real de la bodega (O3-ERP-1)
+- [ ] 4C Bandeja de solicitudes de tokenización y colecciones (O3-BO-1)
+- [ ] 2B Cuenta por correo y 2C compra, contra mocks de la Etapa 4 (O3-MK-1)
+- [ ] Mocks `tokenization`/`chain`, OpenAPI borrador de la Etapa 4, `TxStatusBadge` (O3-PK-1)
+
+**Ola 4 · Marketplace**
+- [ ] 2A–2C contra el backend real (O4-MK-1)
+- [ ] 2D Cava con NFT por botella y línea de tiempo del lote (O4-MK-1)
+- [ ] Reseñas en 2E (O4-MK-1)
+- [ ] 2F Transversal, PWA y calidad (O4-MK-1)
+- [ ] 4F Pedidos, colecciones con ventas y moderación de reseñas (O4-BO-1)
+- [ ] POS creado (`drinks-on-chain-pos`), 3A y 3B contra mocks (O4-POS-1)
+- [ ] Mocks `marketplace` y `pos`, `CameraScanner` (O4-PK-1)
+
+**Ola 5 · Canje y POS**
+- [ ] 3A–3C contra el backend real, código de botella, turnos, cola sin conexión (O5-POS-1)
+- [ ] 3D Calidad en tabletas reales (O5-POS-1, con el usuario)
+- [ ] Pase de canje en 2D, puntos habilitados, post-canje en 2E, ayuda que crea tickets (O5-MK-1)
+- [ ] 4D Puntos de canje, cajeros, soporte y campañas (O5-BO-1)
+- [ ] 1L Puntos de canje de la bodega en el ERP (O5-ERP-1)
+- [ ] Puntos de canje desde la API y postulación de un punto en el sitio de bodegas (O5-WEB-1)
+
+**Ola 6 · Salida a producción**: ver §9.
+
+## 5. Sistema 1 · ERP (`drinks-on-chain-erp`, `erp.`)
+
+Shell: AppShell claro, Inter 16 px, sidebar por módulos (Panel · Origen · Vendimia · Vinificación · Crianza · Destilación · Envasado · Cuenta de la bodega · Equipo · Ajustes). Datos: handlers `erp` de `@drinks-on-chain/mocks`, que siguen el OpenAPI del backend (09).
+
+| Sub-etapa | Ola | Pantallas | Componentes nuevos | Reglas en cliente |
+|---|---|---|---|---|
+| 1A Acceso y panel | hecha | Login dividido, Dashboard (StatCards y tareas pendientes), perfil, ajustes | AppShell, LotStatusBadge | Redirección por rol |
+| 1B Origen | hecha | Directorio de terroirs, ficha con DoBadge, alta/edición | DoBadge, TerroirCard | Aptitud D.O. (el servidor manda desde la Ola 2) |
+| 1C Vendimia y vinificación | hecha | Pesaje, análisis, TankGrid, bitácora, DecisionModal | BigNumberInput, LabReadingCard, TankGrid, DecisionModal | Táctil ≥ 56 px |
+| 1D Crianza y destilación | hecha | Barricas con CountdownLock, cortes, candado de reposo | CountdownLock, BarrelRow, StillCutsForm | El embotellado sigue bloqueado hasta que el candado llega a cero |
+| 1E Envasado y QR | hecha | Embotellado, BottlingSummary, exportación de QR | BottlingSummary, QrExportCard, LotTimeline | Conciliación kilos → litros → botellas |
+| 1F Cuenta de la bodega | hecha (mocks); real en Ola 3 | Panel de solo lectura: dirección de la bodega, contrato NFT, historial con enlaces al explorador | WineryAccountPanel | — |
+| 1G Calidad | hecha | Estados, teclado, lector de pantalla, Playwright "Singani Gran Reserva 2026" | — | — |
+| **1H Sesiones y organización activa** | 0 | Cliente de API con acceso de 15 min y **renovación silenciosa** por cookie `HttpOnly` a través del proxy de mismo origen (`/api/v1/*`), una sola renovación en vuelo, cierre con aviso ante `AUTH_REFRESH_REUSED`/`AUTH_SESSION_REVOKED`; **selector de organización** en la cabecera cuando hay más de una membresía; formularios que marcan el campo exacto con `details[].field` | OrgSwitcher | Al cambiar de organización se vacía la caché de consultas (contrato de sesiones, `plan/contratos/o0-sesiones-y-estandares.md`) |
+| **1I Cuenta, organización y equipo** | 1 | **Aceptar invitación** (cuenta nueva o membresía añadida), recuperar contraseña, verificar correo, **equipo de la bodega** (invitar, reenviar, anular, cambiar rol, bloquear), bitácora propia del dueño, pantalla de bodega no activa | InviteAcceptForm, TeamTable, AuditLogTable | Solo el dueño gestiona el equipo; nunca se muestran ni envían contraseñas (R7) |
+| **1J Lote real y códigos por botella** | 2 | Paso de `LotView` derivada a la entidad `Lot`; dictamen separado del pesaje; conciliación con mermas; **código único por botella** (8 caracteres Crockford) y exportación por botella para la imprenta; reportes y archivos privados; errores 422 de reglas con su motivo | BottleCodeExport, RuleViolationNotice | El QR impreso apunta a la URL configurable `/b/{código}` (R12) |
+| **1K Autorizar tokenización** | 3 | "**Autorizar tokenización**" de un lote con su cuota, en cualquier momento del proceso (preventa); estado de la solicitud (pendiente, cambios pedidos, aprobada, rechazada, emitida); 1F con la cuenta y el contrato reales | TokenizationRequestForm, RequestStatusBadge | Solo el dueño autoriza; la aprobación del back office es configurable (D-20) |
+| **1L Puntos de canje** | 5 | Puntos de canje de la bodega (si está habilitada) y lotes que entrega cada punto | PickupPointTable | — |
+
+Terminado cuando (por ola): H0 el ERP inicia sesión, cambia de organización y lista parcelas contra desarrollo; H1 el dueño acepta la invitación e invita a su equipo; H2 el caso de ejemplo se recorre contra desarrollo de la parcela a los códigos de botella y las elusiones fallan con 422 explicado; H3 la bodega autoriza la tokenización de un lote.
+
+## 6. Sistema 2 · Marketplace (`drinks-on-chain-marketplace`, `app.`)
+
+Shell: StoreShell (pestañas inferiores en móvil, cabecera en escritorio), PWA instalable, familia editorial en escaparate, ficha, visor y cava; operativa en checkout y perfil. Datos: handlers `marketplace` y `public` generados desde el OpenAPI borrador de cada ola (R16). **Sin billetera en el cliente**: el backend crea una dirección custodial derivada por consumidor (SEP-0005, sin fondear) y firma todo; la app solo la muestra (R2, A-04, A-28).
+
+| Sub-etapa | Ola | Pantallas | Componentes nuevos |
 |---|---|---|---|
-| 2A Catálogo sin cuenta | Escaparate (HeroBanner + grid de BottleCard), ficha de producto con imagen pegajosa, notas, historia de la bodega, terroir; StickyBuyBar; página de bodega; búsqueda y filtros | StoreShell, BottleCard, PriceTag, StickyBuyBar | 1 |
-| 2B Cuenta y billetera | Pantalla única "Entrar" (teléfono + correo, Google/Apple), OTP, términos; VaultSplash "Preparando tu cava" que llama a `createWallet()` (detección de passkeys; cuenta gestionada si no hay soporte); sugerencia de recuperación; perfil y ajustes con WalletSettings | VaultSplash, WalletSettings | 2 |
-| 2C Compra | CheckoutSheet en tres pasos (cantidad y punto de recojo preferido → pago con `PaymentProvider` mock: tarjeta / QR → confirmación); si no hay cuenta, 2B se abre dentro del flujo; OrderStatus; historial de pedidos; pago fallido | CheckoutSheet, OrderStatus | 3 |
-| 2D Cava y pase | Mi Cava (CavaGrid de HoldingCard), detalle del activo ("Ver trazabilidad", "Retirar"), PickupPointPicker (puntos habilitados para el lote), ClaimTicket con QR, caducidad en días y estado; historial de pases; pase caducado o anulado | HoldingCard, PickupPointPicker, ClaimTicket | 4 |
-| 2E Visor QR | `/b/{código}`: ScanGate con registro ligero, JourneyTimeline con datos del lote, TastingCards, brand story, ReviewForm; escáner con cámara y entrada manual; código inválido | ScanGate, JourneyTimeline, TastingCards, StarRating, CameraScanner | 5 |
-| 2F Transversal y calidad | Notificaciones, ayuda que crea tickets, PWA (manifest, iconos, `safe-area`, sin conexión en cava), Lighthouse móvil ≥ 90, Playwright del flujo "María" (escaneo → registro → compra → pase) | — | 5 |
+| 2A Catálogo sin cuenta | 2 (mocks) · 4 (real) | Escaparate, ficha de producto con imagen pegajosa, notas, historia de la bodega, terroir; StickyBuyBar; página de bodega; búsqueda y filtros. El precio llega de la colección y puede faltar (A-32) | StoreShell, BottleCard, PriceTag, StickyBuyBar |
+| 2B Cuenta por correo | 3 (mocks) · 4 (real) | **Registro y entrada solo con correo** (A-13) con captcha y verificación de correo; recuperar contraseña; términos y mayoría de edad por declaración; perfil con la **dirección informativa de solo lectura** y enlace al explorador. Sin passkeys, sin `VaultSplash`, sin SMS ni proveedores sociales (R2, R6) | AuthSheet, AddressReadOnly |
+| 2C Compra | 3 (mocks) · 4 (real) | CheckoutSheet (cantidad con el máximo por compra configurable → pago con `PaymentProvider` de prueba → confirmación); si no hay cuenta, 2B se abre dentro del flujo; **aviso explícito de "pago recibido"** antes de mostrar los NFT (A-23); historial de pedidos; pago fallido | CheckoutSheet, OrderStatus |
+| 2D Cava y pase de canje | 4 (cava) · 5 (pase) | Mi Cava con **un NFT por botella** (número de botella, lote, bodega) y la **línea de tiempo del lote** en preventa; detalle del NFT ("Ver trazabilidad", "Canjear"); puntos de canje habilitados; **pase de canje** con QR, caducidad **en horas** (24 h por defecto, D-15) y botón **"Generar otro"** al caducar, uno activo por NFT (A-07); ventana de canje en días (A-19) con aviso; historial de canjes | TokenCard, PickupPointPicker, ClaimTicket |
+| 2E Visor público | 2 (visor) · 4 (reseñas) · 5 (post-canje) | `/b/{código}` resuelve **botella o lote** (R12) sin cuenta (A-21): JourneyTimeline con datos reales del pasaporte, verificación del hash anclado, TastingCards, historia de la bodega; **reseña para cualquier persona con sesión**, con marca de "verificada" si canjeó (R13, D-19); vista post-canje; escáner con cámara y entrada manual; código inválido | JourneyTimeline, TastingCards, StarRating, ReviewForm, CameraScanner |
+| 2F Transversal y calidad | 4 · 5 (ayuda) | Notificaciones por correo, ayuda que crea tickets (Ola 5), PWA (manifest, iconos, `safe-area`, sin conexión en la cava), Lighthouse móvil ≥ 90, Playwright del flujo "María" (escaneo → registro → compra → cava → pase) | — |
 
-Terminado cuando: el flujo "María" funciona en un móvil real con mocks; la creación de billetera con passkey funciona en testnet en al menos un Android y un iPhone; con `NEXT_PUBLIC_MOCKS=1` la app se puede enseñar sin backend.
+Terminado cuando: H4 un consumidor se registra por correo, compra dos botellas en preventa, ve "pago recibido" y sus dos NFT en la cava; H5 genera un pase de canje, lo canjea en el POS y ve el post-canje. Con `NEXT_PUBLIC_MOCKS=1` la app se puede enseñar sin backend.
 
-**Avance**
-- [ ] 2A Catálogo sin cuenta
-- [ ] 2B Cuenta y billetera
-- [ ] 2C Compra
-- [ ] 2D Cava y pase
-- [ ] 2E Visor QR
-- [ ] 2F Transversal y calidad
+## 7. Sistema 4 · POS (`drinks-on-chain-pos`, `pos.`)
 
-## 6. Etapa 3 · Sistema 4, POS (`doc-claim-pos`, 2 semanas)
+Shell: KioskShell oscuro, pantalla completa, apaisado, PWA en modo kiosco (iPad o tablet Android). Datos: handlers `pos` desde el OpenAPI borrador de la Etapa 5. Contraste AAA.
 
-Shell: KioskShell oscuro, pantalla completa, apaisado, PWA en modo kiosco. Datos: handlers `pos`.
-
-| Sub-etapa | Pantallas | Componentes nuevos | Semana |
+| Sub-etapa | Ola | Pantallas | Componentes nuevos |
 |---|---|---|---|
-| 3A Acceso | Vinculación del dispositivo (código de alta del Backoffice), PIN de sucursal con PinPad, bloqueo por inactividad, barra de estado (sucursal, conexión, hora) | KioskShell, PinPad | 1 |
-| 3B Escaneo y semáforo | ScannerViewport continuo con retícula y linterna; TrafficLightOverlay verde (foto, "ENTREGAR: N botellas", producto, cliente) con SwipeToConfirm; rojo con motivo (ya canjeado, caducado, punto no habilitado) y "Volver a escanear"; entrada manual; permiso de cámara denegado | ScannerViewport, TrafficLightOverlay, SwipeToConfirm, ManualCodeEntry | 1 |
-| 3C Confirmación y turno | DeliverySuccess de 2 s con vuelta automática; "Confirmado en la red" cuando llega el hash; ShiftReceipt (hora, producto, cantidad), "Cerrar turno y bloquear"; cola sin conexión con OfflineBanner | DeliverySuccess, ShiftReceipt, OfflineBanner | 2 |
-| 3D Calidad | Prueba en iPad y tablet Android reales (cámara, brillo, kiosco), Playwright del flujo "canje perfecto" | — | 2 |
+| 3A Acceso | 4 (mocks) · 5 (real) | **Vinculación de la tableta** al punto de canje (código de un solo uso emitido desde el back office o por la bodega), **PIN personal del cajero** (no de sucursal), apertura de turno, bloqueo por inactividad, barra de estado (punto, cajero, conexión, hora) (R4, IAM-11, IAM-12) | KioskShell, PinPad |
+| 3B Escaneo y semáforo | 4 (mocks) · 5 (real) | ScannerViewport continuo con retícula y linterna; semáforo verde (foto, producto, número de botella, cliente) → **captura del código de botella** (escáner o teclado) según `canje.codigoBotella.modo` (desactivado, opcional, obligatorio) → SwipeToConfirm; rojo con motivo (ya canjeado, pase caducado, punto no habilitado, código de botella no coincide) y "Volver a escanear"; entrada manual; permiso de cámara denegado (R5, A-26) | ScannerViewport, TrafficLightOverlay, BottleCodeCapture, SwipeToConfirm, ManualCodeEntry |
+| 3C Confirmación y turno | 5 | DeliverySuccess con vuelta automática; "Confirmado en la red" cuando llega la quema (`redeem_burn`); ShiftReceipt y "Cerrar turno y bloquear"; cola sin conexión con OfflineBanner | DeliverySuccess, ShiftReceipt, OfflineBanner |
+| 3D Calidad | 5 | Prueba en iPad y tablet Android reales (cámara, brillo, kiosco) con el usuario; Playwright del flujo "canje perfecto" | — |
 
-Terminado cuando: un pase generado en el Marketplace mock se escanea desde la pantalla de otro dispositivo y la entrega aparece en el turno; AAA de contraste verificado.
+Terminado cuando: H5, un pase generado en el Marketplace se escanea desde otra pantalla, se registra el código de botella, se confirma y la entrega aparece en el turno y la cava del cliente.
 
-**Avance**
-- [ ] 3A Acceso
-- [ ] 3B Escaneo y semáforo
-- [ ] 3C Confirmación y turno
-- [ ] 3D Calidad en tablets reales
+## 8. Sistema 3 · Backoffice (`drinks-on-chain-backoffice`, `admin.`)
 
-## 7. Etapa 4 · Sistema 3, Backoffice (`doc-backoffice-web`, 4 semanas)
+Shell: AdminShell (sidebar oscura, contenido claro, buscador ⌘K), Inter 14 px, tablas compactas. Datos: handlers `backoffice` e `identity` desde el OpenAPI de la Etapa 1. Se construye **primero** entre las apps nuevas (R9).
 
-Shell: AdminShell (sidebar Cava Reserva, contenido claro, buscador ⌘K), Inter 14 px, tablas compactas. Datos: handlers `backoffice`.
-
-| Sub-etapa | Pantallas | Componentes nuevos | Semana |
+| Sub-etapa | Ola | Pantallas | Componentes nuevos |
 |---|---|---|---|
-| 4A Acceso y dashboard | Login centrado con 2FA, Dashboard con KpiCard (usuarios, botellas tokenizadas, tickets abiertos) y AlertsFeed del ERP, usuarios internos y RoleMatrix | AdminShell, KpiCard, AlertsFeed, RoleMatrix | 1 |
-| 4B Socios y puntos | WineryTable (nombre, región, volumen, estado), WineryDrawer con datos institucionales, alta de bodega (el backend crea la cuenta Stellar: se muestra dirección y estado), CredentialsDialog "Generar credenciales ERP", PickupPointForm (punto ↔ bodegas ↔ lotes, PIN, cajeros), DeviceEnrollCard (código de alta para el POS) | WineryTable, WineryDrawer, CredentialsDialog, PickupPointForm, DeviceEnrollCard | 2 |
-| 4C Tokenización | MintPipeline kanban (listo · en revisión · emitiendo · publicado · fallido), MintReviewModal al 80 % (bloque de lectura del ERP + precio fijo + "Aprobar, emitir y publicar" con confirmación), CollectionCard con TxStatusBadge y enlace al explorador, despublicar | MintPipeline, MintReviewModal, TxStatusBadge, CollectionCard | 3 |
-| 4D Soporte | TicketTable con filtros y urgencia, TicketSplitView (historial + herramientas), HoldingsLookup por correo, anular pase, autorizar entrega manual, cerrar ticket, auditoría de claims | TicketTable, TicketSplitView, HoldingsLookup | 4 |
-| 4E Calidad | Teclado completo, paginación y ordenación en todas las tablas, Playwright del flujo "Luz verde a la colección" | — | 4 |
+| 4A Acceso y tablero | 1 | Login con **2FA TOTP**, tablero (bodegas, solicitudes pendientes, tickets abiertos), usuarios internos por **invitación** con rol (superusuario, administración, operaciones, soporte) y RoleMatrix | AdminShell, KpiCard, AlertsFeed, RoleMatrix |
+| 4B Solicitudes, bodegas y equipo | 1 | **Bandeja de solicitudes** de alta (aprobar, rechazar con motivo, agendar reunión opcional) y **alta directa**; ambas envían una **invitación** al dueño, nunca contraseñas (R7, A-08, A-10); directorio y ficha de bodega (suspender, reactivar; la cuenta en la red nace al activarse); **equipo de una bodega** (añadir, cambiar rol, bloquear); configuración general y por bodega con historial; bitácora con filtros y exportación | RequestInbox, WineryTable, WineryDrawer, InviteDialog, ConfigEditor, AuditLogTable |
+| 4C Tokenización | 3 | **Bandeja de solicitudes de tokenización** que envían las bodegas desde el ERP (aprobar, pedir cambios, rechazar) en lugar del kanban "lote listo" (R8, A-03, D-20); datos comerciales de la colección (el precio puede quedar vacío, A-32); colecciones con estado de emisión y enlace al explorador; publicar, pausar, ampliar cuota | TokenizationInbox, CollectionCard, TxStatusBadge |
+| 4D Puntos de canje, soporte y campañas | 5 | Puntos de canje por los tres caminos (bodega, soporte, postulación) y cajeros con máximos configurables (A-25); códigos de vinculación de tabletas; TicketTable y TicketSplitView; consulta de cuenta por correo, **entrega asistida**, extensión de ventana, corrección de canje; campañas post-canje (A-27) | PickupPointForm, DeviceEnrollCard, TicketTable, TicketSplitView, AccountLookup |
+| 4E Calidad | cada ola | Teclado completo, paginación (`limit` ≤ 100) y ordenación en todas las tablas, Playwright del recorrido de cada hito | — |
+| 4F Pedidos y reseñas | 4 | Pedidos, colecciones con ventas, moderación de reseñas | OrderTable, ReviewModeration |
 
-Terminado cuando: alta de bodega → credenciales → lote listo → emisión → colección publicada se recorre con mocks y la colección aparece en el Marketplace mock (mismos fixtures).
+Terminado cuando: H1 superusuario → operaciones → solicitud aprobada → invitación aceptada → equipo; H3 solicitud de tokenización aprobada y colección emitida en testnet; H5 punto de canje con cajero y un ticket resuelto con entrega asistida.
 
-**Avance**
-- [ ] 4A Acceso y dashboard
-- [ ] 4B Socios y puntos
-- [ ] 4C Tokenización
-- [ ] 4D Soporte
-- [ ] 4E Calidad
+## 9. Ola 6 · Integración y salida (antes Etapa 5)
 
-## 8. Etapa 5 · Integración y salida (3 semanas)
-
-1. Capa de acceso a datos real por sistema: apagar MSW, `NEXT_PUBLIC_API_URL`, ajustar adaptadores donde los DTO difieran (el ERP ya validado en 1G).
-2. Autenticación real por sistema (sesiones por subdominio; OIDC si backend lo implementa).
-3. `@doc/wallet` en testnet con el relayer real de backend; pruebas en dispositivos.
-4. `PaymentProvider` real con la pasarela del banco (según su modalidad; 06 §3).
-5. Pruebas de extremo a extremo entre aplicaciones (ERP → Backoffice → Marketplace → POS).
-6. Accesibilidad AA/AAA, rendimiento, observabilidad (Sentry), cabeceras, staging por subdominio, dominio real.
-7. Demostración para el Stellar Community Fund con código abierto.
+1. Cada app contra el backend real de staging, sin MSW (`NEXT_PUBLIC_MOCKS` desactivado), con el proxy de mismo origen hacia `API_ORIGIN`.
+2. Sesiones reales por subdominio con renovación en cookie de primera parte y organización activa (el diseño queda fijado en la Ola 0).
+3. ~~`@doc/wallet` con el relayer real~~ · fuera del MVP (A-28): no hay billetera en el cliente.
+4. `PaymentProvider` real con la pasarela del banco: **Ola F** (A-14, A-32).
+5. Pruebas de extremo a extremo entre aplicaciones en `drinks-on-chain-e2e` (ya existentes desde la Ola 1) contra staging.
+6. Accesibilidad AA/AAA, rendimiento, observabilidad (Sentry), cabeceras, dominio real (O6-FE-1).
+7. Demostración para el Stellar Community Fund con código abierto (O6-E2E-1).
 
 **Avance**
-- [ ] 1. Capa de acceso a datos real
-- [ ] 2. Autenticación real
-- [ ] 3. `@doc/wallet` con el relayer real
-- [ ] 4. `PaymentProvider` real
-- [ ] 5. Pruebas de extremo a extremo entre aplicaciones
-- [ ] 6. Accesibilidad, rendimiento, observabilidad, cabeceras, staging, dominio
+- [ ] 1. Apps contra staging sin mocks
+- [ ] 2. Sesiones reales por subdominio
+- ~~3. `@doc/wallet` con el relayer real~~ · fuera del MVP
+- [ ] 4. `PaymentProvider` real (Ola F)
+- [ ] 5. Pruebas de extremo a extremo contra staging
+- [ ] 6. Accesibilidad, rendimiento, observabilidad, cabeceras, dominio
 - [ ] 7. Demostración para el Stellar Community Fund
 
-## 9. Calendario con dos personas (≈ 14 semanas)
+## 10. Calendario
 
-| Semanas | Persona A | Persona B |
+El calendario vale el del plan maestro (§5), que suma las semanas del backend y del frontend. Referencia para dos personas de frontend:
+
+| Ola | Semanas | Frontend |
 |---|---|---|
-| 1–2 | Etapa 0: design system, plantilla | Etapa 0: mocks (con la documentación del ERP), spike Stellar, `@doc/wallet` |
-| 3–4 | Sistema 0: sitios públicos pendientes | ERP 1A–1C |
-| 5–6 | Marketplace 2A–2B | ERP 1D–1G + integración temprana del ERP |
-| 7–9 | Marketplace 2C–2F | POS 3A–3D, luego Backoffice 4A–4B |
-| 10–11 | Backoffice 4C–4D (con B) | Backoffice 4C–4E |
-| 12–14 | Integración: Marketplace, POS, pagos, billetera | Integración: ERP, Backoffice, pruebas cruzadas |
+| 0 | 1–2 | Sistema 0, paquetes (`ui` 0.2, `mocks` 0.2), ERP 1H, integración temprana, reconciliación |
+| 1 | 3–5 | Backoffice 4A–4B, ERP 1I, `/unirse` |
+| 2 | 6–8 | ERP 1J, Marketplace 2E y 2A (mocks) |
+| 3 | 9–11 | ERP 1K, Backoffice 4C, Marketplace 2B–2C (mocks) |
+| 4 | 12–14 | Marketplace 2A–2F real, Backoffice 4F, POS 3A–3B (mocks) |
+| 5 | 15–17 | POS real y 3D, pase de canje, Backoffice 4D, ERP 1L, puntos en el sitio de bodegas |
+| 6 | 18–19 | Integración y salida |
 
-## 10. Definición de terminado por pantalla
+## 11. Definición de terminado por pantalla
 
-Diseñada con `@doc/ui` en el tema del sistema · móvil y escritorio donde aplique · estados vacío, cargando, error y sin conexión donde aplique · textos en español (ES/EN solo en landings) · accesible por teclado y lector de pantalla · sin errores de consola · cubierta por la prueba de flujo de su etapa · componentes nuevos documentados en Storybook · Conventional Commits en `dev` y PR a `main` al cerrar la sub-etapa.
+Diseñada con `@drinks-on-chain/ui` en el tema del sistema · móvil y escritorio donde aplique · estados vacío, cargando, error y sin conexión donde aplique · datos solo a través de hooks sobre `src/lib/api` · números con el `parseDecimal` único · errores de validación marcados en el campo exacto (`details[].field`) · textos en español (ES/EN solo en landings) · accesible por teclado y lector de pantalla · sin errores de consola · cubierta por la prueba de flujo de su sub-etapa y, al cierre de la ola, por el recorrido E2E del hito · componentes nuevos documentados en Storybook · Conventional Commits en `dev`, puertas locales verdes (`lint`, `typecheck`, `test`, `build`, `e2e`) y PR `dev → main` al cerrar la ola (`plan/04` §7).
 
-## 11. Riesgos
+## 12. Riesgos
 
 | Riesgo | Mitigación |
 |---|---|
-| El backend define modelos distintos a los mocks | Ajustar los esquemas del ERP a su documentación en la Etapa 0; compartir `@doc/mocks` como borrador de contrato para el resto |
-| `smart-account-kit` cambia o falla en dispositivos | Todo detrás de `@doc/wallet`; cuenta gestionada como respaldo; versiones fijadas |
-| Pasarela sin documentación durante meses | Adaptador `PaymentProvider` soporta redirección, widget y QR; se integra en la Etapa 5 |
-| Cámara en tablets económicas | Pruebas con hardware real en 3D; entrada manual del código |
-| Cuatro aplicaciones y un equipo pequeño | Plantilla común, design system, una configuración de CI, mocks compartidos |
-| Alcance del Backoffice crece (puntos, dispositivos, auditoría) | Se construye al final con lo aprendido; 4B puede adelantarse si el negocio lo pide |
+| El OpenAPI de una ola llega tarde o cambia | Las apps van como mucho una ola por delante; mocks regenerados desde el borrador; prueba de contrato en `mocks` (O0-PK-2); cambios incompatibles anunciados en el PR del backend y en `docs-back/04` |
+| Sesiones con cookie entre `vercel.app` y el dominio de la API (Safari bloquea cookies de terceros) | Proxy de mismo origen en cada app (`/api/v1/*` → `API_ORIGIN`) hasta tener dominio propio |
+| La migración del ERP de `LotView` a la entidad `Lot` rompe pantallas hechas | Cambios aditivos del backend, bandera para convivir, pruebas `backend-real` en CI |
+| Preguntas abiertas que afectan pantallas (D-15 caducidad del pase, D-19 reseñas, D-20 aprobación de la tokenización, D-21 postulación de puntos) | Supuestos de `plan/02` §3 y de 06 §6; parámetros leídos de la configuración, no fijos en el cliente |
+| Cámara en tabletas económicas | Pruebas con hardware real en 3D; entrada manual del código de pase y de botella |
+| Pasarela sin documentación durante meses | `PaymentProvider` con adaptador de prueba; la integración real es la Ola F |
+| Cuatro aplicaciones, un repo E2E y un equipo pequeño | Plantilla común, design system, una configuración de CI, mocks compartidos, un agente por pista y repo (plan maestro §2) |
