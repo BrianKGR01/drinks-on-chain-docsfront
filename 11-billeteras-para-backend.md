@@ -1,5 +1,15 @@
 # 11 · Billeteras y tokens: qué necesita el frontend del backend
 
+> **Sustituido por `docs-back/06` y las decisiones A-01…A-05 y A-28 (27–28-09-2026).** Versión 1.1 · 27 de septiembre de 2026: solo se añade esta nota; el resto del documento queda como registro de lo que el frontend pidió al backend el 25-09 y **no debe usarse como referencia**. Pasará a `antiguo/` en la siguiente revisión.
+>
+> Qué cambió:
+> - **Modelo de token** (§4): de activo clásico por lote con *clawback* a **un NFT por botella** (A-01) con un contrato por bodega sobre OpenZeppelin, emisión por la bodega y quema por el operador (A-02, A-28).
+> - **Billeteras**: el backend crea direcciones custodiales derivadas (SEP-0005), sin fondear, y firma todo (A-04, A-28); sin Dynamic ni Privy (A-05). No hay smart accounts ni *relayer* en el MVP (Fase 2), así que el Marketplace no registra direcciones `C…`.
+> - **Emisión en preventa** al autorizar el lote desde el ERP (A-03) y **anclaje del hash al final** del proceso (A-22).
+> - **Pase de canje** en horas, regenerable, solo en la base de datos (A-07); canje con **código de botella** (A-26).
+> - **Endpoints**: el contrato ya no son las rutas propuestas aquí; lo fija el **OpenAPI que publica cada etapa del backend** (OPS-12; `docs-back/08`).
+> - Detalle vigente: [`docs-back/06-tokens-billeteras-y-cadena.md`](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/06-tokens-billeteras-y-cadena.md) y [`docs-back/04-decisiones-y-preguntas.md`](https://github.com/drinks-on-chain/drinks-on-chain-docsback/blob/main/04-decisiones-y-preguntas.md) §1.
+
 Versión 1 · 25 de septiembre de 2026. Documento para el equipo de backend. Resume, desde el lado del cliente, qué hay que construir en el servidor para las billeteras y los tokens de las botellas, en qué orden y con qué contrato de API. El razonamiento completo (opciones, costes, librerías) está en `04-billeteras-stellar.md`; aquí va solo lo accionable.
 
 ## 1. Resumen
