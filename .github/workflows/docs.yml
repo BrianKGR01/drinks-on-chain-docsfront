@@ -1,0 +1,31 @@
+name: docs
+
+# Comprueba que los enlaces relativos de Markdown (archivos y anclas) existen.
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  comprobar:
+    name: Enlaces de Markdown
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Enlaces relativos de Markdown
+        run: python scripts/comprobar_enlaces.py
